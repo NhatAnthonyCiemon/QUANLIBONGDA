@@ -1,0 +1,128 @@
+html {
+    font-family: "Be Vietnam Pro", sans-serif;
+}
+header {
+    color: #fff;
+    display: flex;
+    padding: 22px 112px;
+    background-image: url(../assets/header-background.png);
+    background-size: cover;
+    background-position: center;
+    align-items: center;
+}
+.header__links {
+    display: flex;
+    flex-shrink: 0;
+    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+}
+.header__link {
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    text-align: center;
+    font-size: 18px;
+    padding: 5px 10px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+.header__link-active::after {
+    content: "";
+    display: block;
+    width: 85%;
+    height: 3px;
+    border-radius: 1.5px;
+    background: #fff;
+    margin-top: 5px;
+    position: absolute;
+    bottom: -6px;
+}
+
+.header__link:hover {
+    transform: scale(1.1);
+    transition: 0.3s;
+    color: aqua;
+}
+.header__wrapper {
+    margin-left: auto;
+}
+.header__btn-desc {
+    font-size: 9px;
+    text-align: center;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 6px;
+}
+.header__btn {
+    border-radius: 5px;
+    background: #2e64eb;
+    color: #fff;
+    width: 108.651px;
+    height: 38px;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.header__btn:hover {
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+footer {
+    background: #56ae56;
+    padding: 23px 112px;
+}
+.footer__main {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+}
+.footer__heading {
+    display: block;
+    color: #1f4c51;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.footer__service {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 10px;
+}
+.footer__desc {
+    color: #fff;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.footer__group {
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
+    column-gap: 10px;
+}
+.footer__social {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.footer__copyright {
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 10px;
+}

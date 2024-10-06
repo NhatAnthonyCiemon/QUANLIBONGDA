@@ -11,6 +11,8 @@ header {
     align-items: center;
 }
 .header__links {
+    margin-right: auto;
+    margin-left: auto;
     display: flex;
     flex-shrink: 0;
     gap: 20px;

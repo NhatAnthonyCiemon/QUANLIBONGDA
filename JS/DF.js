@@ -1,6 +1,5 @@
 let header = document.querySelector('header');
 let headeInner= `<img src="/assets/Logo.svg" alt="Logo">
-        <nav>
             <ul class="header__links">
                 <li><a class="header__link" href="/index.html">TRANG CHỦ</a></li>
                 <li><a class="header__link" href="/page/Dangki.html">ĐĂNG KÝ</a></li>
@@ -8,7 +7,6 @@ let headeInner= `<img src="/assets/Logo.svg" alt="Logo">
                 <li><a class="header__link" href="/page/Tracuu.html">TRA CỨU</a></li>
                 <li><a class="header__link" href="/page/Group.html">VỀ CHÚNG TÔI</a></li>
             </ul>
-        </nav>
         <div class="header__wrapper">
             <p class="header__btn-desc">CHỈ DÀNH CHO ADMIN</p>
             <button class="header__btn">Đăng nhập</button>

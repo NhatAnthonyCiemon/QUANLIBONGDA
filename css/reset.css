@@ -133,6 +133,7 @@ button {
     background: none;
     cursor: pointer;
 }
-input:focus {
+input:focus,
+textarea:focus {
     outline: none;
 }

@@ -133,3 +133,6 @@ button {
     background: none;
     cursor: pointer;
 }
+input:focus {
+    outline: none;
+}

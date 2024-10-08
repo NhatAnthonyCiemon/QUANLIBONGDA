@@ -1,0 +1,209 @@
+* {
+    color: #fff;
+}
+body {
+    background-color: #2e4c1b;
+}
+.signup__inner {
+    padding: 120px 112px 10px;
+    background-image: url(../assets/backgroup01_dky.png);
+    background-position: center;
+}
+.signup__container {
+    display: flex;
+    padding-right: 40px;
+    padding-left: 40px;
+    flex-direction: column;
+    width: 100%;
+    border-radius: 59px;
+    background: rgba(27, 54, 29, 0.71);
+}
+.signup__heading {
+    flex-shrink: 0;
+    margin-top: 43px;
+    font-size: 60px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 133.333%; /* 33.333% */
+}
+.main__singup {
+    margin-top: 53px;
+    display: flex;
+    align-items: start;
+    gap: 60px;
+}
+.signup__seperate {
+    width: 3px;
+    align-self: stretch;
+    background-color: #abffae;
+    border-radius: 1px;
+}
+.signup__info {
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 400;
+}
+.form_team {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin-top: 50px;
+    padding-bottom: 60px;
+    width: 400px;
+}
+.form__group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.form__label {
+    font-size: 25px;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    font-style: normal;
+    font-weight: 500;
+}
+.form__label:not(.form__label-note)::after {
+    content: "*";
+
+    color: red;
+}
+.form__input {
+    color: black;
+    padding: 5px 10px;
+    height: 60px;
+    font-size: 20px;
+    border-radius: 8px;
+    border: 3px solid #00ad1a;
+    background: #fff;
+    padding: 5px 10px;
+}
+.signup__note {
+    margin-top: 10px;
+}
+.signup__footballer {
+    flex-grow: 1;
+}
+.form__footballer {
+    margin-top: 23px;
+    color: red;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 51px;
+}
+.btn__add {
+    margin-top: 55px;
+    display: block;
+    width: 397px;
+    height: 74px;
+    background: #569b75;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+    border-radius: 20px;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-left: auto;
+    margin-right: auto;
+}
+.signup__content {
+    margin-top: 50px;
+    padding: 40px;
+    height: 804px;
+    overflow: scroll;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    border-radius: 18px;
+    background: rgba(211, 255, 204, 0.46);
+}
+table {
+    width: 100%;
+}
+thead {
+    border-bottom: 5px solid #d9d9d9;
+}
+th {
+    color: #d3ffc4;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 500;
+    text-align: left;
+    padding-bottom: 10px;
+}
+td {
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    padding: 13px 0;
+}
+tbody tr:not(:last-child) td {
+    border-bottom: 1px solid #ffffff;
+}
+.btn__remove {
+    width: 118.881px;
+    height: 48px;
+    border-radius: 10px;
+    background: #377453;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 500;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+}
+.btn__submit {
+    display: block;
+    margin-top: 40px;
+    width: 397px;
+    height: 86px;
+    border-radius: 18px;
+    background-color: #569b75;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 500;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 64px;
+}
+.signup__regulation {
+    background-image: url(../assets/backgroup02_dky.svg);
+    background-position: center;
+    padding: 38px 112px;
+}
+.regulation__inner {
+    display: flex;
+    align-items: center;
+    gap: 45px;
+    border-radius: 37px;
+    background: rgba(33, 50, 33, 0.54);
+    padding: 15px 45px;
+}
+.signup__regulation-heading {
+    color: #aaffa7;
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+.signup__regulation-desc {
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 500;
+}
+.signup__regulation-desc + .signup__regulation-desc {
+    margin-top: 15px;
+}
+strong:not(.foreign_max) {
+    color: #00ff2f;
+}
+.foreign_max {
+    color: #ff6f6f;
+}
+.btn__regulation {
+    margin-left: auto;
+    width: 60px;
+    height: 60px;
+    display: block;
+    background-image: url(../assets/configDky.svg);
+    background-position: center;
+}

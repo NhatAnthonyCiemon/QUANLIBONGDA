@@ -28,12 +28,193 @@
         href="https://fonts.googleapis.com/css2?family=Be+Vietnam:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="/css/DF.css">
+    <link rel="stylesheet" href="/css/dangki.css">
     <title>Đăng ký</title>
 </head>
 
 <body>
     <header>
     </header>
+    <main>
+        <div class="signup__inner">
+            <div class="signup__container">
+                <h1 class="signup__heading">ĐĂNG KÝ THAM GIA</h1>
+                <div class="main__singup">
+                    <div class="signup__team">
+                        <h2 class="signup__info">Thông tin đội bóng</h2>
+                        <form class="form_team">
+                            <div class="form__group">
+                                <label class="form__label" for="team-name">Tên đội</label>
+                                <input class="form__input" type="text" id="team-name" placeholder="Nhập tên đội">
+                            </div>
+                            <div class="form__group">
+                                <label class="form__label" for="stadium">Sân nhà</label>
+                                <input class="form__input" type="text" id="stadium" placeholder="Nhập tên sân nhà">
+                            </div>
+                            <div class="form__group">
+                                <label class="form__label" for="email">Email nhận phản hồi</label>
+                                <input class="form__input" type="email" id="email" placeholder="Nhập email">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="signup__seperate"></div>
+                    <div class="signup__footballer">
+                        <h2 class="signup__info">Thêm cầu thủ</h2>
+                        <div class="signup__note">* Vui lòng đọc kỹ quy định giải đấu</div>
+                        <form class="form__footballer">
+                            <div class="form__group">
+                                <label class="form__label" for="player-name">Tên cầu thủ</label>
+                                <input class="form__input" type="text" id="player-name" placeholder="Nhập tên cầu thủ">
+                            </div>
+                            <div class="form__group">
+                                <label class="form__label" for="player-type">Loại cầu thủ</label>
+                                <input class="form__input" type="text" id="player-type" placeholder="Nhập loại cầu thủ">
+                            </div>
+                            <div class="form__group">
+                                <label class="form__label" for="birth-date">Ngày sinh</label>
+                                <input class="form__input" type="date" id="birth-date">
+                            </div>
+                            <div class="form__group">
+                                <label class="form__label form__label-note" for="notes">Ghi chú</label>
+                                <textarea class="form__input" id="notes" rows="1"></textarea>
+                            </div>
+                        </form>
+                        <button class="btn__add">Thêm</button>
+                    </div>
+                </div>
+                <div class="signup__content">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th width="10%">STT</th>
+                                <th width="25%">Tên cầu thủ</th>
+                                <th width="15%">Ngày sinh</th>
+                                <th width="20%">Loại cầu thủ</th>
+                                <th width="25%">Ghi chú</th>
+                                <th width="5%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Nguyễn Văn A</td>
+                                <td>01/01/2000</td>
+                                <td>Trong nước</td>
+                                <td>Ghi chú 1</td>
+                                <td><button class="btn__remove">Xóa</button></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Nguyễn Văn B</td>
+                                <td>01/01/2000</td>
+                                <td>Nước ngoài</td>
+                                <td>Ghi chú 2</td>
+                                <td><button class="btn__remove">Xóa</button></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Nguyễn Văn C</td>
+                                <td>01/01/2000</td>
+                                <td>Nước ngoài</td>
+                                <td>Ghi chú 3</td>
+                                <td><button class="btn__remove">Xóa</button></td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Nguyễn Văn D</td>
+                                <td>01/01/2000</td>
+                                <td>Nước ngoài</td>
+                                <td>Ghi chú 4</td>
+                                <td><button class="btn__remove">Xóa</button></td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>Nguyễn Văn E</td>
+                                <td>01/01/2000</td>
+                                <td>Nước ngoài</td>
+                                <td>Ghi chú 5</td>
+                                <td><button class="btn__remove">Xóa</button></td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>Nguyễn Văn F</td>
+                                <td>01/01/2000</td>
+                                <td>Nước ngoài</td>
+                                <td>Ghi chú 6</td>
+                                <td><button class="btn__remove">Xóa</button></td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Nguyễn Văn A</td>
+                                <td>01/01/2000</td>
+                                <td>Trong nước</td>
+                                <td>Ghi chú 1</td>
+                                <td><button class="btn__remove">Xóa</button></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Nguyễn Văn B</td>
+                                <td>01/01/2000</td>
+                                <td>Nước ngoài</td>
+                                <td>Ghi chú 2</td>
+                                <td><button class="btn__remove">Xóa</button></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Nguyễn Văn C</td>
+                                <td>01/01/2000</td>
+                                <td>Nước ngoài</td>
+                                <td>Ghi chú 3</td>
+                                <td><button class="btn__remove">Xóa</button></td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Nguyễn Văn D</td>
+                                <td>01/01/2000</td>
+                                <td>Nước ngoài</td>
+                                <td>Ghi chú 4</td>
+                                <td><button class="btn__remove">Xóa</button></td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>Nguyễn Văn E</td>
+                                <td>01/01/2000</td>
+                                <td>Nước ngoài</td>
+                                <td>Ghi chú 5</td>
+                                <td><button class="btn__remove">Xóa</button></td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>Nguyễn Văn F</td>
+                                <td>01/01/2000</td>
+                                <td>Nước ngoài</td>
+                                <td>Ghi chú 6</td>
+                                <td><button class="btn__remove">Xóa</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="signup__submit">
+                    <button class="btn__submit">Đăng ký</button>
+                </div>
+            </div>
+        </div>
+        <div class="signup__regulation">
+            <div class="regulation__inner">
+                <img class="signup__img" src="../assets/cup.svg" alt="">
+                <div class="signup__regulation-content">
+                    <h2 class="signup__regulation-heading">Quy định giải đấu</h2>
+                    <p class="signup__regulation-desc">+ Tuổi cầu thủ từ <strong class="age_min">16</strong> đến <strong
+                            class="age_max">40</strong>.</p>
+                    <p class="signup__regulation-desc"> + Tổng số cầu thủ từ <strong class="num_min">15</strong> đến
+                        <strong class="num_max">22</strong> (tối đa <strong class="foreign_max">3</strong> cầu thủ nước
+                        ngoài).
+                    </p>
+                </div>
+                <button class="btn__regulation"></button>
+            </div>
+        </div>
+    </main>
     <footer>
     </footer>
     <script src="/JS/DF.js"></script>

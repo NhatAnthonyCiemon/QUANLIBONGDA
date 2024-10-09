@@ -1,0 +1,73 @@
+.calendar__container{
+  background-color: rgba(27, 54, 29, 0.7);
+  border-radius: 51px;
+  margin-bottom: 30px !important;
+  padding-bottom: 10px;
+}
+
+
+.create-calendar {
+  background-color: rgba(151, 255, 139, 0.35);
+  border-radius: 20px;
+}
+
+.create-calendar h2{
+  font-weight: bold; /* In đậm */
+  font-size: 25px;
+  line-height: 70px;  
+}
+
+.season-dropdown {
+  background-color: #e6f4e4;
+  border-radius: 10px;
+  padding: 10px 15px;
+  font-size: 20px;
+}
+
+.season-dropdown span {
+  color: #a0a0a0;
+  margin-right: 5px;
+}
+
+.season-dropdown strong {
+  color: #000;
+}
+
+.arrow {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #000;
+  margin-left: 120px;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+th, td {
+  padding: 8px 12px;
+}
+
+tbody tr:not(:last-child) {
+  position: relative;
+}
+
+tbody tr:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 1%; /* Khoảng cách từ lề trái */
+  width: 92%; /* Độ dài của đường gạch ngang, bạn có thể điều chỉnh */
+  border-top: 2px solid white; /* Độ dày và màu của đường gạch ngang */
+}
+
+.result{
+  background-color: rgba(211, 255, 204, 0.46);
+}
+
+.regular{
+  background-color: rgba(27, 54, 29, 0.7);
+  border-radius: 18px;
+  padding-bottom: 20px; /* Điều chỉnh khoảng cách */
+}
+

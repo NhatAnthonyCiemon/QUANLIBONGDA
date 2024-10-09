@@ -1,0 +1,104 @@
+.info__group {
+    background-image: url(../assets/Groupbackgroud01.jpg);
+    background-position: center;
+    background-size: cover;
+    padding: 35px 112px;
+}
+.info__heading {
+    text-align: center;
+    color: #fff;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+.info__inner {
+    padding: 75px 125px;
+    border-radius: 40px;
+    background: rgba(33, 50, 33, 0.54);
+    display: flex;
+    gap: 125px;
+    overflow: hidden;
+}
+.info__section {
+    width: 100%;
+    flex-shrink: 0;
+    display: flex;
+    gap: 70px;
+    transition: 0.2s;
+}
+.info__img {
+    width: 300px;
+    object-fit: cover;
+}
+.info__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+.info__desc {
+    color: #fff;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+.info__value {
+    width: 95%;
+    border-radius: 8px;
+    border: 3px solid #00ad1a;
+    background: #fff;
+    color: #000;
+    font-size: 25px;
+    font-style: normal;
+    padding: 10px;
+    font-weight: 500;
+}
+.button__group {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 50px;
+}
+.button__next,
+.button__back {
+    background-image: url(../assets/right-arrow.svg);
+    width: 50px;
+    height: 50px;
+    background-size: cover;
+    display: block;
+}
+.button__back {
+    transform: rotate(180deg);
+}
+
+.info__hcmus {
+    background-image: url(../assets/Groupbackgroud02.jpg);
+    background-position: center;
+    background-size: cover;
+    padding: 70px 112px;
+}
+.info__hcmus-container {
+    padding: 42px;
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    border-radius: 40px;
+    background: rgba(33, 50, 33, 0.54);
+}
+.info__hcmus-heading {
+    color: #fff;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-bottom: 15px;
+}
+.info__hcmus-desc {
+    color: #fff;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}

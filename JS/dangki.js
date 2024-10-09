@@ -4,9 +4,11 @@ let age_max = 40
 let num_max = 22
 let num_min = 15
 let foreign_max = 3
-
-
 let cauthu = []
+
+
+
+
 function taocauthu(name, type, birthdate, notes){
     this.name = name
     this.type = type
@@ -32,7 +34,6 @@ document.querySelector(".age_max").innerHTML = age_max
 document.querySelector(".num_min").innerHTML = num_min
 document.querySelector(".num_max").innerHTML = num_max
 document.querySelector(".foreign_max").innerHTML = foreign_max
-
 }
 
 showRegulation()
@@ -165,6 +166,7 @@ btn_submit.addEventListener("click", function(){
     document.querySelector("#email").value = ""
     document.querySelector("#email").style.border = "3px solid #00ad1a";
     tbody.innerHTML = ""
+    //gửi 1 object cho backend
     cauthu = []
 })
 

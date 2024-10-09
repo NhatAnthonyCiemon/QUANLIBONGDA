@@ -12,11 +12,10 @@ function getTranslateX(element) {
 
 btn_next.addEventListener("click", function(){
     let section_active= document.querySelector(".info__section-active")
-    // tôi muốn đẩy section_active ra 1 đoạn bằng đúng width của section bằng transform
     let width = section_active.clientWidth
     let parent_child = section_active.parentElement.children
     parent_child = Array.from(parent_child)
-    parent_child.forEach((section, index) => {
+    parent_child.forEach((section) => {
         let old_transform = getTranslateX(section)
         section.style.transform = `translateX(${-width- 125+ old_transform}px)`
     })
@@ -33,7 +32,7 @@ btn_back.addEventListener("click", function(){
     let width = section_active.clientWidth
     let parent_child = section_active.parentElement.children
     parent_child = Array.from(parent_child)
-    parent_child.forEach((section, index) => {
+    parent_child.forEach((section) => {
         let old_transform = getTranslateX(section)
         section.style.transform = `translateX(${width+ 125+ old_transform}px)`
     })

@@ -28,15 +28,49 @@
         href="https://fonts.googleapis.com/css2?family=Be+Vietnam:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="/css/DF.css">
+    <link rel="stylesheet" href="/css/Dangnhap.css">
     <title>Đăng nhập</title>
 </head>
 
 <body>
     <header>
     </header>
+
+    <main>
+        <div class="login-inner">
+            <div class="login-container">
+                <h1 class="login-header">Đăng nhập</h1>
+                <hr>
+                <div class="form">
+                    <div class="form-item">
+                        <h6 id="message"></h6>
+                    </div>
+                    <div class="form-item">
+                        <input class="textbox" id="username" type="text" placeholder="Tên đăng nhập">
+                        <input class="textbox" id="password" type="password" placeholder="Mật khẩu">
+                    </div>
+
+                    <div class="form-item" id="remember-me">
+                        <input class="checkbox" type="checkbox" id="remember">
+                        <label class="checkbox-label" for="remember">Ghi nhớ tài khoản</label>
+                    </div>
+                    
+                    <div class="form-item" id="login-button">
+                        <button class="btn-login" type="button" id="button-login">Đăng nhập</button>
+                    </div>
+
+                    <div class="form-item" id="go-dashboard">
+                        <a class="link-dashboard" href="../index.html">Quay về trang chủ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
     <footer>
     </footer>
     <script src="/JS/DF.js"></script>
+    <script src="/JS/Dangnhap.js"></script>
 </body>
 
 </html>

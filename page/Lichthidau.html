@@ -81,7 +81,7 @@
             </div>
 
             <div class="flex flex-col  rounded-2xl w-[1078px] h-auto ml-16 mt-8" style="background-color: rgba(211, 255, 204, 0.46);">
-                <table class="table-auto w-full text-left ml-10 text-white border-collapse mt-9 mb-9">
+                <table class="table-auto w-full text-left ml-10 text-white border-collapse mt-9 mb-9" id="danh_sach">
                     <thead class="text-3xl" style="color: #D3FFC4;">
                         <tr>
                             <th>STT</th>
@@ -92,7 +92,7 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody class="text-2xl">
+                    <tbody class="text-2xl" id="team">
                         <tr>
                             <td colspan="5">
                                 
@@ -104,7 +104,7 @@
                             <td>Đội B</td>
                             <td>1/1/2024 - 2:00</td>
                             <td>Sân A</td>
-                            <td><button class="w-[132px] h-[54px] bg-[#377453] hover:bg-[#5ABF89] transition-all duration-300 rounded-xl mt-4 text-xl shadow-md">Kết quả</button></td>
+                            <td><button class="w-[132px] h-[54px] bg-[#377453] hover:bg-[#5ABF89] transition-all duration-300 rounded-xl mt-4 text-xl shadow-md" onclick="toggleRows(0)">Kết quả</button></td>
                         </tr>
                         <tr class="border-t border-white">
                             <td>2</td>
@@ -112,80 +112,23 @@
                             <td>Đội D</td>
                             <td>2/1/2024 - 4:00</td>
                             <td>Sân B</td>
-                            <td><button class="w-[132px] h-[54px] bg-[#377453] hover:bg-[#5ABF89] transition-all duration-300 rounded-xl mt-4 text-xl shadow-md">Kết quả</button></td>
+                            <td><button class="w-[132px] h-[54px] bg-[#377453] hover:bg-[#5ABF89] transition-all duration-300 rounded-xl mt-4 text-xl shadow-md" onclick="toggleRows(1)">Kết quả</button></td>
                         </tr>
                         <tr class="border-t border-white">
-                            <td>2</td>
-                            <td>Đội C</td>
-                            <td>Đội D</td>
-                            <td>2/1/2024 - 26:00</td>
-                            <td>Sân B</td>
-                            <td><button class="w-[132px] h-[54px] bg-[#377453] hover:bg-[#5ABF89] transition-all duration-300 rounded-xl mt-4 text-xl shadow-md">Kết quả</button></td>
+                            <td>3</td>
+                            <td>Đội E</td>
+                            <td>Đội F</td>
+                            <td>3/1/2024 -6:00</td>
+                            <td>Sân C</td>
+                            <td><button class="w-[132px] h-[54px] bg-[#377453] hover:bg-[#5ABF89] transition-all duration-300 rounded-xl mt-4 text-xl shadow-md" onclick="toggleRows(2)">Kết quả</button></td>
                         </tr>
-                        <tr class="border-t border-white">
-                            <td>2</td>
-                            <td>Đội C</td>
-                            <td>Đội D</td>
-                            <td>2/1/2024 - 4:00</td>
-                            <td>Sân B</td>
-                            <td><button class="w-[132px] h-[54px] bg-[#377453] hover:bg-[#5ABF89] transition-all duration-300 rounded-xl mt-4 text-xl shadow-md">Kết quả</button></td>
-                        </tr>
-                        <tr class="border-t border-white">
-                            <td>2</td>
-                            <td>Đội C</td>
-                            <td>Đội D</td>
-                            <td>2/1/2024 - 4:00</td>
-                            <td>Sân B</td>
-                            <td><button class="w-[132px] h-[54px] bg-[#377453] hover:bg-[#5ABF89] transition-all duration-300 rounded-xl mt-4 text-xl shadow-md">Kết quả</button></td>
-                        </tr>
-                        <tr class="border-t border-white">
-                            <td>2</td>
-                            <td>Đội C</td>
-                            <td>Đội D</td>
-                            <td>2/1/2024 - 4:00</td>
-                            <td>Sân B</td>
-                            <td><button class="w-[132px] h-[54px] bg-[#377453] hover:bg-[#5ABF89] transition-all duration-300 rounded-xl mt-4 text-xl shadow-md">Kết quả</button></td>
-                        </tr>
-                        <tr class="border-t border-white">
-                            <td>2</td>
-                            <td>Đội C</td>
-                            <td>Đội D</td>
-                            <td>2/1/2024 - 4:00</td>
-                            <td>Sân B</td>
-                            <td><button class="w-[132px] h-[54px] bg-[#377453] hover:bg-[#5ABF89] transition-all duration-300 rounded-xl mt-4 text-xl shadow-md">Kết quả</button></td>
-                        </tr>
-                        <tr class="border-t border-white">
-                            <td>2</td>
-                            <td>Đội C</td>
-                            <td>Đội D</td>
-                            <td>2/1/2024 - 4:00</td>
-                            <td>Sân B</td>
-                            <td><button class="w-[132px] h-[54px] bg-[#377453] hover:bg-[#5ABF89] transition-all duration-300 rounded-xl mt-4 text-xl shadow-md">Kết quả</button></td>
-                        </tr>
-                        <tr class="border-t border-white">
-                            <td>2</td>
-                            <td>Đội C</td>
-                            <td>Đội D</td>
-                            <td>2/1/2024 - 4:00</td>
-                            <td>Sân B</td>
-                            <td><button class="w-[132px] h-[54px] bg-[#377453] hover:bg-[#5ABF89] transition-all duration-300 rounded-xl mt-4 text-xl shadow-md">Kết quả</button></td>
-                        </tr>
-                        <tr class="border-t border-white">
-                            <td>2</td>
-                            <td>Đội C</td>
-                            <td>Đội D</td>
-                            <td>2/1/2024 - 4:00</td>
-                            <td>Sân B</td>
-                            <td><button class="w-[132px] h-[54px] bg-[#377453] hover:bg-[#5ABF89] transition-all duration-300 rounded-xl mt-4 text-xl shadow-md">Kết quả</button></td>
-                        </tr>
-                       
                     </tbody>
                 </table>
                 
             </div>
             <div class="result flex flex-col  rounded-2xl w-[1078px] h-auto ml-16 my-10 pb-20">
                 <h1 class="ml-10 text-4xl mb-5 mt-5" style="color: #9CFFAE; font-weight: 700;">Kết quả thi đấu</h1>
-                <table class="table-auto w-full text-left ml-10 text-white border-collapse">
+                <table class="table-auto w-full text-left ml-10 text-white border-collapse" id="table_result">
                     <thead class="text-3xl" style="color:#D3FFC4">
                         <tr>
                             <th>Đội 1</th>
@@ -201,19 +144,13 @@
                             </td>
                         </tr>
                     </thead>
-                    <tbody class="text-2xl" style="font-weight: 500;">
-                        <tr>
-                            <td>Đội A</td>
-                            <td><span style="color: #40FF00;">2 - 0</span></td>
-                            <td>Đội B</td>
-                            <td>Sân A</td>
-                            <td>1/1/2024 - 2:00</td>
-                        </tr>
+                    <tbody id="table_result_body">
+                        <!-- Rows will be inserted here -->
                     </tbody>
                 </table>
                 
-                <table class="table-auto w-full text-left ml-10 text-white border-collapse mt-5">
-                    <thead class="text-3xl">
+                <table class="table-auto w-full text-left ml-10 text-white border-collapse mt-5" id="table_goal">
+                    <thead class="text-3xl" >
                         <tr class="border border-teal-50" style="color:#D3FFC4">
                             <th>STT</th>
                             <th>Cầu thủ</th>
@@ -228,23 +165,8 @@
                             </td>
                         </tr>
                     </thead>
-                    <tbody class="text-2xl">
-                        
-                        <tr>
-                            <th>1</th>
-                            <th>Cầu thủ A</th>
-                            <th>Đội A</th>
-                            <th>Ghi bàn</th>
-                            <th>45'</th>
-                        </tr>
-                        <tr>
-                            <th>1</th>
-                            <th>Cầu thủ A</th>
-                            <th>Đội A</th>
-                            <th>Phản lưới</th>
-                            <th>45'</th>
-                        </tr>
-
+                    <tbody id="table_goal_body">
+                        <!-- Rows will be inserted here -->
                     </tbody>
                 </table>
                 
@@ -270,6 +192,7 @@
     </main>
     <footer>
     </footer>
+    <script src="../JS/Lichthidau.js"></script>
     <script src="../JS/DF.js"></script>
 </body>
 

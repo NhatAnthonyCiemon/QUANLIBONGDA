@@ -1,7 +1,7 @@
-document.getElementById("button-login").addEventListener("click", login);
+document.getElementById("login").addEventListener("click", login);
 
-var message = document.getElementById("message");
-var remember = document.getElementById("remember");
+const message = document.getElementById("message");
+const remember = document.getElementById("remember");
 
 firstLoad();
 

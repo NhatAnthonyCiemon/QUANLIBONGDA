@@ -37,33 +37,27 @@
     </header>
 
     <main>
-        <div class="login-inner">
-            <div class="login-container">
-                <h1 class="login-header">Đăng nhập</h1>
+        <div class="container">
+            <form action="">
+                <h1>Đăng nhập</h1>
                 <hr>
-                <div class="form">
-                    <div class="form-item">
-                        <h6 id="message"></h6>
-                    </div>
-                    <div class="form-item">
-                        <input class="textbox" id="username" type="text" placeholder="Tên đăng nhập">
-                        <input class="textbox" id="password" type="password" placeholder="Mật khẩu">
-                    </div>
-
-                    <div class="form-item" id="remember-me">
-                        <input class="checkbox" type="checkbox" id="remember">
-                        <label class="checkbox-label" for="remember">Ghi nhớ tài khoản</label>
-                    </div>
-                    
-                    <div class="form-item" id="login-button">
-                        <button class="btn-login" type="button" id="button-login">Đăng nhập</button>
-                    </div>
-
-                    <div class="form-item" id="go-dashboard">
-                        <a class="link-dashboard" href="../index.html">Quay về trang chủ</a>
-                    </div>
+                <div>
+                    <h6 id="message"></h6>
                 </div>
-            </div>
+                <div>
+                    <input class="input-box" type="text" id="username" placeholder="Tên đăng nhập">
+                    <input class="input-box" type="password" id="password" placeholder="Mật khẩu">
+                </div>
+                <div class="remember-me">
+                    <label><input id="remember" class="checkbox" type="checkbox">Ghi nhớ đăng nhập</label>
+                </div>
+                <div class="login-button">
+                    <button type="button" id="login">Đăng nhập</button>
+                </div>
+                <div class="back-to-dashboard">
+                    <a href="../index.html">Quay lại trang chủ</a>
+                </div>
+            </form>
         </div>
     </main>
 

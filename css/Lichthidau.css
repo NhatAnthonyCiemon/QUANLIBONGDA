@@ -42,6 +42,39 @@
   margin-left: 120px;
   margin-top: 15px;
   cursor: pointer;
+
+}
+
+.dropdown-content {
+  border-radius: 10px;
+  width: 320px;
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 191px;
+  max-height: 150px; /* Set maximum height for scrolling */
+  overflow-y: auto; /* Enable vertical scrolling */
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  top: 90%; /* Nằm ngay dưới phần tử cha */
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  font: 700;
+  font-size: 20px;
+  line-height: 30px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+ 
+}
+
+.dropdown-content a:hover {
+  border-radius: 10px;
+  box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.3); /* Inner shadow on top-left */
 }
 
 th, td {
@@ -70,4 +103,3 @@ tbody tr:not(:last-child)::after {
   border-radius: 18px;
   padding-bottom: 20px; /* Điều chỉnh khoảng cách */
 }
-

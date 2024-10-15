@@ -1,0 +1,530 @@
+* {
+    box-sizing: border-box;
+}
+
+main {
+    background-image: url(../assets/backgroup01_dky.png);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #e0e0e0;
+}
+
+.container {
+    max-width: 1441px;
+    max-height: 2203px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 0px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    justify-content: center;
+   
+    
+}
+
+.tracuu{
+    max-width:  669px;
+    max-height: 228px;
+    margin: auto;
+    margin-bottom: 50px;
+    padding: 40px;
+    background-color:  #1B361DB5;
+    border-radius: 25px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h2 {
+    font-size: 48px;
+    color: #fff;
+    margin: auto;
+    
+}
+
+.button-group {
+    margin-bottom: auto;
+}
+
+.btn {
+    width: 279px;
+    height: 58px;
+    padding: 10px 20px;
+    margin: 4px;
+    border: none;
+    border-radius: 5px;
+    background-color:  #E6FFE8;
+    color: rgb(10, 10, 10);
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
+
+
+.danhsachcauthu{
+    max-width: 1216px;
+    max-height: 1754px;
+    margin: auto;
+    padding: 20px;
+    background-color: #1B361DB5;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    font-size: 64px;
+    margin:auto;
+    color: #fff;
+    align-items: center;
+}
+
+.danhsachcauthu .chonmuagiai {
+    height: 100px;
+    width: 320px;
+    position: relative;
+    display: inline-block;
+    margin-bottom: 40px;
+}
+
+.danhsachcauthu .search-box {
+    height: 50%;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    border: 1px solid #ddd; /* Đường viền để dễ thấy */
+    background-color: #e0ffe0;
+   
+}
+
+.danhsachcauthu .search-box i{
+    font-size: 26px;
+}
+
+.danhsachcauthu .search-box input {
+height: 100%;
+width: 100%;
+background: var(--primary-color-light);
+outline: none;
+border: none;
+font-size: 16px;
+font-weight: 500;
+border-radius: 6px;
+
+}
+
+
+.danhsachcauthu .dropdown-button {
+    margin: auto;    
+    background-color: #e0ffe0;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 50%;
+}
+
+.danhsachcauthu .dropdown-button:hover {
+    background-color: #d4ffd4;
+
+}
+
+.danhsachcauthu .dropdown-button span {
+    font-size: 16px;
+}
+
+.danhsachcauthu .dropdown-button svg {
+    width: 12px;
+    height: 12px;
+    transition: transform 0.3s ease;
+}
+
+.danhsachcauthu .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #e0ffe0;
+    width: 100%;
+    border: 1px solid #ccc;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+    max-height: 100px; /* Limit the height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    border-radius: 5px;
+}
+
+.danhsachcauthu .dropdown-content a {
+    color: black;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: block;
+}
+
+.danhsachcauthu .dropdown-content a:hover {
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    background-color: #fff;
+}
+
+.danhsachcauthu .rotate {
+    transform: rotate(180deg);
+}
+.danhsachcauthu .table-DSCT{
+    border: 1px solid #ccc;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    border-radius: 10px; 
+    margin: auto    ;
+    margin-top: 30px;
+}
+.danhsachcauthu .player-table {
+    margin: auto;
+    width: 99%;
+    border-collapse: collapse;
+    
+}
+
+.danhsachcauthu .player-table th, .player-table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ccc;
+}
+
+.danhsachcauthu .player-table th {
+    background-color: #e0ffe0;
+}
+.danhsachcauthu .player-table td{
+    color:#fff;
+}
+
+.danhsachcauthu .player-table tbody tr:hover {
+    background-color: rgba(0, 128, 0, 0.6); /* Màu nền khi hover */
+    color: black; /* Giữ màu chữ khi hover */
+}
+
+.danhsachcauthu .pagination{
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.danhsachcauthu .page-item {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 128, 0, 0.8);
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.danhsachcauthu .page-item:hover {
+    background-color: rgba(0, 128, 0, 1);
+}
+.danhsachcauthu .active {
+    background-color: rgba(0, 255, 0, 0.8);
+}
+
+
+
+.bangxephang{
+    max-width: 1216px;
+    max-height: 1754px;
+    margin: auto;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #1B361DB5;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.bangxephang .chonmuagiai {
+    height: 100px;
+    width: 320px;
+    position: relative;
+    display: inline-block;
+    margin: auto;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+
+.bangxephang .dropdown-button {
+    margin: auto;    
+    background-color: #e0ffe0;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 50%;
+}
+
+.bangxephang .dropdown-button:hover {
+    background-color: #d4ffd4;
+
+}
+
+.bangxephang .dropdown-button span {
+    font-size: 16px;
+}
+
+.bangxephang .dropdown-button svg {
+    width: 12px;
+    height: 12px;
+    transition: transform 0.3s ease;
+}
+
+.bangxephang .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #e0ffe0;
+    width: 100%;
+    border: 1px solid #ccc;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+    max-height: 100px; /* Limit the height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    border-radius: 5px;
+}
+
+.bangxephang .dropdown-content a {
+    color: black;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: block;
+}
+
+.bangxephang .dropdown-content a:hover {
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    background-color: #fff;
+}
+
+.bangxephang .rotate {
+    transform: rotate(180deg);
+}
+.bangxephang .table-DSCT{
+    border: 1px solid #ccc;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    border-radius: 10px; 
+    margin: auto    ;
+    margin-top: 30px;
+}
+.bangxephang .player-table {
+    margin: auto;
+    width: 99%;
+    border-collapse: collapse;
+    
+}
+
+.bangxephang .player-table th, .player-table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ccc;
+}
+
+.bangxephang .player-table th {
+    background-color: #e0ffe0;
+}
+.bangxephang .player-table td{
+    color:#fff;
+}
+
+.bangxephang .player-table tbody tr:hover {
+    background-color: rgba(0, 128, 0, 0.6); /* Màu nền khi hover */
+    color: black; /* Giữ màu chữ khi hover */
+}
+
+
+
+
+.danhsachcaccauthughiban{
+    max-width: 1216px;
+    max-height: 1754px;
+    margin: auto;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #1B361DB5;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.danhsachcaccauthughiban .search-box {
+    height: 50%;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    border: 1px solid #ddd; /* Đường viền để dễ thấy */
+    background-color: #e0ffe0;
+   
+}
+
+.danhsachcaccauthughiban .search-box i{
+    font-size: 26px;
+}
+
+.danhsachcaccauthughiban .search-box input {
+height: 100%;
+width: 100%;
+background: var(--primary-color-light);
+outline: none;
+border: none;
+font-size: 16px;
+font-weight: 500;
+border-radius: 6px;
+
+}
+
+.danhsachcaccauthughiban .chonmuagiai {
+    height: 100px;
+    width: 320px;
+    position: relative;
+    display: inline-block;
+    margin-bottom: 40px;
+}
+
+
+.danhsachcaccauthughiban .dropdown-button {
+    margin: auto;    
+    background-color: #e0ffe0;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 50%;
+}
+
+.danhsachcaccauthughiban .dropdown-button:hover {
+    background-color: #d4ffd4;
+
+}
+
+.danhsachcaccauthughiban .dropdown-button span {
+    font-size: 16px;
+}
+
+.danhsachcaccauthughiban .dropdown-button svg {
+    width: 12px;
+    height: 12px;
+    transition: transform 0.3s ease;
+}
+
+.danhsachcaccauthughiban .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #e0ffe0;
+    width: 100%;
+    border: 1px solid #ccc;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+    max-height: 100px; /* Limit the height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    border-radius: 5px;
+}
+
+.danhsachcaccauthughiban .dropdown-content a {
+    color: black;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: block;
+}
+
+.danhsachcaccauthughiban .dropdown-content a:hover {
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    background-color: #fff;
+}
+
+.danhsachcaccauthughiban .rotate {
+    transform: rotate(180deg);
+}
+.danhsachcaccauthughiban .table-DSCT{
+    border: 1px solid #ccc;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    border-radius: 10px; 
+    margin: auto    ;
+    margin-top: 30px;
+}
+.danhsachcaccauthughiban .player-table {
+    margin: auto;
+    width: 99%;
+    border-collapse: collapse;
+    
+}
+
+.danhsachcaccauthughiban .player-table th, .player-table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ccc;
+}
+
+.danhsachcaccauthughiban .player-table th {
+    background-color: #e0ffe0;
+}
+.danhsachcaccauthughiban .player-table td{
+    color:#fff;
+}
+
+.danhsachcaccauthughiban .player-table tbody tr:hover {
+    background-color: rgba(0, 128, 0, 0.6); /* Màu nền khi hover */
+    color: black; /* Giữ màu chữ khi hover */
+}
+
+.danhsachcaccauthughiban .pagination{
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.danhsachcaccauthughiban .page-item {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 128, 0, 0.8);
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.danhsachcaccauthughiban .page-item:hover {
+    background-color: rgba(0, 128, 0, 1);
+}
+.danhsachcaccauthughiban .active {
+    background-color: rgba(0, 255, 0, 0.8);
+}

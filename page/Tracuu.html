@@ -28,12 +28,292 @@
         href="https://fonts.googleapis.com/css2?family=Be+Vietnam:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="/css/DF.css">
+    <link rel="stylesheet" href="/css/Tracuu.css">
     <title>Tra cứu</title>
 </head>
 
 <body>
     <header>
     </header>
+
+    <main>
+        <div class=container>
+            <div class="tracuu">
+                <h2 >TRA CỨU THÔNG TIN</h2>
+                <div class="button-group">
+                    <button class="btn">Danh sách cầu thủ</button>
+                    <button class="btn">Báo cáo mùa giải</button>
+                </div>          
+                        
+            </div>
+    
+            <div class="danhsachcauthu">
+                    <div claas="image">
+                        <img src="../assets/cup.svg" alt="ảnh cup">
+                    </div>
+                    
+                    <div class="body">
+                        <h1>DANH SÁCH CẦU THỦ</h1>
+                    
+                        <div class="chonmuagiai">
+                        
+                            <div class="search-box">
+                                <input type="text" placeholder="Nhập tên cầu thủ cần tìm kiếm">            
+                                <i class='bx bx-search icon'></i>
+                            </div>                
+                        
+                            <div class="dropdown-button" id="dropdownBtn">
+                                <span>Mùa: 2024-2025</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
+    
+                            <div class="dropdown-content" id="dropdownMenu">
+                                <a href="#">2024 - 2025</a>
+                                <a href="#">2023 - 2024</a>
+                                <a href="#">2022 - 2023</a>
+                            </div>
+                            
+                        </div>   
+                    </div>                
+                    
+                
+                <div class="table-DSCT">
+                    <table class="player-table">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Cầu thủ</th>
+                                <th>Đội </th>
+                                <th>Loại cầu thủ</th>
+                                <th>Tổng số bàn thắng</th>
+                            </tr>
+                        </thead>
+                        <tbody id="player-list">
+                            <tr>
+                                <td>01</td>
+                                <td>Nguyễn Văn A</td>
+                                <td>Đội A</td>
+                                <td>Trong nước</td>
+                                <td>20</td>
+                            </tr>
+                            <tr>
+                                <td>02</td>
+                                <td>Nguyễn Văn B</td>
+                                <td>Đội B</td>
+                                <td>Nước ngoài</td>
+                                <td>10</td>
+                            </tr>
+                            <tr>
+                                <td>03</td>
+                                <td>Nguyễn Văn C</td>
+                                <td>Đội C</td>
+                                <td>Trong nước</td>
+                                <td>15</td>
+                            </tr>
+                            <tr>
+                                <td>04</td>
+                                <td>Nguyễn Văn D</td>
+                                <td>Đội D</td>
+                                <td>Nước ngoài</td>
+                                <td>0</td>
+                            </tr>
+                        </tbody>
+                    </table>   
+                </div>
+                
+                <div class="pagination">
+                    <div class="page-item active">1</div>
+                    <div class="page-item">2</div>
+                    <div class="page-item">3</div>
+                    <div class="page-item">4</div>
+                    <div class="page-item">5</div>
+                    <div class="page-item">6</div>
+                </div>
+    
+               
+                
+            </div>
+    
+            <div class="bangxephang">
+                <h1>BẢNG XẾP HẠNG</h1>
+                
+                <div class="chonmuagiai">
+                    
+                    <div class="dropdown-button" id="dropdownBtn">
+                        <span>Mùa: 2024-2025</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </div>
+                    <div class="dropdown-content" id="dropdownMenu">
+                        <a href="#">2024 - 2025</a>
+                        <a href="#">2023 - 2024</a>
+                        <a href="#">2022 - 2023</a>
+                    </div>
+                    
+                </div>
+    
+                <div class="table-BXH">
+                    <table class="player-table">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Đội</th>
+                                <th>Thắng  </th>
+                                <th>Hòa</th>
+                                <th>Thua</th>
+                                <th>Hiệu số</th>
+                                <th>Hạng</th>
+                            </tr>
+                        </thead>
+                        <tbody id="player-list">
+                            <tr>
+                                <td>01</td>
+                                <td>Đội A</td>
+                                <td>00</td>
+                                <td>00</td>
+                                <td>00</td>
+                                <td>00</td>
+                                <td>00</td>
+                            </tr>
+                            <tr>
+                                <td>02</td>
+                                <td>Đội B</td>
+                                <td>00</td>
+                                <td>00</td>
+                                <td>00</td>
+                                <td>00</td>
+                                <td>00</td>
+                            </tr>
+                            <tr>
+                                <td>03</td>
+                                <td>Đội C</td>
+                                <td>00</td>
+                                <td>00</td>
+                                <td>00</td>
+                                <td>00</td>
+                                <td>00</td>
+                            </tr>
+                            <tr>
+                                <td>04</td>                            
+                                <td>Đội D</td>
+                                <td>00</td>
+                                <td>00</td>
+                                <td>00</td>
+                                <td>00</td>
+                                <td>00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+    
+                </div>
+    
+            </div>
+    
+    
+            <div class="danhsachcaccauthughiban">
+                <h1>DANH SÁCH CÁC CẦU THỦ GHI BÀN</h1>
+                
+                <div class="chonmuagiai">
+                    <div class="search-box">
+                        <input type="text" placeholder="Nhập tên cầu thủ cần tìm kiếm">            
+                        <i class='bx bx-search icon'></i>
+                    </div> 
+                    <div class="dropdown-button" id="dropdownBtn">
+                        <span>Mùa: 2024-2025</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </div>
+                    <div class="dropdown-content" id="dropdownMenu">
+                        <a href="#">2024 - 2025</a>
+                        <a href="#">2023 - 2024</a>
+                        <a href="#">2022 - 2023</a>
+                    </div>
+                    
+                </div>    
+                <div class="table-DSCT">
+                    <table class="player-table">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Cầu thủ</th>
+                                <th>Đội </th>
+                                <th>Loại cầu thủ</th>
+                                <th>Tổng số bàn thắng</th>
+                            </tr>
+                        </thead>
+                        <tbody id="player-list">
+                            <tr>
+                                <td>01</td>
+                                <td>Nguyễn Văn A</td>
+                                <td>Đội A</td>
+                                <td>Trong nước</td>
+                                <td>20</td>
+                            </tr>
+                            <tr>
+                                <td>02</td>
+                                <td>Nguyễn Văn B</td>
+                                <td>Đội B</td>
+                                <td>Nước ngoài</td>
+                                <td>10</td>
+                            </tr>
+                            <tr>
+                                <td>03</td>
+                                <td>Nguyễn Văn C</td>
+                                <td>Đội C</td>
+                                <td>Trong nước</td>
+                                <td>15</td>
+                            </tr>
+                            <tr>
+                                <td>04</td>
+                                <td>Nguyễn Văn D</td>
+                                <td>Đội D</td>
+                                <td>Nước ngoài</td>
+                                <td>0</td>
+                            </tr>
+                        </tbody>
+                    </table>   
+                </div>
+                
+                <div class="pagination">
+                    <div class="page-item active">1</div>
+                    <div class="page-item">2</div>
+                    <div class="page-item">3</div>
+                    <div class="page-item">4</div>
+                    <div class="page-item">5</div>
+                    <div class="page-item">6</div>
+                </div>
+    
+               
+    
+            </div>
+    
+        </div>
+
+        <script >//js của nút nhất chọn năm
+        
+            const dropdownBtn = document.getElementById('dropdownBtn');
+            const dropdownMenu = document.getElementById('dropdownMenu');
+            const arrowIcon = dropdownBtn.querySelector('svg');
+    
+            dropdownBtn.addEventListener('click', () => {
+                dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+                arrowIcon.classList.toggle('rotate');
+            });
+    
+            // Close dropdown if clicked outside
+            window.onclick = function(event) {
+                if (!event.target.matches('.dropdown-button') && !event.target.closest('.dropdown-button')) {
+                    dropdownMenu.style.display = 'none';
+                    arrowIcon.classList.remove('rotate');
+                }
+            };
+        </script>
+    </main>
+
     <footer>
     </footer>
     <script src="/JS/DF.js"></script>

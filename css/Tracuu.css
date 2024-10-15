@@ -75,6 +75,12 @@ h2 {
     text-align: center;
 }
 
+.header_DSCT {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 h1 {
     font-size: 64px;
     margin:auto;

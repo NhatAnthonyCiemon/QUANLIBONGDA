@@ -1,0 +1,105 @@
+.calendar__container{
+  background-color: rgba(27, 54, 29, 0.7);
+  border-radius: 51px;
+  margin-bottom: 30px !important;
+  padding-bottom: 10px;
+}
+
+
+.create-calendar {
+  background-color: rgba(151, 255, 139, 0.35);
+  border-radius: 20px;
+}
+
+.create-calendar h2{
+  font-weight: bold; /* In đậm */
+  font-size: 25px;
+  line-height: 70px;  
+}
+
+.season-dropdown {
+  background-color: #e6f4e4;
+  border-radius: 10px;
+  padding: 10px 15px;
+  font-size: 20px;
+}
+
+.season-dropdown span {
+  color: #a0a0a0;
+  margin-right: 5px;
+}
+
+.season-dropdown strong {
+  color: #000;
+}
+
+.arrow {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #000;
+  margin-left: 120px;
+  margin-top: 15px;
+  cursor: pointer;
+
+}
+
+.dropdown-content {
+  border-radius: 10px;
+  width: 320px;
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 191px;
+  max-height: 150px; /* Set maximum height for scrolling */
+  overflow-y: auto; /* Enable vertical scrolling */
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  top: 90%; /* Nằm ngay dưới phần tử cha */
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  font: 700;
+  font-size: 20px;
+  line-height: 30px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+ 
+}
+
+.dropdown-content a:hover {
+  border-radius: 10px;
+  box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.3); /* Inner shadow on top-left */
+}
+
+th, td {
+  padding: 8px 12px;
+}
+
+tbody tr:not(:last-child) {
+  position: relative;
+}
+
+tbody tr:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 1%; /* Khoảng cách từ lề trái */
+  width: 92%; /* Độ dài của đường gạch ngang, bạn có thể điều chỉnh */
+  border-top: 2px solid white; /* Độ dày và màu của đường gạch ngang */
+}
+
+.result{
+  background-color: rgba(211, 255, 204, 0.46);
+}
+
+.regular{
+  background-color: rgba(27, 54, 29, 0.7);
+  border-radius: 18px;
+  padding-bottom: 20px; /* Điều chỉnh khoảng cách */
+}

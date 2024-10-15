@@ -4,39 +4,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="apple-touch-icon" sizes="57x57" href="/assets/favicon/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="/assets/favicon/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/assets/favicon/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/assets/favicon/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/assets/favicon/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/assets/favicon/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/assets/favicon/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/assets/favicon/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
-    <link rel="manifest" href="/assets/favicon/manifest.json">
+    <link rel="apple-touch-icon" sizes="57x57" href="../assets/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="../assets/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../assets/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../assets/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../assets/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="../assets/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../assets/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../assets/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../assets/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../assets/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="../assets/favicon/manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="/assets/favicon/ms-icon-144x144.png">
+    <meta name="msapplication-TileImage" content="../assets/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="../css/reset.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Be+Vietnam:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="/css/DF.css">
+    <link rel="stylesheet" href="../css/DF.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/Lichthidau.css">
     <title>Lịch thi đấu</title>
 </head>
 
+
+
 <body>
+
     <header>
     </header>
+    <main class=" bg-[url('../assets/main-background.png')] w-full h-auto bg-cover" style="overflow: hidden;">
+        <div class="calendar__container mx-auto w-[1216px] h-auto top-12 relative">     
+            <div class="flex flex-row justify-around relative top-5">
+                <div class="w-[500px]  h-[189px] rounded-lg flex flex-col justify-center mx-8 ">
+                    <h1 class="text-white  w-[400px] text-6xl">LỊCH THI ĐẤU</h1> <br>
+
+                    <div class="season-dropdown w-[320px] h-[58.05px] flex flex-row">
+                        <span>Mùa:</span>
+                        <strong>2024–2025</strong>
+                        <div class="arrow" onclick="toggleDropdown()"></div>
+                    </div>
+                    <div class="dropdown-content">
+                        <a href="#" class="ml-12 rounded-lg"><strong>2024–2025</strong></a>
+                        <a href="#" class="ml-12 rounded-lg"><strong>2023–2024</strong></a>
+                        <a href="#" class="ml-12 rounded-lg"><strong>2022–2023</strong></a>
+                        <a href="#" class="ml-12 rounded-lg"><strong>2021–2022</strong></a>
+                        <a href="#" class="ml-12 rounded-lg"><strong>2020–2021</strong></a>
+                        <a href="#" class="ml-12 rounded-lg"><strong>2019–2020</strong></a>
+                    </div>
+                    
+                </div>
+                <div class="create-calendar flex flex-row justify-between items-center text-white w-[666px] h-auto rounded-lg mx-20 shadow-lg">
+                    <div class="flex flex-col justify-center pl-6">
+                        <h2>Tạo giải đấu (Admin)</h2>
+                        <p class="text-2xl mt-1">Số đội đã đăng ký: <span class="font-semibold"style="color: #DAFFB6;">10</span></p>
+                        <p class="text-2xl">Còn: <span class="font-semibold" style="color: #DAFFB6;">5</span> slot</p>
+                    </div>
+                    <div class="flex flex-col justify-center items-start pr-6">
+                        <h2 class="ml-2">Mùa 2024–2025</h3>
+                        <button class="w-[264px] h-[70px] bg-[#377453] hover:bg-[#2e6044] transition-all duration-300 rounded-xl text-3xl shadow-md">
+                            Bắt đầu mùa giải
+                        </button>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="flex flex-row justify-center items-center mt-12 space-x-4">
+                <button class="w-[74px] h-[75.91px] bg-[#98FF98] rounded-full flex items-center justify-center font-semibold text-center text-3xl hover:bg-[#82e682] transition-all duration-300">
+                    &lt;
+                </button>
+                <div class="w-[893px] h-[67px] bg-[#98FF98] rounded-full flex items-center justify-center font-semibold text-center text-3xl shadow-lg">
+                    Vòng 1
+                </div>
+                <button class="w-[74px] h-[75.91px] bg-[#98FF98] rounded-full flex items-center justify-center font-semibold text-center text-3xl hover:bg-[#82e682] transition-all duration-300">
+                    &gt;
+                </button>
+            </div>
+
+            <div class="flex flex-col  rounded-2xl w-[1078px] h-auto ml-16 mt-8" style="background-color: rgba(211, 255, 204, 0.46);">
+                <table class="table-auto w-full text-left ml-10 text-white border-collapse mt-9 mb-9" id="danh_sach">
+                    <thead class="text-3xl" style="color: #D3FFC4;">
+                        <tr>
+                            <th>STT</th>
+                            <th>Đội 1</th>
+                            <th>Đội 2</th>
+                            <th>Ngày - Giờ</th>
+                            <th>Sân</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-2xl" id="team">
+                        <tr>
+                            <td colspan="5">
+                                
+                            </td>
+                        </tr>
+                        <tr class="border-t border-white">
+                            <td>1</td>
+                            <td>Đội A</td>
+                            <td>Đội B</td>
+                            <td>1/1/2024 - 2:00</td>
+                            <td>Sân A</td>
+                            <td><button class="w-[132px] h-[54px] bg-[#377453] hover:bg-[#5ABF89] transition-all duration-300 rounded-xl mt-4 text-xl shadow-md" onclick="toggleRows(0)">Kết quả</button></td>
+                        </tr>
+                        <tr class="border-t border-white">
+                            <td>2</td>
+                            <td>Đội C</td>
+                            <td>Đội D</td>
+                            <td>2/1/2024 - 4:00</td>
+                            <td>Sân B</td>
+                            <td><button class="w-[132px] h-[54px] bg-[#377453] hover:bg-[#5ABF89] transition-all duration-300 rounded-xl mt-4 text-xl shadow-md" onclick="toggleRows(1)">Kết quả</button></td>
+                        </tr>
+                        <tr class="border-t border-white">
+                            <td>3</td>
+                            <td>Đội E</td>
+                            <td>Đội F</td>
+                            <td>3/1/2024 -6:00</td>
+                            <td>Sân C</td>
+                            <td><button class="w-[132px] h-[54px] bg-[#377453] hover:bg-[#5ABF89] transition-all duration-300 rounded-xl mt-4 text-xl shadow-md" onclick="toggleRows(2)">Kết quả</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+            </div>
+            <div class="result flex flex-col  rounded-2xl w-[1078px] h-auto ml-16 my-10 pb-20">
+                <h1 class="ml-10 text-4xl mb-5 mt-5" style="color: #9CFFAE; font-weight: 700;">Kết quả thi đấu</h1>
+                <table class="table-auto w-full text-left ml-10 text-white border-collapse" id="table_result">
+                    <thead class="text-3xl" style="color:#D3FFC4">
+                        <tr>
+                            <th>Đội 1</th>
+                            <th>Tỉ số</th>
+                            <th>Đội 2</th>
+                            <th>Sân</th>
+                            <th>Ngày - Giờ</th>
+                        </tr>
+                       
+                        <tr>
+                            <td colspan="5">
+                                <hr style="border: 2px solid white; width: 85%;">
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody id="table_result_body">
+                        <!-- Rows will be inserted here -->
+                    </tbody>
+                </table>
+                
+                <table class="table-auto w-full text-left ml-10 text-white border-collapse mt-5" id="table_goal">
+                    <thead class="text-3xl" >
+                        <tr class="border border-teal-50" style="color:#D3FFC4">
+                            <th>STT</th>
+                            <th>Cầu thủ</th>
+                            <th>Đội</th>
+                            <th>Loại bàn thắng</th>
+                            <th>Thời điểm</th>
+                        </tr>
+                        <!-- Hàng chứa dấu gạch ngang -->
+                        <tr>
+                            <td colspan="5">
+                                <hr style="border: 1px solid white; width: 94%;">
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody id="table_goal_body">
+                        <!-- Rows will be inserted here -->
+                    </tbody>
+                </table>
+                
+            </div>
+        </div>
+        
+        
+    </div>
+    <div class="mx-auto w-[1216px] mt-20 regular mb-20 relative">
+        <h2 class="text-3xl ml-10 mt-9" style="color: #AAFFA7; font-size: 40px; font-weight: 700;">Quy định:</h2>
+        <ul class="text-2xl text-white ml-10 mt-9" style="font-size: 25px; font-weight: 500;">
+            <li>
+                + Có <span style="color: #AAFFA7;">3</span> loại bàn thắng: Ghi bàn, phản lưới, phạt đền.
+            </li>
+            <li>
+                + Thời điểm ghi bàn từ 0 đến 96.
+            </li>
+        </ul>
+        <!-- Thêm ảnh ở đây -->
+        <a href="#"><img src="../assets/gear.png" alt="Icon" class="absolute bottom-2 right-2 w-[60px] h-[60px]"></a>
+    </div>
+    
+    </main>
     <footer>
     </footer>
-    <script src="/JS/DF.js"></script>
+    <script src="../JS/Lichthidau.js"></script>
+    <script src="../JS/DF.js"></script>
 </body>
 
 </html>

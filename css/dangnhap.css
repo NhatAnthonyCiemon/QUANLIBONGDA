@@ -1,0 +1,149 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url('../assets/background_home.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding-top: 100px;
+    padding-bottom: 200px;
+}
+
+.container {
+    width: 500px;
+    background-color: rgba(30, 34, 30, 0.58);
+    border-radius: 40px;
+    padding: 20px;
+}
+
+h1 {
+    color: #FFF;
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 20px;
+}
+
+hr {
+    border: 1px solid #FFF;
+    margin-top: 40px;
+}
+
+.container .input-box {
+    border-radius: 25px;
+    background: rgba(161, 255, 161, 0.35);
+    width: 100%;
+    height: 70px;
+    margin: 20px 0px;
+    display: flex;
+    padding-left: 20px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 35px;
+    color: white;
+    border: none;
+}
+
+.container  .input-box::placeholder {
+    color: #87AB8C;
+}
+
+.container  .input-box:focus {
+    outline: none;
+    border: 3px solid #90e45c;
+}
+
+.container  .remember-me .checkbox {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    position: relative;
+    background: #527656;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.checkbox:checked::before {
+    content: "\2713";
+    font-size: 20px;
+    color: #FFF;
+    position: absolute;
+    top: -3px;
+    left: 2px;
+}
+
+.remember-me label {
+    color: #87AB8C;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 200;
+    line-height: normal;
+}
+
+.container .login-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.login-button button {
+    width: 70%;
+    height: 80px;
+    border-radius: 20px;
+    background: #50A83E;
+    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+    color: white;
+    font-size: 40px;
+    font-style: normal;
+    
+}
+
+.login-button button:hover {
+    background: #569b75;
+    transition: background 0.2s ease;
+}
+
+.login-button button:active {
+    background: #53db62;
+    transition: background 0.2s ease;
+}
+
+.container .back-to-dashboard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.container .back-to-dashboard a {
+    color: #9EBF9F;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    text-decoration-line: underline;
+}
+
+.container .back-to-dashboard a:hover {
+    color: #b5efb7;
+    transition: color 0.2s ease;
+}
+
+.container h6 {
+    color: rgb(245, 14, 14);
+    margin-top: 15px;
+    margin-left: 10px;
+    font-size: 15px;
+}
+

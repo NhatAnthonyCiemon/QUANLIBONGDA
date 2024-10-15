@@ -207,3 +207,146 @@ strong:not(.foreign_max) {
     background-image: url(../assets/configDky.svg);
     background-position: center;
 }
+.shadow {
+    background-color: #707070;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s;
+}
+.shadow-active {
+    opacity: 0.75;
+    visibility: visible;
+}
+
+.shadow__box {
+    width: 720px;
+    position: fixed;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    border-radius: 20px;
+    border: 2px solid #79de7d;
+    background: #e6ffe8;
+    display: flex;
+    align-items: center;
+    padding: 20px 25px;
+    gap: 20px;
+}
+.shadow__box-active {
+    opacity: 1;
+    visibility: visible;
+}
+.shadow__img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+.shadow__desc {
+    color: #bd6a51;
+    font-family: "Be Vietnam Pro";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+.shadow__false {
+    color: black;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+}
+.shadow__false strong {
+    color: red;
+    font-weight: 700;
+}
+.shadow__box-conf {
+    width: 720px;
+    padding: 30px 20px;
+    position: fixed;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    border-radius: 20px;
+    border: 2px solid #79de7d;
+    background: rgba(94, 178, 252, 0.9);
+}
+.shadow__box-conf-active {
+    opacity: 1;
+    visibility: visible;
+}
+.form__heading-conf {
+    line-height: 1.2;
+    color: black;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+.form__heading-conf strong {
+    color: red;
+    font-style: italic;
+    font-weight: 500;
+    opacity: 0.9;
+}
+.form__group-conf {
+    display: flex;
+    padding: 20px 10px;
+    gap: 10px;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #00ad1a;
+    border-radius: 10px;
+    gap: 20px;
+    flex: 1;
+}
+.form__group-conf > * {
+    flex: 1;
+}
+.form__group-conf + .form__group-conf {
+    margin-top: 25px;
+}
+.form__label-conf {
+    display: block;
+    color: black;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+.form__input-conf {
+    width: 100%;
+    padding: 5px 10px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #bcd6c0;
+    color: black;
+    background: #f7f5fb;
+}
+.btn__conf {
+    display: block;
+    width: 197px;
+    height: 46px;
+    border-radius: 18px;
+    background-color: #569b75;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    margin-left: auto;
+    margin-top: 30px;
+}

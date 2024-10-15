@@ -88,109 +88,14 @@
                             <tr>
                                 <th width="10%">STT</th>
                                 <th width="25%">Tên cầu thủ</th>
-                                <th width="15%">Ngày sinh</th>
                                 <th width="20%">Loại cầu thủ</th>
+                                <th width="15%">Ngày sinh</th>
                                 <th width="25%">Ghi chú</th>
                                 <th width="5%"></th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Nguyễn Văn A</td>
-                                <td>01/01/2000</td>
-                                <td>Trong nước</td>
-                                <td>Ghi chú 1</td>
-                                <td><button class="btn__remove">Xóa</button></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Nguyễn Văn B</td>
-                                <td>01/01/2000</td>
-                                <td>Nước ngoài</td>
-                                <td>Ghi chú 2</td>
-                                <td><button class="btn__remove">Xóa</button></td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Nguyễn Văn C</td>
-                                <td>01/01/2000</td>
-                                <td>Nước ngoài</td>
-                                <td>Ghi chú 3</td>
-                                <td><button class="btn__remove">Xóa</button></td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Nguyễn Văn D</td>
-                                <td>01/01/2000</td>
-                                <td>Nước ngoài</td>
-                                <td>Ghi chú 4</td>
-                                <td><button class="btn__remove">Xóa</button></td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>Nguyễn Văn E</td>
-                                <td>01/01/2000</td>
-                                <td>Nước ngoài</td>
-                                <td>Ghi chú 5</td>
-                                <td><button class="btn__remove">Xóa</button></td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td>Nguyễn Văn F</td>
-                                <td>01/01/2000</td>
-                                <td>Nước ngoài</td>
-                                <td>Ghi chú 6</td>
-                                <td><button class="btn__remove">Xóa</button></td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Nguyễn Văn A</td>
-                                <td>01/01/2000</td>
-                                <td>Trong nước</td>
-                                <td>Ghi chú 1</td>
-                                <td><button class="btn__remove">Xóa</button></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Nguyễn Văn B</td>
-                                <td>01/01/2000</td>
-                                <td>Nước ngoài</td>
-                                <td>Ghi chú 2</td>
-                                <td><button class="btn__remove">Xóa</button></td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Nguyễn Văn C</td>
-                                <td>01/01/2000</td>
-                                <td>Nước ngoài</td>
-                                <td>Ghi chú 3</td>
-                                <td><button class="btn__remove">Xóa</button></td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Nguyễn Văn D</td>
-                                <td>01/01/2000</td>
-                                <td>Nước ngoài</td>
-                                <td>Ghi chú 4</td>
-                                <td><button class="btn__remove">Xóa</button></td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>Nguyễn Văn E</td>
-                                <td>01/01/2000</td>
-                                <td>Nước ngoài</td>
-                                <td>Ghi chú 5</td>
-                                <td><button class="btn__remove">Xóa</button></td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td>Nguyễn Văn F</td>
-                                <td>01/01/2000</td>
-                                <td>Nước ngoài</td>
-                                <td>Ghi chú 6</td>
-                                <td><button class="btn__remove">Xóa</button></td>
-                            </tr>
+                        <tbody class="table__body">
+
                         </tbody>
                     </table>
                 </div>
@@ -210,6 +115,9 @@
                         <strong class="num_max">22</strong> (tối đa <strong class="foreign_max">3</strong> cầu thủ nước
                         ngoài).
                     </p>
+                    <p class="signup__regulation-desc"> + Chỉ có thể nhập các loại cầu thủ sau: <strong
+                            class="football_type"></strong>
+                    </p>
                 </div>
                 <button class="btn__regulation"></button>
             </div>
@@ -217,7 +125,60 @@
     </main>
     <footer>
     </footer>
+    <div class="shadow">
+    </div>
+    <div class="shadow__box">
+        <img class="shadow__img" src="../assets/falsedky.svg" alt="">
+        <div class="info">
+            <p class="shadow__desc">ĐĂNG KÝ THẤT BẠI. BẠN ĐÃ VI PHẠM QUY ĐỊNH CỦA CHÚNG TÔI !</p>
+            <p class="shadow__false"></p>
+        </div>
+    </div>
+    <div class="shadow__box-conf">
+        <form class="form__conf">
+            <h2 class="form__heading-conf">SỬA ĐỔI CÁC QUY ĐỊNH <strong>(Không nhập gì nghĩa là giá trị như ban
+                    đầu)</strong></h2>
+            <div class="form__group-conf">
+                <div class="form__group-minAge">
+                    <label class="form__label-conf" for="minAge-conf">Nhập số tuổi nhỏ nhất của cầu thủ</label>
+                    <input class="form__input-conf" type="text" id="minAge-conf"
+                        placeholder="Nhập số tuổi nhỏ nhất của cầu thủ">
+                </div>
+                <div class="form__group-maxAge">
+                    <label class="form__label-conf" for="maxAge-conf">Nhập số tuổi lớn nhất của cầu thủ</label>
+                    <input class="form__input-conf" type="text" id="maxAge-conf"
+                        placeholder="Nhập số tuổi lớn nhất của cầu thủ">
+                </div>
+            </div>
+            <div class="form__group-conf">
+                <div class="form__group-minNum">
+                    <label class="form__label-conf" for="minNum-conf">Nhập số cầu thủ nhỏ nhất của đội</label>
+                    <input class="form__input-conf" type="text" id="minNum-conf"
+                        placeholder="Nhập số cầu thủ nhỏ nhất của đội">
+                </div>
+                <div class="form__group-maxNum">
+                    <label class="form__label-conf" for="maxNum-conf">Nhập số cầu thủ lớn nhất của đội</label>
+                    <input class="form__input-conf" type="text" id="maxNum-conf"
+                        placeholder="Nhập số cầu thủ lớn nhất của đội">
+                </div>
+            </div>
+            <div class="form__group-conf">
+                <label class="form__label-conf" for="maxForeign-conf">Nhập số cầu thủ nước ngoài lớn nhất của
+                    đội</label>
+                <input class="form__input-conf" type="text" id="maxForeign-conf"
+                    placeholder="Nhập số cầu thủ nước ngoài lớn nhất của đội">
+            </div>
+            <div class="form__group-conf">
+                <label class="form__label-conf" for="footballType-conf">Nhập loại cầu thủ được phép(ngăn cách mỗi loại
+                    bởi dấu phẩy)</label>
+                <input class="form__input-conf" type="text" id="footballType-conf"
+                    placeholder="Nhập loại cầu thủ được phép(ngăn cách mỗi loại bởi dấu phẩy)">
+            </div>
+        </form>
+        <button class="btn__conf">Xác nhận</button>
+    </div>
     <script src="/JS/DF.js"></script>
+    <script src="/JS/dangki.js"></script>
 </body>
 
 </html>

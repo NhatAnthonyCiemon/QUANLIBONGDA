@@ -1,0 +1,89 @@
+*{
+    color:#fff;
+}
+
+.container {
+    position: relative;
+    padding: 120px 112px 60px;
+    background-size: cover;
+    background-image: url(../assets/background_home.png);
+    background-position: center;
+}
+
+.introduce{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    gap:34px;
+}
+
+.introduce_left{
+    padding-top:100px;
+}
+
+.introduce_right{
+    position: relative;
+}
+
+.introduce_content{
+    position:relative;
+    width: 586px;
+    height: 296px;
+    z-index: 0;
+}
+
+.introduce_content::before{
+    content:"";
+    position:absolute;
+    top:-10%;
+    left:-50%;
+    width:240%;
+    height:100%;
+    background-image: url(../assets/trangchu_background_title.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: -1;
+
+}
+
+
+.introduce_content .introduce_title{
+    font-family: 'Tektur', sans-serif;
+    font-size: 60px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 133.333%;
+}
+
+.introduce_content .introduce_desc{
+    margin-top: 6px;
+    padding-right: 50px;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    text-align: justify;
+}
+
+.introduce_content .introduce_desc strong{
+    font-weight: 700;
+}
+
+.introduce_content .introduce_click {
+    margin-top: 20px;
+}
+
+.introduce_content .introduce_click .signup_click{
+    z-index: 1;
+    position: relative;
+    color: #B3FFAD;
+    padding:6px 10px 6px 16px;
+    font-size: 22px;
+    font-style: italic;
+    font-weight: 700;   
+    line-height: 120%;
+}
+
+.introduce_click .signup_click:hover{ 
+    color: #90E18A;
+}

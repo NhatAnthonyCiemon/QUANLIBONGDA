@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Be+Vietnam:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
@@ -41,8 +42,8 @@
             <div class="tracuu">
                 <h2 >TRA CỨU THÔNG TIN</h2>
                 <div class="button-group">
-                    <button class="btn">Danh sách cầu thủ</button>
-                    <button class="btn">Báo cáo mùa giải</button>
+                    <button class="btn1">Danh sách cầu thủ</button>
+                    <button class="btn2">Báo cáo mùa giải</button>
                 </div>          
                         
             </div>
@@ -58,7 +59,7 @@
                     
                         <div class="chonmuagiai">                     
                             <div class="search-box">
-                                <input type="text" placeholder="Nhập tên cầu thủ cần tìm kiếm">            
+                                <input type="text" class="search-input" placeholder="Nhập tên cầu thủ cần tìm kiếm">            
                                 <i class='bx bx-search icon'></i>
                             </div>                
                         
@@ -234,10 +235,6 @@
                         <h1 id="DSCTGB">DANH SÁCH CÁC CẦU THỦ GHI BÀN</h1>
                 
                         <div class="chonmuagiai">
-                            <div class="search-box">
-                                <input type="text" placeholder="Nhập tên cầu thủ cần tìm kiếm">            
-                                <i class='bx bx-search icon'></i>
-                            </div> 
                             <div class="dropdown-button" id="dropdownBtn">
                                 <span>Mùa: 2024-2025</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -313,32 +310,92 @@
     
             </div>
     
-        </div>
-
-        <script >//js của nút nhất chọn năm
+        </div>             
         
-            const dropdownBtn = document.getElementById('dropdownBtn');
-            const dropdownMenu = document.getElementById('dropdownMenu');
-            const arrowIcon = dropdownBtn.querySelector('svg');
-    
-            dropdownBtn.addEventListener('click', () => {
-                dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
-                arrowIcon.classList.toggle('rotate');
-            });
-    
-            // Close dropdown if clicked outside
-            window.onclick = function(event) {
-                if (!event.target.matches('.dropdown-button') && !event.target.closest('.dropdown-button')) {
-                    dropdownMenu.style.display = 'none';
-                    arrowIcon.classList.remove('rotate');
-                }
-            };
-        </script>
     </main>
 
     <footer>
     </footer>
     <script src="/JS/DF.js"></script>
+
+    <script >//js của nút nhất chọn năm
+        
+        const dropdownBtn = document.getElementById('dropdownBtn');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+        const arrowIcon = dropdownBtn.querySelector('svg');
+
+        dropdownBtn.addEventListener('click', () => {
+            dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+            arrowIcon.classList.toggle('rotate');
+        });
+
+        // Close dropdown if clicked outside
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropdown-button') && !event.target.closest('.dropdown-button')) {
+                dropdownMenu.style.display = 'none';
+                arrowIcon.classList.remove('rotate');
+            }
+        };
+    </script>
+    
+    <script> // js button danh sach cau thu với báo cáo mùa giải
+            document.addEventListener('DOMContentLoaded', function() {
+                // Lấy các nút và div tương ứng
+                const playerButton = document.querySelector('.button-group .btn1');
+                const reportButton = document.querySelector('.button-group .btn2');
+                
+                const playerListDiv = document.querySelector('.danhsachcauthu');
+                const goalScorersDiv = document.querySelector('.danhsachcaccauthughiban');
+                const rankingDiv = document.querySelector('.bangxephang');
+
+                // Ẩn tất cả các div khi trang được tải
+                playerListDiv.style.display = 'none';
+                goalScorersDiv.style.display = 'none';
+                rankingDiv.style.display = 'none';
+
+                // Thêm sự kiện click cho nút "Danh sách cầu thủ"
+                playerButton.addEventListener('click', function() {
+                    playerListDiv.style.display = 'block'; // Hiện div "Danh sách cầu thủ"
+                    goalScorersDiv.style.display = 'none'; // Ẩn div "Danh sách cầu thủ ghi bàn"
+                    rankingDiv.style.display = 'none'; // Ẩn div "Bảng xếp hạng"
+                });
+
+                // Thêm sự kiện click cho nút "Báo cáo mùa giải"
+                reportButton.addEventListener('click', function() {
+                    playerListDiv.style.display = 'none'; // Ẩn div "Danh sách cầu thủ"
+                    goalScorersDiv.style.display = 'block'; // Hiện div "Danh sách cầu thủ ghi bàn"
+                    rankingDiv.style.display = 'block'; // Hiện div "Bảng xếp hạng"
+                });
+
+                // Thêm sự kiện keyup cho ô tìm kiếm
+                const searchBox = document.querySelector('.search-input');
+                const searchIcon = document.querySelector('.icon');
+
+                searchIcon.addEventListener('click', function() {
+                    const filter = searchBox.value.toLowerCase();
+                    const table = document.querySelector('table tbody');
+                    const rows = table.getElementsByTagName('tr');
+
+                    for (let i = 0; i < rows.length; i++) {
+                        const cells = rows[i].getElementsByTagName('td');
+                        let found = false;
+
+                        for (let j = 1; j < cells.length; j++) { // Bỏ qua cột STT
+                            if (cells[j].innerText.toLowerCase().indexOf(filter) > -1) {
+                                found = true;
+                                break;
+                            }
+                        }
+
+                        rows[i].style.display = found ? "" : "none";
+                    }
+                });
+            });
+        </script>
+    
+    
+
+        
 </body>
 
 </html>

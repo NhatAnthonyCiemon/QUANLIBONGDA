@@ -103,3 +103,14 @@ tbody tr:not(:last-child)::after {
   border-radius: 18px;
   padding-bottom: 20px; /* Điều chỉnh khoảng cách */
 }
+
+button {
+  cursor: pointer;
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.hidden {
+  display: none;
+}

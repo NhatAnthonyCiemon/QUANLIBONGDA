@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,13 +31,11 @@
     <link rel="stylesheet" href="../css/Lichthidau.css">
     <title>Lịch thi đấu</title>
 </head>
-
-
-
 <body>
 
     <header>
     </header>
+
     <main class=" bg-[url('../assets/main-background.png')] w-full h-auto bg-cover" style="overflow: hidden;">
         <div class="calendar__container mx-auto w-[1216px] h-auto top-12 relative">     
             <div class="flex flex-row justify-around relative top-5">
@@ -47,17 +44,10 @@
 
                     <div class="season-dropdown w-[320px] h-[58.05px] flex flex-row">
                         <span>Mùa:</span>
-                        <strong>2024–2025</strong>
+                        <strong id="selected-season">2024–2025</strong>
                         <div class="arrow" onclick="toggleDropdown()"></div>
                     </div>
-                    <div class="dropdown-content">
-                        <a href="#" class="ml-12 rounded-lg"><strong>2024–2025</strong></a>
-                        <a href="#" class="ml-12 rounded-lg"><strong>2023–2024</strong></a>
-                        <a href="#" class="ml-12 rounded-lg"><strong>2022–2023</strong></a>
-                        <a href="#" class="ml-12 rounded-lg"><strong>2021–2022</strong></a>
-                        <a href="#" class="ml-12 rounded-lg"><strong>2020–2021</strong></a>
-                        <a href="#" class="ml-12 rounded-lg"><strong>2019–2020</strong></a>
-                    </div>
+                    <div class="dropdown-content hidden" id="dropdown"></div>
                     
                 </div>
                 <div class="create-calendar flex flex-row justify-between items-center text-white w-[666px] h-auto rounded-lg mx-20 shadow-lg">
@@ -76,14 +66,14 @@
                 
             </div>
 
-            <div class="flex flex-row justify-center items-center mt-12 space-x-4">
-                <button class="w-[74px] h-[75.91px] bg-[#98FF98] rounded-full flex items-center justify-center font-semibold text-center text-3xl hover:bg-[#82e682] transition-all duration-300">
+            <div id="rounds-container" class="flex flex-row justify-center items-center mt-12 space-x-4">
+                <button onclick="prevRound()" class="w-[74px] h-[75.91px] bg-[#98FF98] rounded-full flex items-center justify-center font-semibold text-center text-3xl hover:bg-[#82e682] transition-all duration-300">
                     &lt;
                 </button>
-                <div class="w-[893px] h-[67px] bg-[#98FF98] rounded-full flex items-center justify-center font-semibold text-center text-3xl shadow-lg">
+                <div id="round-name" class="w-[893px] h-[67px] bg-[#98FF98] rounded-full flex items-center justify-center font-semibold text-center text-3xl shadow-lg">
                     Vòng 1
                 </div>
-                <button class="w-[74px] h-[75.91px] bg-[#98FF98] rounded-full flex items-center justify-center font-semibold text-center text-3xl hover:bg-[#82e682] transition-all duration-300">
+                <button onclick="nextRound()" class="w-[74px] h-[75.91px] bg-[#98FF98] rounded-full flex items-center justify-center font-semibold text-center text-3xl hover:bg-[#82e682] transition-all duration-300">
                     &gt;
                 </button>
             </div>
@@ -99,37 +89,13 @@
                             <th>Sân</th>
                             <th></th>
                         </tr>
+                        <tr>
+                            <td colspan="6">
+                                <hr style="border: 2px solid white; width: 92%;">
+                            </td>
                     </thead>
                     <tbody class="text-2xl" id="team">
-                        <tr>
-                            <td colspan="5">
-                                
-                            </td>
-                        </tr>
-                        <tr class="border-t border-white">
-                            <td>1</td>
-                            <td>Đội A</td>
-                            <td>Đội B</td>
-                            <td>1/1/2024 - 2:00</td>
-                            <td>Sân A</td>
-                            <td><button class="w-[132px] h-[54px] bg-[#377453] hover:bg-[#5ABF89] transition-all duration-300 rounded-xl mt-4 text-xl shadow-md" onclick="toggleRows(0)">Kết quả</button></td>
-                        </tr>
-                        <tr class="border-t border-white">
-                            <td>2</td>
-                            <td>Đội C</td>
-                            <td>Đội D</td>
-                            <td>2/1/2024 - 4:00</td>
-                            <td>Sân B</td>
-                            <td><button class="w-[132px] h-[54px] bg-[#377453] hover:bg-[#5ABF89] transition-all duration-300 rounded-xl mt-4 text-xl shadow-md" onclick="toggleRows(1)">Kết quả</button></td>
-                        </tr>
-                        <tr class="border-t border-white">
-                            <td>3</td>
-                            <td>Đội E</td>
-                            <td>Đội F</td>
-                            <td>3/1/2024 -6:00</td>
-                            <td>Sân C</td>
-                            <td><button class="w-[132px] h-[54px] bg-[#377453] hover:bg-[#5ABF89] transition-all duration-300 rounded-xl mt-4 text-xl shadow-md" onclick="toggleRows(2)">Kết quả</button></td>
-                        </tr>
+                        
                     </tbody>
                 </table>
                 
@@ -153,7 +119,6 @@
                         </tr>
                     </thead>
                     <tbody id="table_result_body">
-                        <!-- Rows will be inserted here -->
                     </tbody>
                 </table>
                 
@@ -166,7 +131,6 @@
                             <th>Loại bàn thắng</th>
                             <th>Thời điểm</th>
                         </tr>
-                        <!-- Hàng chứa dấu gạch ngang -->
                         <tr>
                             <td colspan="5">
                                 <hr style="border: 1px solid white; width: 94%;">
@@ -174,7 +138,6 @@
                         </tr>
                     </thead>
                     <tbody id="table_goal_body">
-                        <!-- Rows will be inserted here -->
                     </tbody>
                 </table>
                 
@@ -193,7 +156,6 @@
                 + Thời điểm ghi bàn từ 0 đến 96.
             </li>
         </ul>
-        <!-- Thêm ảnh ở đây -->
         <a href="#"><img src="../assets/gear.png" alt="Icon" class="absolute bottom-2 right-2 w-[60px] h-[60px]"></a>
     </div>
     
@@ -203,5 +165,4 @@
     <script src="../JS/Lichthidau.js"></script>
     <script src="../JS/DF.js"></script>
 </body>
-
 </html>

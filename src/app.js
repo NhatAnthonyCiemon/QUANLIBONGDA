@@ -7,8 +7,10 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
+//Static files
 app.use(express.static('../src/public'));
 
+//Routes
 app.use('/Teams', teamsRouter);
 app.use('/Players', playersRouter);
 
@@ -19,6 +21,6 @@ app.use((err, req, res, next) => {
 });
 
 
-app.listen(3000, () => {
+app.listen(process.env.PORT, () => {
     console.log('Server is running on port 3000');
 });

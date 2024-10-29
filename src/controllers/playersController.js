@@ -26,7 +26,7 @@ export async function getPlayerById(req, res){
 }
 
 export async function createPlayer(req, res){
-    const { player_name, birth_date, player_type, team, note } = req.body;
+    const { player_name, birth_date, player_type, team, note } = req.body; // middleware express.json() is used to parse the body of the request
     try{
         const [result] = await pool.query(`INSERT INTO players (player_name, birth_date, player_type, team, note) 
         VALUES (N?, ?, N?, ?, N?)`, [player_name, birth_date, player_type, team, note]);

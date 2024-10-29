@@ -25,7 +25,6 @@ export async function getTeamById(req, res) {
 
 export async function createTeam(req, res) {
     const { team_name, stadium, email } = req.body;
-    console.log(req.body);
     try {
         const [result] = await pool.query(
             `INSERT INTO teams (team_name,stadium, email) VALUES (N?, ?,?)`,

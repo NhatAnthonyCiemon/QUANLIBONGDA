@@ -21,6 +21,23 @@ CREATE TABLE players
     CONSTRAINT fk_teams FOREIGN KEY (team) 
                          REFERENCES teams(id)
 );
+
+CREATE TABLE standards
+(
+    id integer primary key auto_increment,
+    loai_cau_thu varchar(50)  CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci not null,
+    age_min integer not null,
+    age_max integer not null,
+    num_max integer not null,
+    num_min integer not null,
+    foreign_max integer not null
+);
+
+INSERT INTO standards (loai_cau_thu,age_min,age_max,num_max,num_min,foreign_max)
+Values
+(N'Trong nước, Nước ngoài',16,40,15,22,3)
+
+
 INSERT INTO teams (team_name,stadium, email)
 Values 
 (N'Đông Lào','Sân Mĩ Đình' ,'donglao@gmail.com');

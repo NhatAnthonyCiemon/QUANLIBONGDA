@@ -6,6 +6,7 @@ CREATE TABLE teams
 (
 	id integer primary key auto_increment,
     team_name varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci not null,
+    stadium varchar(100) not null,
     email varchar(100) not null 
 );
 
@@ -20,9 +21,9 @@ CREATE TABLE players
     CONSTRAINT fk_teams FOREIGN KEY (team) 
                          REFERENCES teams(id)
 );
-INSERT INTO teams (team_name, email)
+INSERT INTO teams (team_name,stadium, email)
 Values 
-(N'Đông Lào', 'donglao@gmail.com');
+(N'Đông Lào','Sân Mĩ Đình' ,'donglao@gmail.com');
 
 INSERT INTO players (player_name, birth_date,player_type,team,note)
 Values 

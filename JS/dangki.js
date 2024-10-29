@@ -18,6 +18,10 @@ fetch("http://localhost:3000/Standards/DK")
         num_max = data.num_max;
         foreign_max = data.foreign_max;
         main();
+    })
+    .catch((err) => {
+        console.error(err);
+        main();
     });
 
 function main() {

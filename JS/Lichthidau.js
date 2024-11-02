@@ -214,4 +214,78 @@ function toggleDropdown() {
 // Chọn mùa giải mặc định khi trang tải
 window.onload = function() {
     selectSeason('2024–2025');
+    updateGoalInfo();
+};
+
+/*Phần điều chỉnh quy định*/
+const modal = document.getElementById("myModal");
+const image = document.getElementById("image");
+const span = document.getElementsByClassName("close")[0];
+const saveButton = document.getElementById("saveButton");
+//Thông tin hiển thị
+const goalInfo = document.getElementById("goalInfo");
+// Giá trị mặc định
+let defaultGoalTypes = ['Ghi bàn', 'Phản lưới', 'Phạt đền'];
+let defaultMaxGoalTime = 96;
+// Lấy giá trị từ localStorage hoặc sử dụng giá trị mặc định
+let goalTypes = localStorage.getItem('goalTypes') ? JSON.parse(localStorage.getItem('goalTypes')) : defaultGoalTypes;
+let maxGoalTime = localStorage.getItem('maxGoalTime') ? parseInt(localStorage.getItem('maxGoalTime')) : defaultMaxGoalTime;
+
+// Mở modal khi click vào hình ảnh
+image.onclick = function () {
+    modal.style.display = "block";
+}
+
+// Lấy các modal
+var closeButtons = document.getElementsByClassName("close");
+
+// Đóng modal khi nhấn vào dấu X
+for (let i = 0; i < closeButtons.length; i++) {
+    closeButtons[i].onclick = function () {
+        var modal = this.parentElement.parentElement;
+        modal.style.display = "none";
+    }
+}
+// Đóng modal khi click ra ngoài modal
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+    if (event.target == resultModal) {
+        resultModal.style.display = "none";
+    }
+}
+// Hàm để cập nhật đoạn văn "goalInfo"
+function updateGoalInfo() {
+    goalInfo.innerHTML =`
+        <li>Có <span style="color: #AAFFA7;">${goalTypes.length}</span> loại bàn thắng: ${goalTypes.join(", ")}.<li> <li>Thời điểm ghi bàn từ 0 đến ${maxGoalTime}.</li> `
+}
+
+// Khi nhấn nút "Lưu"
+saveButton.onclick = function () {
+// Lấy giá trị từ input
+    const newGoalTypes = document.getElementById('goalTypes').value;
+    const newMaxGoalTime = document.getElementById('maxGoalTime').value;
+
+// Kiểm tra nếu có giá trị mới được nhập, thì cập nhật các biến và localStorage
+    if (newGoalTypes) {
+        goalTypes = newGoalTypes.split(',').map(type => type.trim());
+        localStorage.setItem('goalTypes', JSON.stringify(goalTypes));  // Lưu vào localStorage
+    }
+
+// Kiểm tra nếu thời gian ghi bàn là số không âm
+    if (newMaxGoalTime) {
+        const parsedMaxGoalTime = parseInt(newMaxGoalTime, 10);
+        if (parsedMaxGoalTime >= 0) {
+            maxGoalTime = parsedMaxGoalTime;
+            localStorage.setItem('maxGoalTime', maxGoalTime);  // Lưu vào localStorage
+        } else {
+            alert('Thời điểm ghi bàn phải là một số không âm!');  // Thông báo nếu giá trị âm
+            return;
+        }
+    }
+
+    // Cập nhật lại đoạn văn với giá trị mới
+    updateGoalInfo();
+    modal.style.display = "none"; // Đóng modal
 };

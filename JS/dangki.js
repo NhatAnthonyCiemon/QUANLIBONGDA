@@ -233,36 +233,53 @@ function main() {
         shadow.classList.add("shadow-active");
         shadow__box_conf.classList.add("shadow__box-conf-active");
     });
-
-    btn_conf.addEventListener("click", function () {
-        age_min = document.querySelector("#minAge-conf").value || age_min;
-        age_max = document.querySelector("#maxAge-conf").value || age_max;
-        num_min = document.querySelector("#minNum-conf").value || num_min;
-        num_max = document.querySelector("#maxNum-conf").value || num_max;
-        foreign_max =
-            document.querySelector("#maxForeign-conf").value || foreign_max;
-        if (document.querySelector("#footballType-conf").value != "") {
-            loaicauthu = document
-                .querySelector("#footballType-conf")
-                .value.split(",")
-                .map((item) => item.trim());
+    function firstLoad() {
+        var _username = localStorage.getItem("username");
+        var _password = localStorage.getItem("password");
+        if (_username != null && _password != null) {
+            return { username: _username, password: _password };
         }
-        fetch("http://localhost:3000/Standards/DK", {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
+        return null;
+    }
+    if (firstLoad() != null) {
+        btn_conf.addEventListener("click", function () {
+            age_min = document.querySelector("#minAge-conf").value || age_min;
+            age_max = document.querySelector("#maxAge-conf").value || age_max;
+            num_min = document.querySelector("#minNum-conf").value || num_min;
+            num_max = document.querySelector("#maxNum-conf").value || num_max;
+            foreign_max =
+                document.querySelector("#maxForeign-conf").value || foreign_max;
+            if (document.querySelector("#footballType-conf").value != "") {
+                loaicauthu = document
+                    .querySelector("#footballType-conf")
+                    .value.split(",")
+                    .map((item) => item.trim());
+            }
+            const message = {
+                loaicauthu: loaicauthu.join(","),
                 age_min: age_min,
                 age_max: age_max,
                 num_min: num_min,
                 num_max: num_max,
                 foreign_max: foreign_max,
-                loaicauthu: loaicauthu.join(","),
-            }),
+            };
+            const info = firstLoad();
+            const content = {
+                message: message,
+                info: info,
+            };
+            fetch("http://localhost:3000/Standards/DK", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(content),
+            });
+            showRegulation();
+            shadow.classList.remove("shadow-active");
+            shadow__box_conf.classList.remove("shadow__box-conf-active");
         });
-        showRegulation();
-        shadow.classList.remove("shadow-active");
-        shadow__box_conf.classList.remove("shadow__box-conf-active");
-    });
+    } else {
+        btn_regulation.style.display = "none";
+    }
 }

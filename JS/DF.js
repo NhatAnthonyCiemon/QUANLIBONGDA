@@ -1,5 +1,16 @@
-let header = document.querySelector('header');
-let headeInner= `<img src="/assets/Logo.svg" alt="Logo">
+function firstLoad() {
+    var _username = localStorage.getItem("username");
+    console.log(_username);
+
+    var _password = localStorage.getItem("password");
+    console.log(_password);
+    if (_username != null && _password != null) {
+        return { username: _username, password: _password };
+    }
+    return { username: "", password: "" };
+}
+let header = document.querySelector("header");
+let headeInner = `<img src="/assets/Logo.svg" alt="Logo">
             <ul class="header__links">
                 <li><a class="header__link" href="/index.html">TRANG CHỦ</a></li>
                 <li><a class="header__link" href="/page/Dangki.html">ĐĂNG KÝ</a></li>
@@ -10,28 +21,28 @@ let headeInner= `<img src="/assets/Logo.svg" alt="Logo">
         <div class="header__wrapper">
             <p class="header__btn-desc">CHỈ DÀNH CHO ADMIN</p>
             <button class="header__btn">Đăng nhập</button>
-        </div>`
+        </div>`;
 header.innerHTML = headeInner;
 let pageTitle = document.title;
-let headerLinks = document.querySelectorAll('.header__link');
-headerLinks.forEach(link => {
+let headerLinks = document.querySelectorAll(".header__link");
+headerLinks.forEach((link) => {
     if (link.innerText.toLowerCase() === pageTitle.toLowerCase()) {
-        link.classList.add('header__link-active');
+        link.classList.add("header__link-active");
     }
-})
+});
 
-if(pageTitle === 'Đăng nhập') {
-   headerWrapper = document.querySelector('.header__wrapper');
-   headerWrapper.remove();
+if (pageTitle === "Đăng nhập") {
+    headerWrapper = document.querySelector(".header__wrapper");
+    headerWrapper.remove();
 }
-let headerBtn =document.querySelector(".header__btn")
-if(headerBtn) {
-    headerBtn.addEventListener('click', () => {
-        window.location.href = '/page/Dangnhap.html';
-    })
+let headerBtn = document.querySelector(".header__btn");
+if (headerBtn) {
+    headerBtn.addEventListener("click", () => {
+        window.location.href = "/page/Dangnhap.html";
+    });
 }
 
-let footer = document.querySelector('footer');
+let footer = document.querySelector("footer");
 let footerInner = `<div class="footer__main">
             <img src="/assets/Logo.svg" alt="Logo">
             <div class="footer__pages">
@@ -75,7 +86,38 @@ let footerInner = `<div class="footer__main">
                 </div>
             </div>
         </div>
-        <p class="footer__copyright">Bản quyền © 2024-2025 Nhóm 5</p>`
+        <p class="footer__copyright">Bản quyền © 2024-2025 Nhóm 5</p>`;
 footer.innerHTML = footerInner;
 
-
+fetch("http://localhost:3000/admin/login", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+    },
+    body: JSON.stringify(firstLoad()),
+})
+    .then((response) => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error("Login failure");
+    })
+    .then((data) => {
+        const btnDesc = document.querySelector(".header__btn-desc");
+        headerBtn.innerText = "Đăng xuất";
+        headerBtn.style.backgroundColor = "yellow";
+        headerBtn.style.color = "black";
+        btnDesc.innerText = "CHÀO MỪNG ADMIN";
+        headerBtn.removeEventListener("click", () => {
+            window.location.href = "/page/Dangnhap.html";
+        });
+        headerBtn.addEventListener("click", () => {
+            localStorage.removeItem("username");
+            localStorage.removeItem("password");
+            window.location.href = "/index.html";
+        });
+        console.log(data);
+    })
+    .catch((error) => {
+        console.error(error);
+    });

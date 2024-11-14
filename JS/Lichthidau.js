@@ -73,25 +73,35 @@ const tableGoals = {
             ]
         ],
         'Vòng 2': [
-            ["1", "Cầu thủ B", "Đội B", "Ghi bàn", "60'"],
-            ["2", "Cầu thủ A", "Đội A", "Phản lưới", "80'"]
+            [
+                ["1", "Cầu thủ B", "Đội B", "Ghi bàn", "60'"],
+                ["2", "Cầu thủ A", "Đội A", "Phản lưới", "80'"]
+            ]
         ]
     },
     '2023–2024': {
         'Vòng 1': [
-            ["1", "Cầu thủ E", "Đội E", "Ghi bàn", "30'"]
+            [
+                ["1", "Cầu thủ E", "Đội E", "Ghi bàn", "30'"]
+            ]
         ],
         'Vòng 2': [
-            ["1", "Cầu thủ F", "Đội E", "Ghi bàn", "40'"]
+            [
+                ["1", "Cầu thủ F", "Đội E", "Ghi bàn", "40'"]
+            ]
         ]
     },
     '2022–2023': {
         'Vòng 1': [
-            ["1", "Cầu thủ K", "Đội L", "Ghi bàn", "35'"]
+            [
+                ["1", "Cầu thủ K", "Đội L", "Ghi bàn", "35'"]
+            ]
         ],
         'Vòng 2': [
-            ["1", "Cầu thủ L", "Đội L", "Ghi bàn", "25'"],
-            ["2", "Cầu thủ K", "Đội K", "Phản lưới", "75'"]
+            [
+                ["1", "Cầu thủ L", "Đội L", "Ghi bàn", "25'"],
+                ["2", "Cầu thủ K", "Đội K", "Phản lưới", "75'"]
+            ]
         ]
     }   
 };
@@ -296,7 +306,7 @@ function toggleRows(season, round, index) {
     if (!currentTableGoals) {
         currentTableGoals = tableGoals;
     }
-
+    
     const resultData =currentTableResults[season][round][index];
     const goalData = currentTableGoals[season][round][index];
 
@@ -322,6 +332,7 @@ function toggleRows(season, round, index) {
 
     // Hiển thị modal
     modal.style.display = 'block';
+    console.log(resultData);
 }
 
 document.getElementById("changeInfoButton").onclick = function () {

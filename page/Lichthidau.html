@@ -37,7 +37,7 @@
     </header>
 
     <main class=" bg-[url('../assets/main-background.png')] w-full h-auto bg-cover" style="overflow: hidden;">
-        <div class="calendar__container mx-auto w-[1216px] h-auto top-12 relative">     
+        <div class="calendar__container mx-auto w-[1216px] h-auto top-12 relative">
             <div class="flex flex-row justify-around relative top-5">
                 <div class="w-[500px]  h-[189px] rounded-lg flex flex-col justify-center mx-8 ">
                     <h1 class="text-white  w-[400px] text-6xl">LỊCH THI ĐẤU</h1> <br>
@@ -48,22 +48,24 @@
                         <div class="arrow" onclick="toggleDropdown()"></div>
                     </div>
                     <div class="dropdown-content hidden" id="dropdown"></div>
-                    
+
                 </div>
                 <div class="create-calendar flex flex-row justify-between items-center text-white w-[666px] h-auto rounded-lg mx-20 shadow-lg">
                     <div class="flex flex-col justify-center pl-6">
                         <h2>Tạo giải đấu (Admin)</h2>
-                        <p class="text-2xl mt-1">Số đội đã đăng ký: <span class="font-semibold"style="color: #DAFFB6;">10</span></p>
+                        <p class="text-2xl mt-1">Số đội đã đăng ký: <span class="font-semibold" style="color: #DAFFB6;">10</span></p>
                         <p class="text-2xl">Còn: <span class="font-semibold" style="color: #DAFFB6;">5</span> slot</p>
                     </div>
                     <div class="flex flex-col justify-center items-start pr-6">
-                        <h2 class="ml-2">Mùa 2024–2025</h3>
-                        <button class="w-[264px] h-[70px] bg-[#377453] hover:bg-[#2e6044] transition-all duration-300 rounded-xl text-3xl shadow-md">
-                            Bắt đầu mùa giải
-                        </button>
+                        <h2 class="ml-2">
+                            Mùa 2024–2025</h2>
+                            <button class="w-[264px] h-[70px] bg-[#377453] hover:bg-[#2e6044] transition-all duration-300 rounded-xl text-3xl shadow-md">
+                                Bắt đầu mùa giải
+                            </button>
+                           
                     </div>
                 </div>
-                
+
             </div>
 
             <div id="rounds-container" class="flex flex-row justify-center items-center mt-12 space-x-4">
@@ -95,55 +97,54 @@
                             </td>
                     </thead>
                     <tbody class="text-2xl" id="team">
-                        
                     </tbody>
                 </table>
-                
+
             </div>
-            <div class="result flex flex-col  rounded-2xl w-[1078px] h-auto ml-16 my-10 pb-20">
-                <h1 class="ml-10 text-4xl mb-5 mt-5" style="color: #9CFFAE; font-weight: 700;">Kết quả thi đấu</h1>
-                <table class="table-auto w-full text-left ml-10 text-white border-collapse" id="table_result">
-                    <thead class="text-3xl" style="color:#D3FFC4">
-                        <tr>
-                            <th>Đội 1</th>
-                            <th>Tỉ số</th>
-                            <th>Đội 2</th>
-                            <th>Sân</th>
-                            <th>Ngày - Giờ</th>
-                        </tr>
-                       
-                        <tr>
-                            <td colspan="5">
-                                <hr style="border: 2px solid white; width: 85%;">
-                            </td>
-                        </tr>
-                    </thead>
-                    <tbody id="table_result_body">
-                    </tbody>
-                </table>
-                
-                <table class="table-auto w-full text-left ml-10 text-white border-collapse mt-5" id="table_goal">
-                    <thead class="text-3xl" >
-                        <tr class="border border-teal-50" style="color:#D3FFC4">
-                            <th>STT</th>
-                            <th>Cầu thủ</th>
-                            <th>Đội</th>
-                            <th>Loại bàn thắng</th>
-                            <th>Thời điểm</th>
-                        </tr>
-                        <tr>
-                            <td colspan="5">
-                                <hr style="border: 1px solid white; width: 94%;">
-                            </td>
-                        </tr>
-                    </thead>
-                    <tbody id="table_goal_body">
-                    </tbody>
-                </table>
-                
+
+            <!-- Modal để hiển thị kết quả trận đấu -->
+            <div id="resultModal" class="modal">
+                <div class="modal-content" style="background-color: white">
+                    <span class="close">&times;</span>
+                    <h2 style="font-size: 25px; font-weight: bold; text-align: center; color:green">Kết quả trận đấu</h2>
+                    <!-- Đây là bảng kết quả -->
+                    <table id="modalTableResults" class="result-table">
+                        <thead>
+                            <tr>
+                                <th>Đội 1</th>
+                                <th>Kết quả</th>
+                                <th>Đội 2</th>
+                                <th>Địa điểm</th>
+                                <th>Thời gian</th>
+                            </tr>
+                        </thead>
+                        <tbody id="modalResultBody">
+                            <!-- Thông tin kết quả sẽ được thêm vào đây -->
+                        </tbody>
+                    </table>
+                    <!-- Đây là bảng thông tin ghi bàn -->
+                    <h3 style="font-size: 25px; font-weight: bold; text-align: center; color:green">Danh sách bàn thắng</h3>
+                    <table id="modalTableGoals" class="goal-table">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên cầu thủ</th>
+                                <th>Đội</th>
+                                <th>Loại bàn thắng</th>
+                                <th>Thời điểm</th>
+                            </tr>
+                        </thead>
+                        <tbody id="modalGoalBody">
+                            <!-- Thông tin ghi bàn sẽ được thêm vào đây -->
+                        </tbody>
+                    </table>
+                    <!-- Nút để thay đổi thông tin -->
+                    <button id="changeInfoButton">Sửa đổi kết quả</button>
+                </div>
             </div>
         </div>
-        
+
+        <!--Phần này là phần hiện, thay đổi quy định-->
         <div class="mx-auto w-[1216px] mt-20 regular mb-20 relative">
             <h2 class="text-3xl ml-10 mt-9" style="color: #AAFFA7; font-size: 40px; font-weight: 700;">Quy định:</h2>
             <ul id="goalInfo" class="text-2xl text-white ml-10 mt-9" style="font-size: 25px; font-weight: 500;"></ul>
@@ -172,7 +173,7 @@
                 </div>
             </div>
         </div>
-    
+
     </main>
     <footer>
     </footer>

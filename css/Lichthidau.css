@@ -199,7 +199,48 @@ label {
     cursor: pointer;
 }
 
-    #saveButton:hover {
-        background-color: #45a049; /* Tối hơn khi hover */
-    }
+#saveButton:hover {
+    background-color: #45a049; /* Tối hơn khi hover */
+}
 
+button#changeInfoButton {
+    margin-top: 20px;
+    background-color: #4CAF50; /* Xanh lá */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button#changeInfoButton:hover {
+    background-color: #45a049; /* Tối hơn khi hover */
+}
+
+#resultModal {
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+}
+
+#resultModal table {
+    width: 95%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+#resultModal th,
+#resultModal td {
+    border: 1px solid black;
+    text-align:center;
+    width: 20%;
+}
+
+#resultModal thead{
+    font-weight:bold;
+}
+#resultModal input {
+    border: 1px solid #ddd;
+    border-radius: 10px; /*Bo tròn ô nhập*/
+    background-color: lightgray; /*Màu nền của ô nhập */
+    text-align:center;
+}

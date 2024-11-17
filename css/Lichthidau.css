@@ -203,7 +203,9 @@ label {
     background-color: #45a049; /* Tối hơn khi hover */
 }
 
-button#changeInfoButton {
+button#changeInfoButton,
+.deleteButton,
+.addPlayerButton {
     margin-top: 20px;
     background-color: #4CAF50; /* Xanh lá */
     color: white;
@@ -213,7 +215,9 @@ button#changeInfoButton {
     cursor: pointer;
 }
 
-button#changeInfoButton:hover {
+button#changeInfoButton:hover,
+.deleteButton:hover,
+.addPlayerButton:hover {
     background-color: #45a049; /* Tối hơn khi hover */
 }
 

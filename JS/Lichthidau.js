@@ -237,6 +237,12 @@ for (let i = 0; i < closeButtons.length; i++) {
             document.getElementById("changeInfoButton").onclick = function () {
                 changeToEditMode();  // Đưa trở lại chế độ chỉnh sửa
             };
+
+            const addPlayerButton = document.querySelector('.addPlayerButton');
+            if (addPlayerButton) {
+                addPlayerButton.remove();
+            }
+
         }
         modal.style.display = "none";
     }
@@ -251,6 +257,11 @@ window.onclick = function (event) {
         document.getElementById("changeInfoButton").onclick = function () {
             changeToEditMode();  // Đưa trở lại chế độ chỉnh sửa
         };
+        // Xóa nút "Thêm cầu thủ"
+        const addPlayerButton = document.querySelector('.addPlayerButton');
+        if (addPlayerButton) {
+            addPlayerButton.remove();
+        }
         resultModal.style.display = "none";
     }
 }
@@ -346,6 +357,8 @@ function changeToEditMode() {
     // Chuyển đổi các ô kết quả trận đấu thành các input để chỉnh sửa
     Array.from(modalResultBody.rows).forEach((row, rowIndex) => {
         Array.from(row.cells).forEach((cell, cellIndex) => {
+            if(cellIndex==0 || cellIndex==2)
+                return;
             const originalText = cell.textContent;
             cell.innerHTML = `<input " type="text" value="${originalText}" />`;
         });
@@ -357,26 +370,80 @@ function changeToEditMode() {
             const originalText = cell.textContent;
             cell.innerHTML = `<input type="text" value="${originalText}" />`;
         });
+
+        // Thêm nút "Xóa" cho mỗi cầu thủ
+        const deleteButton = document.createElement('button');
+        deleteButton.innerText = "Xóa";
+        deleteButton.classList.add('deleteButton');
+        deleteButton.onclick = function() {
+            modalGoalBody.deleteRow(rowIndex);  // Xóa hàng cầu thủ
+        };
+        row.appendChild(deleteButton);  // Thêm nút "Xóa" vào cuối hàng
     });
+
+    // Thêm nút "Thêm cầu thủ"
+    const addPlayerButton = document.createElement('button');
+    addPlayerButton.classList.add('addPlayerButton');
+    addPlayerButton.innerText = "Thêm cầu thủ";
+    addPlayerButton.onclick = function() {
+        addPlayerRow(modalGoalBody);  // Gọi hàm thêm hàng cầu thủ mới
+    };
+    modalGoalBody.parentElement.appendChild(addPlayerButton);  // Thêm nút vào dưới bảng ghi bàn
+
 
     // Thay đổi nút "Sửa đổi kết quả" thành nút "Lưu"
     document.getElementById("changeInfoButton").innerText = "Lưu";
     document.getElementById("changeInfoButton").onclick = function () {
         saveChanges(modalResultBody, modalGoalBody);  // Gọi hàm lưu dữ liệu
+
+        // Xóa tất cả các nút "Xóa" khi bấm "Lưu"
+        const deleteButtons = document.querySelectorAll('.deleteButton');
+        deleteButtons.forEach(button => button.remove());
+
+        // Xóa nút "Thêm cầu thủ" khi bấm "Lưu"
+        const addPlayerButton = document.querySelector('.addPlayerButton');
+        if (addPlayerButton) {
+            addPlayerButton.remove();
+        }
     };
+}
+
+function addPlayerRow(modalGoalBody) {
+    const newRow = modalGoalBody.insertRow();  // Tạo hàng mới
+
+    // Thêm các ô nhập liệu cho hàng mới
+    for (let i = 0; i < 5; i++) {  // 5 ô cho các thông tin STT, Tên cầu thủ, Đội, Loại bàn thắng, Thời điểm
+        const newCell = newRow.insertCell(i);
+        newCell.innerHTML = `<input type="text" value="" />`;
+    }
+
+    // Thêm nút "Xóa" cho hàng mới
+    const deleteButton = document.createElement('button');
+    deleteButton.innerText = "Xóa";
+    deleteButton.classList.add('deleteButton');
+    deleteButton.onclick = function() {
+        modalGoalBody.deleteRow(newRow.sectionRowIndex);  // Xóa hàng cầu thủ mới tạo
+    };
+    newRow.appendChild(deleteButton);  // Thêm nút "Xóa" vào hàng mới
 }
 
 function saveChanges(modalResultBody, modalGoalBody) {
     // Tạo đối tượng để lưu dữ liệu kết quả trận đấu
     let matchResult = [];
 
-    // Lưu kết quả trận đấu từ input
-    Array.from(modalResultBody.rows).forEach((row) => {
-        Array.from(row.cells).forEach((cell) => {
-            const inputValue = cell.querySelector('input').value;
-            cell.innerHTML = inputValue;  // Thay thế input bằng giá trị đã lưu
-            matchResult.push(inputValue ); // Thêm giá trị vào mảng hàng
-        });  // Thêm hàng vào dữ liệu kết quả trận đấu
+     // Lưu kết quả trận đấu từ input
+     Array.from(modalResultBody.rows).forEach((row) => {
+        Array.from(row.cells).forEach((cell,cellIndex) => {
+            let cellValue;
+            if(cellIndex==0 || cellIndex==2)
+                cellValue=cell.textContent;
+            else{
+                cellValue=cell.querySelector('input').value;
+                
+            }
+            cell.innerHTML=cellValue;
+            matchResult.push(cellValue);
+        });
     });
 
 
@@ -391,12 +458,22 @@ function saveChanges(modalResultBody, modalGoalBody) {
             cell.innerHTML = inputValue;  // Thay thế input bằng giá trị đã lưu
             rowData.push(inputValue);  // Thêm giá trị vào mảng hàng
         });
-        goalData.push(rowData);  // Thêm hàng vào dữ liệu ghi bàn
+
+        if (rowData.every(item => item === '')) {
+            row.remove();  // Xóa hàng nếu không có dữ liệu
+            return;  // Dừng lại không lưu vào goalData
+        }
+
+        goalData.push(rowData);  // Thêm hàng vào dữ liệu ghi bàn nếu không trống
     });
+
+    console.log(goalData);
+
     const roundlist = Object.keys(matches[currentSeason]);
     // Lưu dữ liệu vào localStorage
     currentTableResults[currentSeason][roundlist[currentRoundIndex]][currentIndex] = matchResult;
     currentTableGoals[currentSeason][roundlist[currentRoundIndex]][currentIndex] = goalData;
+    console.log(currentTableGoals);
     // Thay đổi nút "Lưu" lại thành "Sửa đổi kết quả"
     document.getElementById("changeInfoButton").innerText = "Sửa đổi kết quả";
     document.getElementById("changeInfoButton").onclick = function () {

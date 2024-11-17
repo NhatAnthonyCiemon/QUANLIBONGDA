@@ -2,7 +2,7 @@ import pool from "../config/database.js";
 
 export async function getTeams(req, res) {
     try {
-        const [rows] = await pool.query("SELECT * FROM teams");
+        const [rows] = await pool.query("SELECT * FROM team");
         res.send(rows);
     } catch (err) {
         console.error(err.stack);

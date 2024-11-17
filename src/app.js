@@ -5,7 +5,9 @@ import teamsRouter from "../src/routes/teams.js";
 import standardsRouter from "../src/routes/standards.js";
 import playersRouter from "../src/routes/players.js";
 import adminRouter from "../src/routes/admin.js";
-
+import seasonsRouter from "../src/routes/seasons.js"
+import matchesRouter from "../src/routes/matches.js"
+import goalsRouter from "../src/routes/goals.js";
 dotenv.config();
 
 const app = express();
@@ -19,7 +21,10 @@ app.use(cors());
 app.use("/Teams", teamsRouter);
 app.use("/Players", playersRouter);
 app.use("/Standards", standardsRouter);
-app.use("/admin", adminRouter);
+//app.use("/admin", adminRouter);
+app.use("/Seasons", seasonsRouter);
+app.use("/Matches", matchesRouter);
+app.use("/Goals", goalsRouter);
 
 //Middleware handle errors
 

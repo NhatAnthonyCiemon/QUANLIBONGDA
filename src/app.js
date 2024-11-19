@@ -21,7 +21,10 @@ app.use("/Teams", teamsRouter);
 app.use("/Players", playersRouter);
 app.use("/Research", ResearchRouter);
 app.use("/Standards", standardsRouter);
-app.use("/admin", adminRouter);
+//app.use("/admin", adminRouter);
+app.use("/Seasons", seasonsRouter);
+app.use("/Matches", matchesRouter);
+app.use("/Goals", goalsRouter);
 
 //Middleware handle errors
 

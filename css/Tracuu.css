@@ -235,6 +235,7 @@ border-radius: 6px;
 
 .danhsachcauthu .pagination{
     margin: auto;
+    color: #fff;
     margin-top: 30px;
     margin-bottom: 20px;
     display: flex;
@@ -243,25 +244,15 @@ border-radius: 6px;
     gap: 10px;
 }
 
-.danhsachcauthu .page-item {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 128, 0, 0.8);
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-.danhsachcauthu .page-item:hover {
-    background-color: rgba(0, 128, 0, 1);
-}
-.danhsachcauthu .active {
-    background-color: rgba(0, 255, 0, 0.8);
+.danhsachcauthu #p-1{
+    color: #fff;
+    font-size: 30px;
 }
 
+.danhsachcauthu #p-2{
+    color: #fff;
+    font-size: 30px;
+}
 
 
 .bangxephang{
@@ -565,6 +556,7 @@ h3{
 
 .danhsachcaccauthughiban .pagination{
     margin: auto;
+    color: #fff;
     margin-top: 30px;
     margin-bottom: 20px;
     display: flex;
@@ -573,21 +565,12 @@ h3{
     gap: 10px;
 }
 
-.danhsachcaccauthughiban .page-item {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 128, 0, 0.8);
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+.danhsachcaccauthughiban #gb-1{
+    color: #fff;
+    font-size: 30px;
 }
-.danhsachcaccauthughiban .page-item:hover {
-    background-color: rgba(0, 128, 0, 1);
-}
-.danhsachcaccauthughiban .active {
-    background-color: rgba(0, 255, 0, 0.8);
+ 
+.danhsachcaccauthughiban #gb-2{
+    color: #fff;
+    font-size: 30px;
 }

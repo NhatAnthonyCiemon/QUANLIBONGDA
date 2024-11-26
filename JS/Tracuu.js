@@ -15,9 +15,7 @@ window.onclick = function(event) {
         arrowIcon.classList.remove('rotate');
     }
 };
-//Thiếu hiển thị theo dữ liệu
-
-
+               
 // js button danh sach cau thu với báo cáo mùa giải
 document.addEventListener('DOMContentLoaded', function() {
     // Lấy các nút và div tương ứng
@@ -126,3 +124,105 @@ document.getElementById('change-rules-btn').addEventListener('click', function()
         alert("Điểm số không hợp lệ! Vui lòng nhập lại: Điểm thắng > Điểm hòa > Điểm thua.");
     }
 });
+
+//Hiển thị theo dữ liệu
+
+const rowsPerPage = 20;
+let currentPage = 1;
+let playerData = [];
+let playerData1 = [];
+
+
+async function fetchData() {
+    try {
+        const response = await fetch('http://localhost:3000/Research/totalplayers');
+        playerData = await response.json();
+        displayPage(currentPage);
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+}
+async function fetchData1() {
+    try {
+        const response = await fetch('http://localhost:3000/Research/playershasgoal');
+        playerData1 = await response.json();
+        displayPage1(currentPage);
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+}
+
+function displayPage(page) {
+    const tbody = document.getElementById('player-list-danhsachcauthu');
+    tbody.innerHTML = '';
+    const start = (page - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+    const pageData = playerData.slice(start, end);
+    
+    pageData.forEach((player,index) => {
+        const stt=start+index+1;
+        const row = `<tr>
+            <td>${stt}</td>
+            <td>${player.player_name}</td>
+            <td>${player.team_name}</td>
+            <td>${player.player_type}</td>
+            <td>${player.total_goals}</td>
+        </tr>`;
+        tbody.innerHTML += row;
+    });
+
+    document.getElementById('page-info').innerText = `Page ${page} of ${Math.ceil(playerData.length / rowsPerPage)}`;
+    
+}
+function displayPage1(page) {
+    const playerGB=document.getElementById('player-list-GB');
+    playerGB.innerHTML='';
+    const start = (page - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+    const pageData1 = playerData1.slice(start, end);
+
+    pageData1.forEach((player,index) => {
+        const stt=start+index+1;
+        const row = `<tr>
+            <td>${stt}</td>
+            <td>${player.player_name}</td>
+            <td>${player.team_name}</td>
+            <td>${player.player_type}</td>
+            <td>${player.total_goals}</td>
+        </tr>`;
+        playerGB.innerHTML += row;
+    });
+    document.getElementById('page-info1').innerText = `Page ${page} of ${Math.ceil(playerData1.length / rowsPerPage)}`;
+
+}
+
+function prevPage() {
+    if (currentPage > 1) {
+        currentPage--;
+        displayPage(currentPage);
+    }
+}
+
+function nextPage() {
+    if (currentPage < Math.ceil(playerData.length / rowsPerPage)) {
+        currentPage++;
+        displayPage(currentPage);
+    }
+}
+
+function prevPage1() {
+    if (currentPage > 1) {
+        currentPage--;
+        displayPage1(currentPage);
+    }
+}
+
+function nextPage1() {
+    if (currentPage < Math.ceil(playerData1.length / rowsPerPage)) {
+        currentPage++;
+        displayPage1(currentPage);
+    }
+}
+
+fetchData();
+fetchData1();

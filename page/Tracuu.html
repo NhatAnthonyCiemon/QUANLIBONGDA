@@ -95,7 +95,8 @@
                                 <th>Tổng số bàn thắng</th>
                             </tr>
                         </thead>
-                        <tbody id="player-list">
+                        <tbody id="player-list-danhsachcauthu">
+                            <!--
                             <tr>
                                 <td>01</td>
                                 <td>Nguyễn Văn A</td>
@@ -124,10 +125,40 @@
                                 <td>Nước ngoài</td>
                                 <td>0</td>
                             </tr>
+                            -->
+                            
                         </tbody>
                     </table>   
                 </div>
-                
+
+                <script>
+                    async function fetchData() {
+                        try {
+                            const response = await fetch('http://localhost:3000/Research/totalplayers');
+                            const data = await response.json();
+
+                            const playerList = document.getElementById('player-list-danhsachcauthu');
+                            playerList.innerHTML = '';
+
+                            data.forEach((player, index) => {
+                                const row = document.createElement('tr');
+                                row.innerHTML = `
+                                    <td>${index + 1}</td>
+                                    <td>${player.player_name}</td>
+                                    <td>${player.team_name}</td>
+                                    <td>${player.player_type}</td>
+                                    <td>${player.total_goals}</td>
+                                `;
+                                playerList.appendChild(row);
+                            });
+                        } catch (error) {
+                            console.error('Error fetching data:', error);
+                        }
+                    }
+
+                    fetchData();
+                </script>
+
                 <div class="pagination">
                     <div class="page-item active">1</div>
                     <div class="page-item">2</div>
@@ -200,8 +231,9 @@
                                 <th>Hạng</th>
                             </tr>
                         </thead>
-                        <tbody id="player-list">
-                            <tr>
+                        <tbody id="player-list-BXH">
+                            <!--
+                                <tr>
                                 <td>01</td>
                                 <td>Đội A</td>
                                 <td>00</td>
@@ -237,9 +269,39 @@
                                 <td>00</td>
                                 <td>00</td>
                             </tr>
+                            -->
+                            
                         </tbody>
                     </table>
-                </div>  
+                </div> 
+                
+                <script>
+                    async function fetchData() {
+                        try {
+                            const response = await fetch('http://localhost:3000/Research/team');
+                            const data = await response.json();
+
+                            const playerList = document.getElementById('player-list-BXH');
+                            playerList.innerHTML = '';
+
+                            data.forEach((player, index) => {
+                                const row = document.createElement('tr');
+                                row.innerHTML = `
+                                    <td>${index + 1}</td>
+                                    <td>${player.player_name}</td>
+                                    <td>${player.team_name}</td>
+                                    <td>${player.player_type}</td>
+                                    <td>${player.total_goals}</td>
+                                `;
+                                playerList.appendChild(row);
+                            });
+                        } catch (error) {
+                            console.error('Error fetching data:', error);
+                        }
+                    }
+
+                    fetchData();
+                </script>
     
             </div>
     

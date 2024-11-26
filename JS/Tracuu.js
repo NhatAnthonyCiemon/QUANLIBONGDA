@@ -1,12 +1,12 @@
-//js của nút nhất chọn năm
-const dropdownBtn = document.getElementById('dropdownBtn');
-const dropdownMenu = document.getElementById('dropdownMenu');
-const arrowIcon = dropdownBtn.querySelector('svg');
+// //js của nút nhất chọn năm
+// const dropdownBtn = document.getElementById('dropdownBtn');
+// const dropdownMenu = document.getElementById('dropdownMenu');
+// const arrowIcon = dropdownBtn.querySelector('svg');
 
-dropdownBtn.addEventListener('click', () => {
-    dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
-    arrowIcon.classList.toggle('rotate');
-});
+// dropdownBtn.addEventListener('click', () => {
+//     dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+//     arrowIcon.classList.toggle('rotate');
+// });
 
 // Close dropdown if clicked outside
 window.onclick = function(event) {

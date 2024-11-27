@@ -310,8 +310,16 @@ function main() {
             ) {
                 num_max = Number(maxNumInput);
             }
-            foreign_max =
-                document.querySelector("#maxForeign-conf").value || foreign_max;
+            const maxForeignInput = document
+                .querySelector("#maxForeign-conf")
+                .value.trim();
+            if (
+                maxForeignInput !== "" &&
+                !isNaN(Number(maxForeignInput)) &&
+                Number(maxForeignInput) > 0
+            ) {
+                foreign_max = Number(maxForeignInput);
+            }
             if (document.querySelector("#footballType-conf").value != "") {
                 loaicauthu = document
                     .querySelector("#footballType-conf")

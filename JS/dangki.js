@@ -5,6 +5,7 @@ let num_max = 22;
 let num_min = 15;
 let foreign_max = 3;
 let cauthu = [];
+let soao = [];
 fetch("http://localhost:3000/Standards/DK")
     .then((response) => {
         return response.json();
@@ -25,11 +26,12 @@ fetch("http://localhost:3000/Standards/DK")
     });
 
 function main() {
-    function taocauthu(name, type, birthdate, notes) {
+    function taocauthu(name, type, birthdate, shirtNumber, notes) {
         this.player_name = name;
         this.player_type = type;
         this.birth_date = birthdate;
         this.note = notes;
+        this.ao_number = shirtNumber;
     }
     let btn_add = document.querySelector(".btn__add");
     let shadow = document.querySelector(".shadow");
@@ -62,7 +64,8 @@ function main() {
         let type = document.querySelector("#player-type").value;
         let birthdate = document.querySelector("#birth-date").value;
         let notes = document.querySelector("#notes").value;
-        if (name == "" || type == "" || birthdate == "") {
+        let shirtNumber = document.querySelector("#shirtNumber").value;
+        if (name == "" || type == "" || birthdate == "" || shirtNumber == "") {
             ShadowFalse();
             showShadow();
             shadow__false.innerHTML = "Vui lòng nhập đầy đủ thông tin";
@@ -85,21 +88,36 @@ function main() {
                 "Loại cầu thủ không hợp lệ, vui lòng đọc quy định của chúng tôi";
             return;
         }
+        if (soao.includes(shirtNumber)) {
+            ShadowFalse();
+            showShadow();
+            shadow__false.innerHTML = "Số áo đã tồn tại";
+            return;
+        }
+        soao.push(shirtNumber);
+
         document.querySelector("#player-name").value = "";
         document.querySelector("#player-type").value = "";
         document.querySelector("#birth-date").value = "";
         document.querySelector("#notes").value = "";
+        document.querySelector("#shirtNumber").value = "";
         if (type == "Nước ngoài") {
             num_foreign++;
         }
-        let newPlayer = new taocauthu(name, type, birthdate, notes);
+        let newPlayer = new taocauthu(
+            name,
+            type,
+            birthdate,
+            shirtNumber,
+            notes
+        );
         cauthu.push(newPlayer);
         let tr = document.createElement("tr");
         tr.innerHTML = `<td>${cauthu.length}</td>
                         <td>${name}</td>
                         <td>${type}</td>
                         <td>${birthdate}</td>
-                        <td>${notes}</td>
+                        <td>${notes} số áo(${shirtNumber})</td>
                         <td><button class="btn__remove">Xóa</button></td>`;
         tbody.appendChild(tr);
     });
@@ -136,6 +154,7 @@ function main() {
                 num_foreign--;
             }
             tbody.removeChild(tr);
+            soao = soao.filter((item) => item != cauthu[index - 1].ao_number);
             cauthu.splice(index - 1, 1);
             let trs = document.querySelectorAll("tbody tr");
             trs.forEach((tr, index) => {
@@ -192,7 +211,7 @@ function main() {
             stadium: document.querySelector("#stadium").value,
             email: document.querySelector("#email").value,
         };
-        const response = await fetch("http://localhost:3000/Teams", {
+        const response = await fetch("http://localhost:3000/Teams/create", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -203,25 +222,30 @@ function main() {
         if (response.ok) {
             //player_name, birth_date, player_type, team, note
             cauthu.forEach(async (player) => {
-                const response = await fetch("http://localhost:3000/Players", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        player_name: player.player_name,
-                        birth_date: player.birth_date,
-                        player_type: player.player_type,
-                        team: id,
-                        note: player.note,
-                    }),
-                });
+                const response = await fetch(
+                    "http://localhost:3000/Players/create",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            player_name: player.player_name,
+                            birth_date: player.birth_date,
+                            player_type: player.player_type,
+                            team_id: id,
+                            ao_number: player.ao_number,
+                            note: player.note,
+                        }),
+                    }
+                );
                 const data = await response.json();
                 console.log(data);
             });
         }
 
         cauthu = [];
+        soao = [];
         document.querySelector("#team-name").value = "";
         document.querySelector("#stadium").value = "";
         document.querySelector("#email").value = "";
@@ -243,10 +267,49 @@ function main() {
     }
     if (firstLoad() != null) {
         btn_conf.addEventListener("click", function () {
-            age_min = document.querySelector("#minAge-conf").value || age_min;
-            age_max = document.querySelector("#maxAge-conf").value || age_max;
-            num_min = document.querySelector("#minNum-conf").value || num_min;
-            num_max = document.querySelector("#maxNum-conf").value || num_max;
+            const minAgeInput = document
+                .querySelector("#minAge-conf")
+                .value.trim();
+            if (
+                minAgeInput !== "" &&
+                !isNaN(Number(minAgeInput)) &&
+                Number(minAgeInput) > 0
+            ) {
+                age_min = Number(minAgeInput);
+            }
+
+            const maxAgeInput = document
+                .querySelector("#maxAge-conf")
+                .value.trim();
+            if (
+                maxAgeInput !== "" &&
+                !isNaN(Number(maxAgeInput)) &&
+                Number(maxAgeInput) > 0
+            ) {
+                age_max = Number(maxAgeInput);
+            }
+
+            const minNumInput = document
+                .querySelector("#minNum-conf")
+                .value.trim();
+            if (
+                minNumInput !== "" &&
+                !isNaN(Number(minNumInput)) &&
+                Number(minNumInput) > 0
+            ) {
+                num_min = Number(minNumInput);
+            }
+
+            const maxNumInput = document
+                .querySelector("#maxNum-conf")
+                .value.trim();
+            if (
+                maxNumInput !== "" &&
+                !isNaN(Number(maxNumInput)) &&
+                Number(maxNumInput) > 0
+            ) {
+                num_max = Number(maxNumInput);
+            }
             foreign_max =
                 document.querySelector("#maxForeign-conf").value || foreign_max;
             if (document.querySelector("#footballType-conf").value != "") {

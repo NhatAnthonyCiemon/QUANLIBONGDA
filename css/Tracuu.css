@@ -98,7 +98,7 @@ h2 {
 }
 
 h1 {
-    font-size: 64px;
+    font-size: 56px;
     margin:auto;
     color: #fff;
     align-items: center;
@@ -235,6 +235,7 @@ border-radius: 6px;
 
 .danhsachcauthu .pagination{
     margin: auto;
+    color: #fff;
     margin-top: 30px;
     margin-bottom: 20px;
     display: flex;
@@ -243,25 +244,15 @@ border-radius: 6px;
     gap: 10px;
 }
 
-.danhsachcauthu .page-item {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 128, 0, 0.8);
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-.danhsachcauthu .page-item:hover {
-    background-color: rgba(0, 128, 0, 1);
-}
-.danhsachcauthu .active {
-    background-color: rgba(0, 255, 0, 0.8);
+.danhsachcauthu #p-1{
+    color: #fff;
+    font-size: 30px;
 }
 
+.danhsachcauthu #p-2{
+    color: #fff;
+    font-size: 30px;
+}
 
 
 .bangxephang{
@@ -269,15 +260,15 @@ border-radius: 6px;
     max-height: 1754px;
     margin: auto;
     margin-top: 20px;
-    padding: 20px;
-    background-color: #1B361DB5;
+    padding: 20px;    
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
-.header_BXH {
+.bangxephang .header_BXH {
     display: flex;
+    background-color: #1B361DB5;
     justify-content: space-between;
     align-items: center;
 } 
@@ -352,18 +343,68 @@ border-radius: 6px;
 .bangxephang .rotate {
     transform: rotate(180deg);
 }
+
+.bangxephang .qui-dinh{
+    display: flex;
+    justify-content:space-between;
+    background-color: #1B361DB5;
+    margin: auto;
+    margin-top: 10px;
+    height: 120px;
+    color: #fff;
+}
+
+h3{
+    font-size: 30px;
+    color:rgba(170, 255, 167, 1);
+    margin: auto;
+    margin-bottom: 5px;
+}
+
+.noidung{
+    margin: auto;
+    text-align: left;
+}
+
+.noidung strong{
+    color: rgba(170, 255, 167, 1);
+    font-size: 24px;
+}
+
+.noidung #points-lose{
+    color: rgba(255, 111, 111, 1);
+    font-size: 24px;
+}
+
+.noidung li{
+    font-size: 20px;
+}
+.Thaydoi{
+    margin: auto;
+    
+}
+
+.Thaydoi i{
+    font-size: 30px;
+    color: rgba(50,205,50);
+}
+
 .bangxephang .table-BXH{
     border: 1px solid #ccc;
     box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
     border-radius: 10px; 
     margin: auto    ;
-    margin-top: 30px;
+    background-color: #1B361DB5;
+    margin-top:10px;
 }
 .bangxephang .player-table {
-    margin: auto;
-    width: 99%;
+    margin:auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 97%;
     border-collapse: collapse;
-    
 }
 
 .bangxephang .player-table th, .player-table td {
@@ -383,7 +424,6 @@ border-radius: 6px;
     background-color: rgba(0, 128, 0, 0.6); /* Màu nền khi hover */
     color: black; /* Giữ màu chữ khi hover */
 }
-
 
 
 
@@ -516,6 +556,7 @@ border-radius: 6px;
 
 .danhsachcaccauthughiban .pagination{
     margin: auto;
+    color: #fff;
     margin-top: 30px;
     margin-bottom: 20px;
     display: flex;
@@ -524,21 +565,12 @@ border-radius: 6px;
     gap: 10px;
 }
 
-.danhsachcaccauthughiban .page-item {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 128, 0, 0.8);
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+.danhsachcaccauthughiban #gb-1{
+    color: #fff;
+    font-size: 30px;
 }
-.danhsachcaccauthughiban .page-item:hover {
-    background-color: rgba(0, 128, 0, 1);
-}
-.danhsachcaccauthughiban .active {
-    background-color: rgba(0, 255, 0, 0.8);
+ 
+.danhsachcaccauthughiban #gb-2{
+    color: #fff;
+    font-size: 30px;
 }

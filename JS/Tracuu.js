@@ -1,12 +1,12 @@
-//js của nút nhất chọn năm
-const dropdownBtn = document.getElementById('dropdownBtn');
-const dropdownMenu = document.getElementById('dropdownMenu');
-const arrowIcon = dropdownBtn.querySelector('svg');
+// //js của nút nhất chọn năm
+// const dropdownBtn = document.getElementById('dropdownBtn');
+// const dropdownMenu = document.getElementById('dropdownMenu');
+// const arrowIcon = dropdownBtn.querySelector('svg');
 
-dropdownBtn.addEventListener('click', () => {
-    dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
-    arrowIcon.classList.toggle('rotate');
-});
+// dropdownBtn.addEventListener('click', () => {
+//     dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+//     arrowIcon.classList.toggle('rotate');
+// });
 
 // Close dropdown if clicked outside
 window.onclick = function(event) {
@@ -15,9 +15,7 @@ window.onclick = function(event) {
         arrowIcon.classList.remove('rotate');
     }
 };
-//Thiếu hiển thị theo dữ liệu
-
-
+               
 // js button danh sach cau thu với báo cáo mùa giải
 document.addEventListener('DOMContentLoaded', function() {
     // Lấy các nút và div tương ứng
@@ -71,3 +69,160 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+//js thay đổi quy định
+// Hàm để cập nhật nội dung từ localStorage
+function loadRules() {
+    const pointsWin = localStorage.getItem('pointsWin') || '3';
+    const pointsDraw = localStorage.getItem('pointsDraw') || '1';
+    const pointsLose = localStorage.getItem('pointsLose') || '0';
+    //const ranking = localStorage.getItem('ranking') || 'điểm, hiệu số, tổng bàn thắng, đối kháng';
+
+    document.getElementById('points-win').innerText = pointsWin;
+    document.getElementById('points-draw').innerText = pointsDraw;
+    document.getElementById('points-lose').innerText = pointsLose;
+    //document.getElementById('rule-2').innerHTML = ` + Xếp hạng theo thứ tự: ${ranking}.`;
+}
+
+// Gọi hàm để tải quy định khi trang được tải
+loadRules();
+
+document.getElementById('change-rules-btn').addEventListener('click', function() {
+    // Nhập nội dung mới cho quy định 1
+    const pointsWin = prompt("Nhập điểm số thắng:", "3");
+    const pointsDraw = prompt("Nhập điểm số hòa:", "1");
+    const pointsLose = prompt("Nhập điểm số thua:", "0");
+    //const newRanking = prompt("Nhập nội dung mới cho xếp hạng:", "điểm, hiệu số, tổng bàn thắng, đối kháng");
+
+    // Chuyển đổi các giá trị nhập vào thành số
+    const win = parseInt(pointsWin);
+    const draw = parseInt(pointsDraw);
+    const lose = parseInt(pointsLose);
+
+    // Kiểm tra điều kiện: thắng > hòa > thua
+    if (win > draw && draw > lose) {
+        if (pointsWin) {
+            document.getElementById('points-win').innerText = pointsWin;
+            localStorage.setItem('pointsWin', pointsWin); // Lưu vào localStorage
+        }
+        
+        if (pointsDraw) {
+            document.getElementById('points-draw').innerText = pointsDraw;
+            localStorage.setItem('pointsDraw', pointsDraw); // Lưu vào localStorage
+        }
+
+        if (pointsLose) {
+            document.getElementById('points-lose').innerText = pointsLose;
+            localStorage.setItem('pointsLose', pointsLose); // Lưu vào localStorage
+        }
+
+        // if (newRanking) {
+        //     document.getElementById('rule-2').innerHTML = ` + Xếp hạng theo thứ tự: ${newRanking}.`;
+        //     localStorage.setItem('ranking', newRanking); // Lưu vào localStorage
+        // }
+    } else {
+        alert("Điểm số không hợp lệ! Vui lòng nhập lại: Điểm thắng > Điểm hòa > Điểm thua.");
+    }
+});
+
+//Hiển thị theo dữ liệu
+
+const rowsPerPage = 20;
+let currentPage = 1;
+let playerData = [];
+let playerData1 = [];
+
+
+async function fetchData() {
+    try {
+        const response = await fetch('http://localhost:3000/Research/totalplayers');
+        playerData = await response.json();
+        displayPage(currentPage);
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+}
+async function fetchData1() {
+    try {
+        const response = await fetch('http://localhost:3000/Research/playershasgoal');
+        playerData1 = await response.json();
+        displayPage1(currentPage);
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+}
+
+function displayPage(page) {
+    const tbody = document.getElementById('player-list-danhsachcauthu');
+    tbody.innerHTML = '';
+    const start = (page - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+    const pageData = playerData.slice(start, end);
+    
+    pageData.forEach((player,index) => {
+        const stt=start+index+1;
+        const row = `<tr>
+            <td>${stt}</td>
+            <td>${player.player_name}</td>
+            <td>${player.team_name}</td>
+            <td>${player.player_type}</td>
+            <td>${player.total_goals}</td>
+        </tr>`;
+        tbody.innerHTML += row;
+    });
+
+    document.getElementById('page-info').innerText = `Page ${page} of ${Math.ceil(playerData.length / rowsPerPage)}`;
+    
+}
+function displayPage1(page) {
+    const playerGB=document.getElementById('player-list-GB');
+    playerGB.innerHTML='';
+    const start = (page - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+    const pageData1 = playerData1.slice(start, end);
+
+    pageData1.forEach((player,index) => {
+        const stt=start+index+1;
+        const row = `<tr>
+            <td>${stt}</td>
+            <td>${player.player_name}</td>
+            <td>${player.team_name}</td>
+            <td>${player.player_type}</td>
+            <td>${player.total_goals}</td>
+        </tr>`;
+        playerGB.innerHTML += row;
+    });
+    document.getElementById('page-info1').innerText = `Page ${page} of ${Math.ceil(playerData1.length / rowsPerPage)}`;
+
+}
+
+function prevPage() {
+    if (currentPage > 1) {
+        currentPage--;
+        displayPage(currentPage);
+    }
+}
+
+function nextPage() {
+    if (currentPage < Math.ceil(playerData.length / rowsPerPage)) {
+        currentPage++;
+        displayPage(currentPage);
+    }
+}
+
+function prevPage1() {
+    if (currentPage > 1) {
+        currentPage--;
+        displayPage1(currentPage);
+    }
+}
+
+function nextPage1() {
+    if (currentPage < Math.ceil(playerData1.length / rowsPerPage)) {
+        currentPage++;
+        displayPage1(currentPage);
+    }
+}
+
+fetchData();
+fetchData1();

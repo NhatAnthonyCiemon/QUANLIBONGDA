@@ -36,9 +36,9 @@ export async function getPlayerHasGoal(req, res) {
     }
 }
 
-const poit_per_win = 3;
-const point_per_draw = 1;
-const point_per_lose = 0;
+let poit_per_win = 3;
+let point_per_draw = 1;
+let point_per_lose = 0;
 
 function compare(result) {
     result = result.replace(/\s+/g, "");
@@ -59,6 +59,12 @@ function numberdifference(result) {
 }
 export async function getTeam(req, res) {
     try {
+        const [[standards]] = await pool.query(
+            "SELECT * FROM standards WHERE id = (SELECT MAX(id) FROM standards)"
+        );
+        poit_per_win = standards.win_score;
+        point_per_draw = standards.draw_score;
+        point_per_lose = standards.lose_score;
         const [rows] = await pool.query(`
             SELECT t.team_id
             FROM team AS t
@@ -86,9 +92,9 @@ export async function getTeam(req, res) {
                 }
                 point += compare(row.result);
                 difference += numberdifference(row.result);
-                if (compare(row.result) === 3) {
+                if (compare(row.result) === poit_per_win) {
                     win++;
-                } else if (compare(row.result) === 1) {
+                } else if (compare(row.result) === point_per_draw) {
                     draw++;
                 } else {
                     lose++;

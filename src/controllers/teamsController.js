@@ -26,9 +26,13 @@ export async function getTeamById(req, res) {
 export async function createTeam(req, res) {
     const { team_name, stadium, email } = req.body;
     try {
+        const [[season_table]] = await pool.query(
+            "SELECT * FROM season WHERE NOT EXISTS ( SELECT 1 FROM match_schedule WHERE season.season = match_schedule.season )"
+        );
+        const season = season_table.season;
         const [result] = await pool.query(
-            `INSERT INTO teams (team_name,stadium, email) VALUES (N?, ?,?)`,
-            [team_name, stadium, email]
+            `INSERT INTO team (team_name,home_stadium, email,season) VALUES (N?, ?,?,?)`,
+            [team_name, stadium, email, season]
         );
         const id = result.insertId;
         res.status(201).json(id);

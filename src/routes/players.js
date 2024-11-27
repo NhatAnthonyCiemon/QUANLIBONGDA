@@ -1,10 +1,14 @@
-import express from 'express';
-import { getPlayers, getPlayerById, createPlayer } from '../controllers/playersController.js';
+import express from "express";
+import {
+    getPlayers,
+    getPlayerById,
+    createPlayer,
+} from "../controllers/playersController.js";
 
 const router = express.Router();
 
-router.get('/', getPlayers);
-router.get('/:id', getPlayerById);
-router.post('/', createPlayer);
+router.post("/create", createPlayer);
+router.get("/:id", getPlayerById);
+router.get("/", getPlayers);
 
 export default router;

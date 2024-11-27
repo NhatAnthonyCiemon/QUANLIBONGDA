@@ -27,7 +27,7 @@ export async function putStandarDK(req, res) {
             );
 
             const x = await pool.query(
-                `INSERT INTO standards (loaicauthu, age_min, age_max, num_max, num_min, foreign_max,max_goal_time,min_goal_time,win_score,lose_score,draw_score) VALUES (?, ?, ?, ?, ?, ?,?,?,?,?)`,
+                `INSERT INTO standards (loaicauthu, age_min, age_max, num_max, num_min, foreign_max,max_goal_time,min_goal_time,win_score,lose_score,draw_score) VALUES (?, ?, ?, ?, ?, ?,?,?,?,?,?)`,
                 [
                     loaicauthu,
                     age_min,

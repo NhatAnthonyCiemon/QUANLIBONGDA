@@ -95,10 +95,41 @@ function generateSeasonDatetimes(season, count) {
     datetimes.sort((a, b) => new Date(a) - new Date(b));
     return datetimes;
 }
+
+async function deleteOldSeason(season) {
+    await pool.query(`SET SQL_SAFE_UPDATES = 0;
+                    DELETE FROM goal;
+                    SET SQL_SAFE_UPDATES = 1;`);
+    await pool.query(`SET SQL_SAFE_UPDATES = 0;
+                    DELETE FROM match_schedule;
+                    SET SQL_SAFE_UPDATES = 1;`);
+    const [teamSeason] = await pool.query(
+        `SELECT team_id FROM team WHERE season = ?`,
+        [season]
+    );
+
+    //xóa cầu thủ trước
+    teamSeason.forEach(async (team) => {
+        await pool.query(`DELETE FROM player WHERE team_id = ?`, [
+            team.team_id,
+        ]);
+    });
+    //xóa team
+    teamSeason.forEach(async (team) => {
+        await pool.query(`DELETE FROM team WHERE team_id = ?`, [team.team_id]);
+    });
+    await pool.query(`DELETE FROM season WHERE season = ?`, [season]);
+}
 export async function createSchedule(req, res) {
     try {
         const season = req.params.season;
-        console.log(season);
+        const [seasonOther] = await pool.query(
+            `SELECT * FROM season WHERE season != ?`,
+            [season]
+        );
+        if (seasonOther.length) {
+            await deleteOldSeason(seasonOther[0].season);
+        }
         const [rows] = await pool.query(`SELECT * FROM team WHERE season = ?`, [
             season,
         ]);

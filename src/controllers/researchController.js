@@ -77,7 +77,7 @@ export async function getTeam(req, res) {
                 `
                 SELECT MS.result, MS.team_1, MS.team_2
                 FROM match_schedule AS MS
-                WHERE MS.team_1 = ? OR MS.team_2 = ?
+                WHERE (MS.team_1 = ? OR MS.team_2 = ?) AND MS.result IS NOT NULL
             `,
                 [team, team]
             );

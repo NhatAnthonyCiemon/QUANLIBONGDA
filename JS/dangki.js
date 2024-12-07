@@ -202,8 +202,6 @@ function main() {
             email.target.focus();
             return;
         }
-        ShadowSuccess();
-        showShadow();
 
         //gửi 1 object cho backend
         const football_team = {
@@ -220,8 +218,17 @@ function main() {
         });
         const id = await response.json();
         if (response.ok) {
-            //player_name, birth_date, player_type, team, note
-            cauthu.forEach(async (player) => {
+            console.log("Team added:", id);
+        } else {
+            ShadowFalse();
+            showShadow();
+            shadow__false.innerHTML = "Đã xảy ra lỗi";
+            return;
+        }
+        let isSuccessful = true;
+
+        for (const [index, player] of cauthu.entries()) {
+            try {
                 const response = await fetch(
                     "http://localhost:3000/Players/create",
                     {
@@ -236,14 +243,35 @@ function main() {
                             team_id: id,
                             ao_number: player.ao_number,
                             note: player.note,
+                            pos:
+                                index === cauthu.length - 1 ? "last" : "normal",
                         }),
                     }
                 );
-                const data = await response.json();
-                console.log(data);
-            });
-        }
 
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log("Player added:", data);
+                } else {
+                    isSuccessful = false;
+                    console.error(
+                        "Failed to add player:",
+                        await response.text()
+                    );
+                }
+            } catch (err) {
+                isSuccessful = false;
+                console.error("Error while adding player:", err.message);
+            }
+        }
+        if (!isSuccessful) {
+            shadow__false.innerHTML = "Đã xảy ra lỗi";
+            ShadowFalse();
+            showShadow();
+            return;
+        }
+        ShadowSuccess();
+        showShadow();
         cauthu = [];
         soao = [];
         document.querySelector("#team-name").value = "";

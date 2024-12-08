@@ -12,7 +12,8 @@ fetch("http://localhost:3000/Standards/DK")
         draw_point = data.draw_score;
         main();
     });
-
+let shadow__false = document.querySelector(".shadow__false");
+let shadow_img = document.querySelector(".shadow__img");
 function main() {
     let shadow__box = document.querySelector(".shadow__box"); //modal
     let shadow = document.querySelector(".shadow");
@@ -23,6 +24,12 @@ function main() {
         shadow.classList.add("shadow-active");
         shadow__box.classList.add("shadow__box-active");
         document.body.style.overflow = "hidden";
+    }
+    function ShadowFalse() {
+        const shadow_desc = document.querySelector(".shadow__desc");
+        shadow_desc.innerHTML = "ĐĂNG KÝ THẤT BẠI. VUI LÒNG THỬ LẠI.";
+        shadow_desc.style.color = "red";
+        shadow_img.src = "../assets/falsedky.svg";
     }
     shadow.addEventListener("click", function () {
         shadow.classList.remove("shadow-active");
@@ -42,22 +49,61 @@ function main() {
         }
         return null;
     }
+    function isIntegerInput(value) {
+        const numberValue = Number(value);
+        return Number.isInteger(numberValue);
+    }
+    function isValidate(Input) {
+        if (Input !== "" && !isNaN(Number(Input)) && isIntegerInput(Input))
+            return true;
+        return false;
+    }
+    function textErrorConf(text) {
+        ShadowFalse();
+        showShadow();
+        shadow__false.innerHTML = text;
+        shadow__box_conf.classList.remove("shadow__box-conf-active");
+    }
     if (firstLoad() != null) {
         btn_conf.addEventListener("click", function () {
-            const winInput = document.querySelector("#win__point-conf").value;
-            if (winInput.trim() !== "" && !isNaN(Number(winInput))) {
-                win_point = Number(winInput);
-            }
+            const winInput = document
+                .querySelector("#win__point-conf")
+                .value.trim();
+            const loseInput = document
+                .querySelector("#lose__point-conf")
+                .value.trim();
 
-            const loseInput = document.querySelector("#lose__point-conf").value;
-            if (loseInput.trim() !== "" && !isNaN(Number(loseInput))) {
-                lose_point = Number(loseInput);
+            let win_point_temp = win_point;
+            let lose_point_temp = lose_point;
+            let draw_point_temp = draw_point;
+            const drawInput = document
+                .querySelector("#draw__point-conf")
+                .value.trim();
+            if (
+                !isValidate(winInput) ||
+                !isValidate(loseInput) ||
+                !isValidate(drawInput)
+            ) {
+                textErrorConf("Vui lòng nhập số nguyên");
+                return;
             }
-
-            const drawInput = document.querySelector("#draw__point-conf").value;
-            if (drawInput.trim() !== "" && !isNaN(Number(drawInput))) {
-                draw_point = Number(drawInput);
+            if (isValidate(winInput)) win_point_temp = Number(winInput);
+            if (isValidate(loseInput)) lose_point_temp = Number(loseInput);
+            if (isValidate(drawInput)) draw_point_temp = Number(drawInput);
+            if (
+                !(
+                    win_point_temp > draw_point_temp &&
+                    draw_point_temp > lose_point_temp
+                )
+            ) {
+                textErrorConf(
+                    "Vui lòng nhập điểm thắng > điểm hòa > điểm thua"
+                );
+                return;
             }
+            win_point = win_point_temp;
+            lose_point = lose_point_temp;
+            draw_point = draw_point_temp;
             fetch("http://localhost:3000/Standards/DK1", {
                 method: "PUT",
                 headers: {
@@ -72,7 +118,13 @@ function main() {
                     info: firstLoad(),
                 }),
             })
-                .then((response) => response.json())
+                .then((response) => {
+                    if (!response.ok) {
+                        textErrorConf("Đăng ký thất bại. Vui lòng thử lại.");
+                        throw new Error("Đăng ký thất bại. Vui lòng thử lại.");
+                    }
+                    return response.json();
+                })
                 .then((data) => {
                     document.querySelector(".win_point").innerHTML = win_point;
                     document.querySelector(".lose_point").innerHTML =
@@ -85,6 +137,9 @@ function main() {
                     );
                     document.body.style.overflow = "auto";
                     location.reload();
+                })
+                .catch((error) => {
+                    textErrorConf("Đăng ký thất bại. Vui lòng thử lại.");
                 });
         });
     } else {

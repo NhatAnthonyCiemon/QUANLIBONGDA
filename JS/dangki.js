@@ -170,6 +170,7 @@ function main() {
     }
     function isIntegerInput(value) {
         const numberValue = Number(value);
+        console.log(numberValue);
         return Number.isInteger(numberValue);
     }
     btn_submit.addEventListener("click", async function () {
@@ -307,6 +308,12 @@ function main() {
             return true;
         return false;
     }
+    function textErrorConf(text) {
+        ShadowFalse();
+        showShadow();
+        shadow__false.innerHTML = text;
+        shadow__box_conf.classList.remove("shadow__box-conf-active");
+    }
     if (firstLoad() != null) {
         btn_conf.addEventListener("click", async function () {
             const minAgeInput = document
@@ -317,6 +324,10 @@ function main() {
                 .value.trim();
             let age_min_temp = age_min;
             let age_max_temp = age_max;
+            if (!isIntegerInput(minAgeInput) || !isIntegerInput(maxAgeInput)) {
+                textErrorConf("Tuổi cầu thủ phải là số nguyên");
+                return;
+            }
             if (isValidate(minAgeInput)) {
                 age_min_temp = Number(minAgeInput);
             }
@@ -326,11 +337,7 @@ function main() {
             }
 
             if (age_min_temp > age_max_temp) {
-                console.log(age_min_temp, age_max_temp);
-                ShadowFalse();
-                showShadow();
-                shadow__false.innerHTML = "Tuổi cầu thủ không hợp lệ";
-                shadow__box_conf.classList.remove("shadow__box-conf-active");
+                textErrorConf("Tuổi cầu thủ không hợp lệ");
                 return;
             }
             age_min = age_min_temp;
@@ -341,7 +348,13 @@ function main() {
             const maxNumInput = document
                 .querySelector("#maxNum-conf")
                 .value.trim();
-
+            if (!isIntegerInput(minNumInput) || !isIntegerInput(maxNumInput)) {
+                textErrorConf("Số lượng cầu thủ phải là số nguyên");
+                return;
+            } else {
+                console.log("minNumInput", minNumInput);
+                console.log("maxNumInput", maxNumInput);
+            }
             let num_min_temp = num_min;
             let num_max_temp = num_max;
             if (isValidate(minNumInput)) {
@@ -353,10 +366,7 @@ function main() {
             }
 
             if (num_min_temp > num_max_temp) {
-                ShadowFalse();
-                showShadow();
-                shadow__false.innerHTML = "Số lượng cầu thủ không hợp lệ";
-                shadow__box_conf.classList.remove("shadow__box-conf-active");
+                textErrorConf("Số lượng cầu thủ không hợp lệ");
                 return;
             }
             num_min = num_min_temp;

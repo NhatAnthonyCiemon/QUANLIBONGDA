@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Thêm sự kiện keyup cho ô tìm kiếm
     const searchBox = document.querySelector(".search-input");
-    const searchIcon = document.querySelector(".icon");
+    const searchIcon = document.querySelector(".fa-magnifying-glass");
 
     searchIcon.addEventListener("click", function () {
         const filter = searchBox.value.toLowerCase();
@@ -113,38 +113,38 @@ async function fetchData1() {
     }
 }
 
-async function fetchData2() {
-    try{
-        const response = await fetch(
-            "http://localhost:3000/Research/team"
-        );
-        rannkData = await response.json();
-        displayRank(currentPage);
-    } catch (error) {
-        console.error('Error fetching data:', error);
-    }
-}
+// async function fetchData2() {
+//     try{
+//         const response = await fetch(
+//             "http://localhost:3000/Research/team"
+//         );
+//         rannkData = await response.json();
+//         displayRank(currentPage);
+//     } catch (error) {
+//         console.error('Error fetching data:', error);
+//     }
+// }
 
-function displayRank(page) {
-    const teamList = document.getElementById('team-list-BXH');
-    teamList.innerHTML = '';
+// function displayRank(page) {
+//     const teamList = document.getElementById('team-list-BXH');
+//     teamList.innerHTML = '';
 
-    data.forEach((team, index) => {
-        //console.log(team,index);
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${index + 1}</td>
-            <td>${team.team_name}</td>
-            <td>${team.win}</td>
-            <td>${team.draw}</td>
-            <td>${team.lose}</td>
-            <td>${team.difference}</td>
-            <td>${team.point}</td>
-        `;
-        teamList.appendChild(row); // Sửa lỗi tại đây
-    });
+//     data.forEach((team, index) => {
+//         //console.log(team,index);
+//         const row = document.createElement('tr');
+//         row.innerHTML = `
+//             <td>${index + 1}</td>
+//             <td>${team.team_name}</td>
+//             <td>${team.win}</td>
+//             <td>${team.draw}</td>
+//             <td>${team.lose}</td>
+//             <td>${team.difference}</td>
+//             <td>${team.point}</td>
+//         `;
+//         teamList.appendChild(row); // Sửa lỗi tại đây
+//     });
 
-}
+// }
 
 
 function displayPage(page) {

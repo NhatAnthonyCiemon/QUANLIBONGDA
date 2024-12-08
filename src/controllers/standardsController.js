@@ -83,6 +83,10 @@ export async function putStandarDK(req, res) {
 export async function putStandarDK1(req, res) {
     try {
         const { win_score, lose_score, draw_score } = req.body.message;
+        if (!(win_score > draw_score && draw_score > lose_score)) {
+            res.status(400).json("Invalid information");
+            return;
+        }
         const { username, password } = req.body.info;
         const [[rows]] = await pool.query(
             `SELECT * FROM admin WHERE username = ? AND password = ?`,

@@ -122,9 +122,10 @@ function main() {
         tbody.appendChild(tr);
     });
 
-    function ShadowSuccess() {
-        shadow_desc.innerHTML =
-            "ĐĂNG KÝ THÀNH CÔNG. VUI LÒNG ĐỢI PHẢN HỒI TỪ CHÚNG TÔI.";
+    function ShadowSuccess(
+        text = "ĐĂNG KÝ THÀNH CÔNG. VUI LÒNG ĐỢI PHẢN HỒI TỪ CHÚNG TÔI."
+    ) {
+        shadow_desc.innerHTML = text;
         shadow_desc.style.color = "green";
         shadow_img.src = "../assets/successdky.svg";
         shadow__false.innerHTML = "";
@@ -167,7 +168,10 @@ function main() {
         const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         return emailPattern.test(email);
     }
-
+    function isIntegerInput(value) {
+        const numberValue = Number(value);
+        return Number.isInteger(numberValue);
+    }
     btn_submit.addEventListener("click", async function () {
         if (cauthu.length < num_min || cauthu.length > num_max) {
             ShadowFalse();
@@ -293,60 +297,87 @@ function main() {
         }
         return null;
     }
+    function isValidate(Input) {
+        if (
+            Input !== "" &&
+            !isNaN(Number(Input)) &&
+            Number(Input) > 0 &&
+            isIntegerInput(Input)
+        )
+            return true;
+        return false;
+    }
     if (firstLoad() != null) {
-        btn_conf.addEventListener("click", function () {
+        btn_conf.addEventListener("click", async function () {
             const minAgeInput = document
                 .querySelector("#minAge-conf")
                 .value.trim();
-            if (
-                minAgeInput !== "" &&
-                !isNaN(Number(minAgeInput)) &&
-                Number(minAgeInput) > 0
-            ) {
-                age_min = Number(minAgeInput);
-            }
-
             const maxAgeInput = document
                 .querySelector("#maxAge-conf")
                 .value.trim();
-            if (
-                maxAgeInput !== "" &&
-                !isNaN(Number(maxAgeInput)) &&
-                Number(maxAgeInput) > 0
-            ) {
-                age_max = Number(maxAgeInput);
+            let age_min_temp = age_min;
+            let age_max_temp = age_max;
+            if (isValidate(minAgeInput)) {
+                age_min_temp = Number(minAgeInput);
             }
 
+            if (isValidate(maxAgeInput)) {
+                age_max_temp = Number(maxAgeInput);
+            }
+
+            if (age_min_temp > age_max_temp) {
+                console.log(age_min_temp, age_max_temp);
+                ShadowFalse();
+                showShadow();
+                shadow__false.innerHTML = "Tuổi cầu thủ không hợp lệ";
+                shadow__box_conf.classList.remove("shadow__box-conf-active");
+                return;
+            }
+            age_min = age_min_temp;
+            age_max = age_max_temp;
             const minNumInput = document
                 .querySelector("#minNum-conf")
                 .value.trim();
-            if (
-                minNumInput !== "" &&
-                !isNaN(Number(minNumInput)) &&
-                Number(minNumInput) > 0
-            ) {
-                num_min = Number(minNumInput);
-            }
-
             const maxNumInput = document
                 .querySelector("#maxNum-conf")
                 .value.trim();
-            if (
-                maxNumInput !== "" &&
-                !isNaN(Number(maxNumInput)) &&
-                Number(maxNumInput) > 0
-            ) {
-                num_max = Number(maxNumInput);
+
+            let num_min_temp = num_min;
+            let num_max_temp = num_max;
+            if (isValidate(minNumInput)) {
+                num_min_temp = Number(minNumInput);
             }
+
+            if (isValidate(maxNumInput)) {
+                num_max_temp = Number(maxNumInput);
+            }
+
+            if (num_min_temp > num_max_temp) {
+                ShadowFalse();
+                showShadow();
+                shadow__false.innerHTML = "Số lượng cầu thủ không hợp lệ";
+                shadow__box_conf.classList.remove("shadow__box-conf-active");
+                return;
+            }
+            num_min = num_min_temp;
+            num_max = num_max_temp;
+
             const maxForeignInput = document
                 .querySelector("#maxForeign-conf")
                 .value.trim();
-            if (
-                maxForeignInput !== "" &&
-                !isNaN(Number(maxForeignInput)) &&
-                Number(maxForeignInput) > 0
-            ) {
+            if (isValidate(maxForeignInput)) {
                 foreign_max = Number(maxForeignInput);
+            } else {
+                if (maxForeignInput !== "") {
+                    ShadowFalse();
+                    showShadow();
+                    shadow__false.innerHTML =
+                        "Số lượng cầu thủ nước ngoài không hợp lệ";
+                    shadow__box_conf.classList.remove(
+                        "shadow__box-conf-active"
+                    );
+                    return;
+                }
             }
             if (document.querySelector("#footballType-conf").value != "") {
                 loaicauthu = document
@@ -367,16 +398,24 @@ function main() {
                 message: message,
                 info: info,
             };
-            fetch("http://localhost:3000/Standards/DK", {
+            const res = await fetch("http://localhost:3000/Standards/DK", {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(content),
             });
-            showRegulation();
-            shadow.classList.remove("shadow-active");
-            shadow__box_conf.classList.remove("shadow__box-conf-active");
+            if (res.ok) {
+                ShadowSuccess("Thay đổi quy định thành công");
+                showShadow();
+                showRegulation();
+                shadow__box_conf.classList.remove("shadow__box-conf-active");
+            } else {
+                ShadowFalse();
+                showShadow();
+                shadow__false.innerHTML = "Đã xảy ra lỗi";
+                shadow__box_conf.classList.remove("shadow__box-conf-active");
+            }
         });
     } else {
         btn_regulation.style.display = "none";

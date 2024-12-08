@@ -231,7 +231,7 @@ strong:not(.foreign_max) {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 100;
+    z-index: 102;
     border-radius: 20px;
     border: 2px solid #79de7d;
     background: #e6ffe8;

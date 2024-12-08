@@ -88,6 +88,7 @@ const rowsPerPage = 20;
 let currentPage = 1;
 let playerData = [];
 let playerData1 = [];
+let rannkData = [];
 
 async function fetchData() {
     try {
@@ -111,6 +112,40 @@ async function fetchData1() {
         console.error("Error fetching data:", error);
     }
 }
+
+async function fetchData2() {
+    try{
+        const response = await fetch(
+            "http://localhost:3000/Research/team"
+        );
+        rannkData = await response.json();
+        displayRank(currentPage);
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+}
+
+function displayRank(page) {
+    const teamList = document.getElementById('team-list-BXH');
+    teamList.innerHTML = '';
+
+    data.forEach((team, index) => {
+        //console.log(team,index);
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${team.team_name}</td>
+            <td>${team.win}</td>
+            <td>${team.draw}</td>
+            <td>${team.lose}</td>
+            <td>${team.difference}</td>
+            <td>${team.point}</td>
+        `;
+        teamList.appendChild(row); // Sửa lỗi tại đây
+    });
+
+}
+
 
 function displayPage(page) {
     const tbody = document.getElementById("player-list-danhsachcauthu");
@@ -192,3 +227,4 @@ function nextPage1() {
 
 fetchData();
 fetchData1();
+fetchData2();

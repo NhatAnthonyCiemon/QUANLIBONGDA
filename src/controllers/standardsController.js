@@ -17,6 +17,21 @@ export async function putStandarDK(req, res) {
         req.body.message;
     const { username, password } = req.body.info;
     try {
+        if (
+            !loaicauthu ||
+            !age_min ||
+            !age_max ||
+            !num_max ||
+            !num_min ||
+            !foreign_max
+        ) {
+            res.status(400).json("Missing information");
+            return;
+        }
+        if (age_min > age_max || num_min > num_max) {
+            res.status(400).json("Invalid information");
+            return;
+        }
         const [[rows]] = await pool.query(
             `SELECT * FROM admin WHERE username = ? AND password = ?`,
             [username, password]

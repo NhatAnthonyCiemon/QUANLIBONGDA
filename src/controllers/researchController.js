@@ -113,6 +113,7 @@ export async function getTeam(req, res) {
             let lose = 0;
             let difference = 0;
             rows.forEach((row) => {
+                const result = row.result;
                 if (row.team_1 !== team) {
                     row.result = row.result.split("-").reverse().join("-");
                 }
@@ -120,7 +121,7 @@ export async function getTeam(req, res) {
                 difference += numberdifference(row.result);
                 const match = row.team_1 + "-" + row.team_2;
                 if (!confrontMap[match]) {
-                    confrontMap[match] = difference;
+                    confrontMap[match] = numberdifference(result);
                 }
                 total_goal += getGoal(row.result);
                 if (compare(row.result) === poit_per_win) {

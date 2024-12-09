@@ -80,9 +80,9 @@ function main() {
                 .querySelector("#draw__point-conf")
                 .value.trim();
             if (
-                !isValidate(winInput) ||
-                !isValidate(loseInput) ||
-                !isValidate(drawInput)
+                !isIntegerInput(winInput) ||
+                !isIntegerInput(loseInput) ||
+                !isIntegerInput(drawInput)
             ) {
                 textErrorConf("Vui lòng nhập số nguyên");
                 return;

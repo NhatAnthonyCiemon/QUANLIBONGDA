@@ -102,3 +102,77 @@ export async function putStandarDK1(req, res) {
         res.status(500).send("Something broke!");
     }
 }
+
+export async function getGoalTypes(req, res) {
+    try {
+        // Truy vấn cột goal_type từ bảng standard
+        const [rows] = await pool.query('SELECT goal_type FROM standards');
+        
+        // Tách dữ liệu bằng dấu phẩy và lưu vào mảng
+        const goalTypesArray = rows.map(row => row.goal_type.split(',').map(item => item.trim())).flat();
+        
+        // Trả về mảng dữ liệu
+        res.send(goalTypesArray);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Something broke!");
+    }
+}
+
+export async function getMaxGoalTime(req, res) {
+    try {
+        // Truy vấn cột goal_type từ bảng standard
+        const [rows] = await pool.query('SELECT max_goal_time FROM standards');
+       
+        // Trả về mảng dữ liệu
+        res.send(rows[0]);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Something broke!");
+    }
+}
+
+export async function updateGoalType(req, res) {
+    const { goalTypesString, id = 18 } = req.body; // Nhận goalTypesString từ yêu cầu và gán id mặc định là 18 nếu không có id
+    try {
+        // Tách chuỗi goal_type thành mảng các phần tử và ghép lại thành chuỗi
+        const goalTypesArray = goalTypesString.split(',').map(item => item.trim()).join(', ');
+
+        const [updateResult] = await pool.query(
+            `UPDATE standards 
+            SET goal_type = ? 
+            WHERE id = ?`, // Cập nhật cột goal_type
+            [goalTypesArray, id]
+        );
+
+        if (updateResult.affectedRows === 0) {
+            return res.status(404).send("Goal type not found.");
+        }
+
+        res.status(200).end(); // Trả về phản hồi thành công
+    } catch (err) {
+        console.error(err.stack);
+        res.status(500).send("Something went wrong!");
+    }
+}
+
+export async function updateMaxGoalTime(req, res) {
+    const { maxGoalTime } = req.body; // Nhận giá trị maxGoalTime từ yêu cầu
+    try {
+        const [updateResult] = await pool.query(
+            `UPDATE standards 
+            SET max_goal_time = ? 
+            WHERE id = 18`, // Cập nhật cột max_goal_time cho id = 18 (hoặc giá trị id khác nếu cần)
+            [maxGoalTime]
+        );
+
+        if (updateResult.affectedRows === 0) {
+            return res.status(404).send("Max goal time not updated.");
+        }
+
+        res.status(200).end(); // Trả về phản hồi thành công
+    } catch (err) {
+        console.error(err.stack);
+        res.status(500).send("Something went wrong!");
+    }
+}

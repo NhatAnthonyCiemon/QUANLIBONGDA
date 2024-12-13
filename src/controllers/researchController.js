@@ -57,6 +57,30 @@ function numberdifference(result) {
     const arr = result.split("-");
     return arr[0] - arr[1];
 }
+function getGoal(result) {
+    result = result.replace(/\s+/g, "");
+    const arr = result.split("-");
+    return parseInt(arr[0]);
+}
+
+async function getConfront(team1, team2) {
+    const [[row_1]] = await pool.query(
+        `SELECT result
+        FROM match_schedule
+        WHERE team_1 = ? AND team_2 = ? AND result IS NOT NULL`,
+        [team1, team2]
+    );
+    const [[row_2]] = await pool.query(
+        `SELECT result
+        FROM match_schedule
+        WHERE team_1 = ? AND team_2 = ? AND result IS NOT NULL`,
+        [team2, team1]
+    );
+    let nums_goal_1 = getGoal(row_1.result) + getGoal(row_2.result);
+    let nums_goal_2 = getGoal(row_2.result) + getGoal(row_1.result);
+    return nums_goal_2 - nums_goal_1;
+}
+
 export async function getTeam(req, res) {
     try {
         const [[standards]] = await pool.query(
@@ -71,6 +95,7 @@ export async function getTeam(req, res) {
         `);
         const teams = rows.map((team) => team.team_id);
         const data = [];
+        const confrontMap = {};
         for (let i = 0; i < teams.length; i++) {
             const team = teams[i];
             const [rows] = await pool.query(
@@ -82,16 +107,23 @@ export async function getTeam(req, res) {
                 [team, team]
             );
             let point = 0;
+            let total_goal = 0;
             let win = 0;
             let draw = 0;
             let lose = 0;
             let difference = 0;
             rows.forEach((row) => {
+                const result = row.result;
                 if (row.team_1 !== team) {
                     row.result = row.result.split("-").reverse().join("-");
                 }
                 point += compare(row.result);
                 difference += numberdifference(row.result);
+                const match = row.team_1 + "-" + row.team_2;
+                if (!confrontMap[match]) {
+                    confrontMap[match] = numberdifference(result);
+                }
+                total_goal += getGoal(row.result);
                 if (compare(row.result) === poit_per_win) {
                     win++;
                 } else if (compare(row.result) === point_per_draw) {
@@ -114,10 +146,20 @@ export async function getTeam(req, res) {
                 win,
                 draw,
                 lose,
+                total_goal,
             });
         }
         data.sort((a, b) => {
             if (a.point === b.point) {
+                if (a.difference === b.difference) {
+                    if (a.total_goal === b.total_goal) {
+                        return (
+                            confrontMap[b.team_id + "-" + a.team_id] -
+                            confrontMap[a.team_id + "-" + b.team_id]
+                        );
+                    }
+                    return b.total_goal - a.total_goal;
+                }
                 return b.difference - a.difference;
             }
             return b.point - a.point;

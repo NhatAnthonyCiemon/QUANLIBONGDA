@@ -13,7 +13,7 @@ let header = document.querySelector("header");
 let headeInner = `<img src="/assets/Logo.svg" alt="Logo">
             <ul class="header__links">
                 <li><a class="header__link" href="/index.html">TRANG CHỦ</a></li>
-                <li><a class="header__link" href="/page/Dangki.html">ĐĂNG KÝ</a></li>
+                <li><a id="dangki" class="header__link" href="/page/Dangki.html">ĐĂNG KÝ</a></li>
                 <li><a class="header__link" href="/page/Lichthidau.html">LỊCH THI ĐẤU</a></li>
                 <li><a class="header__link" href="/page/Tracuu.html">TRA CỨU</a></li>
                 <li><a class="header__link" href="/page/Group.html">VỀ CHÚNG TÔI</a></li>
@@ -121,3 +121,22 @@ fetch("http://localhost:3000/admin/login", {
     .catch((error) => {
         console.error(error);
     });
+
+fetch("http://localhost:3000/admin/checkNextSeason", {
+    method: "GET",
+    headers: {
+        "Content-Type": "application/json",
+    },
+})
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error("Failed to check next season");
+        }
+        return response.json();
+    })
+    .then((data) => {
+        if (data.nextSeason === null) {
+            document.querySelector("#dangki").remove();
+        }
+    })
+    .catch((error) => {});

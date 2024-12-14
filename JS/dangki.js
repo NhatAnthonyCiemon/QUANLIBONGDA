@@ -428,6 +428,6 @@ function main() {
             }
         });
     } else {
-        btn_regulation.style.display = "none";
+        btn_regulation.remove();
     }
 }

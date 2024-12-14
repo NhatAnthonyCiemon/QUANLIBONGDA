@@ -29,6 +29,9 @@ export async function createTeam(req, res) {
         const [[season_table]] = await pool.query(
             "SELECT * FROM season WHERE NOT EXISTS ( SELECT 1 FROM match_schedule WHERE season.season = match_schedule.season )"
         );
+        if (!season_table) {
+            return res.status(400).send("No season available");
+        }
         const season = season_table.season;
         const [result] = await pool.query(
             `INSERT INTO team (team_name,home_stadium, email,season) VALUES (N?, ?,?,?)`,

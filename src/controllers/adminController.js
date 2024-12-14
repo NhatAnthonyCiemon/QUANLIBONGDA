@@ -131,6 +131,34 @@ async function deleteOldSeason(season) {
 export async function createSchedule(req, res) {
     try {
         const season = req.params.season;
+        const [[seasonExist]] = await pool.query(
+            `SELECT * FROM season WHERE season = ?`,
+            [season]
+        );
+        if (!seasonExist) {
+            console.log("Season not found");
+            res.status(404).json("Season not found");
+            return;
+        }
+        const [[rows__]] = await pool.query(
+            `SELECT * FROM season WHERE NOT EXISTS (SELECT * FROM match_schedule as MS WHERE MS.season = season.season)`
+        );
+
+        if (!rows__ || rows__.season != season) {
+            console.log("Schedule already created");
+            res.status(404).json("Schedule already created");
+            return;
+        }
+        const [[team_season]] = await pool.query(
+            `SELECT COUNT(*) FROM team WHERE season = ?`,
+            [season]
+        );
+        if (team_season["COUNT(*)"] < 5) {
+            console.log("Not enough teams");
+            res.status(400).json("Not enough teams");
+            return;
+        }
+
         const [seasonOther] = await pool.query(
             `SELECT * FROM season WHERE season != ?`,
             [season]
@@ -184,6 +212,14 @@ export async function checkNextSeason(req, res) {
         const [[rows]] = await pool.query(
             `SELECT * FROM season WHERE NOT EXISTS (SELECT * FROM match_schedule as MS WHERE MS.season = season.season)`
         );
+
+        if (!rows) {
+            res.status(200).json({
+                nextSeason: null,
+                numTeamsNextSeason: null,
+            });
+            return;
+        }
         const nextSeason = rows.season;
 
         const [[numTeamsNextSeasonQuery]] = await pool.query(
@@ -191,11 +227,8 @@ export async function checkNextSeason(req, res) {
             [nextSeason]
         );
         const numTeamsNextSeason = numTeamsNextSeasonQuery["COUNT(*)"];
-        if (numTeamsNextSeason) {
-            res.status(200).json({ nextSeason, numTeamsNextSeason });
-        } else {
-            res.status(404).json("Not enough teams for the next season");
-        }
+        console.log(nextSeason, numTeamsNextSeason);
+        res.status(200).json({ nextSeason, numTeamsNextSeason });
     } catch (err) {
         console.error(err.stack);
         res.status(500).send("Something broke!");

@@ -125,11 +125,14 @@ export async function putStandarDK1(req, res) {
 export async function getGoalTypes(req, res) {
     try {
         // Truy vấn cột goal_type từ bảng standard
-        const [rows] = await pool.query('SELECT goal_type FROM standards');
-        
+        const [[rows]] = await pool.query(
+            "SELECT * FROM standards WHERE id = (SELECT MAX(id) FROM standards)"
+        );
+
         // Tách dữ liệu bằng dấu phẩy và lưu vào mảng
-        const goalTypesArray = rows.map(row => row.goal_type.split(',').map(item => item.trim())).flat();
-        
+        let goalTypesArray = rows.goal_type.split(",");
+        goalTypesArray = goalTypesArray.map((item) => item.trim());
+
         // Trả về mảng dữ liệu
         res.send(goalTypesArray);
     } catch (err) {
@@ -141,10 +144,11 @@ export async function getGoalTypes(req, res) {
 export async function getMaxGoalTime(req, res) {
     try {
         // Truy vấn cột goal_type từ bảng standard
-        const [rows] = await pool.query('SELECT max_goal_time FROM standards');
-       
+        const [[rows]] = await pool.query(
+            "SELECT * FROM standards WHERE id = (SELECT MAX(id) FROM standards)"
+        );
         // Trả về mảng dữ liệu
-        res.send(rows[0]);
+        res.send(rows);
     } catch (err) {
         console.error(err);
         res.status(500).send("Something broke!");
@@ -152,10 +156,18 @@ export async function getMaxGoalTime(req, res) {
 }
 
 export async function updateGoalType(req, res) {
-    const { goalTypesString, id = 18 } = req.body; // Nhận goalTypesString từ yêu cầu và gán id mặc định là 18 nếu không có id
+    const { goalTypesString } = req.body; // Nhận goalTypesString từ yêu cầu và gán id mặc định là 18 nếu không có id
     try {
         // Tách chuỗi goal_type thành mảng các phần tử và ghép lại thành chuỗi
-        const goalTypesArray = goalTypesString.split(',').map(item => item.trim()).join(', ');
+        const goalTypesArray = goalTypesString
+            .split(",")
+            .map((item) => item.trim())
+            .join(", ");
+
+        const [[rows]] = await pool.query(
+            "SELECT * FROM standards WHERE id = (SELECT MAX(id) FROM standards)"
+        );
+        const id = rows.id;
 
         const [updateResult] = await pool.query(
             `UPDATE standards 
@@ -178,11 +190,15 @@ export async function updateGoalType(req, res) {
 export async function updateMaxGoalTime(req, res) {
     const { maxGoalTime } = req.body; // Nhận giá trị maxGoalTime từ yêu cầu
     try {
+        const [[rows]] = await pool.query(
+            "SELECT * FROM standards WHERE id = (SELECT MAX(id) FROM standards)"
+        );
+        const id = rows.id;
         const [updateResult] = await pool.query(
             `UPDATE standards 
             SET max_goal_time = ? 
-            WHERE id = 18`, // Cập nhật cột max_goal_time cho id = 18 (hoặc giá trị id khác nếu cần)
-            [maxGoalTime]
+            WHERE id = ?`, // Cập nhật cột max_goal_time cho id = 18 (hoặc giá trị id khác nếu cần)
+            [maxGoalTime, id]
         );
 
         if (updateResult.affectedRows === 0) {

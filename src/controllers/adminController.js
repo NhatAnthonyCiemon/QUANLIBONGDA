@@ -97,29 +97,37 @@ function generateSeasonDatetimes(season, count) {
 }
 
 async function deleteOldSeason(season) {
-    await pool.query(`SET SQL_SAFE_UPDATES = 0;
-                    DELETE FROM goal;
-                    SET SQL_SAFE_UPDATES = 1;`);
-    await pool.query(`SET SQL_SAFE_UPDATES = 0;
-                    DELETE FROM match_schedule;
-                    SET SQL_SAFE_UPDATES = 1;`);
+    // Tắt chế độ an toàn
+    await pool.query(`SET SQL_SAFE_UPDATES = 0`);
+
+    // Xóa dữ liệu các bảng liên quan
+    await pool.query(`DELETE FROM goal`);
+    await pool.query(`DELETE FROM match_schedule`);
+
     const [teamSeason] = await pool.query(
         `SELECT team_id FROM team WHERE season = ?`,
         [season]
     );
 
-    //xóa cầu thủ trước
-    teamSeason.forEach(async (team) => {
+    // Xóa cầu thủ trước
+    for (const team of teamSeason) {
         await pool.query(`DELETE FROM player WHERE team_id = ?`, [
             team.team_id,
         ]);
-    });
-    //xóa team
-    teamSeason.forEach(async (team) => {
+    }
+
+    // Xóa đội bóng
+    for (const team of teamSeason) {
         await pool.query(`DELETE FROM team WHERE team_id = ?`, [team.team_id]);
-    });
+    }
+
+    // Xóa mùa giải
     await pool.query(`DELETE FROM season WHERE season = ?`, [season]);
+
+    // Bật lại chế độ an toàn
+    await pool.query(`SET SQL_SAFE_UPDATES = 1`);
 }
+
 export async function createSchedule(req, res) {
     try {
         const season = req.params.season;

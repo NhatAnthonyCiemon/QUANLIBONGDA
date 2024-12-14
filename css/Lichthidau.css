@@ -90,9 +90,17 @@ tbody tr:not(:last-child)::after {
   position: absolute;
   bottom: 0;
   left: 1%; /* Khoảng cách từ lề trái */
-  width: 92%; /* Độ dài của đường gạch ngang, bạn có thể điều chỉnh */
+  width: 98%; /* Độ dài của đường gạch ngang, bạn có thể điều chỉnh */
   border-top: 2px solid white; /* Độ dày và màu của đường gạch ngang */
 }
+
+#modalGoalBody tr:not(:last-child)::after {
+  content: "";
+  position: relative; /* Thay thế hoặc đảm bảo không bị conflict với các CSS khác */
+  display: none; /* Hiển thị rõ ràng như một khối */
+  margin: 0 auto;
+}
+
 
 .result{
   background-color: rgba(211, 255, 204, 0.46);
@@ -120,20 +128,22 @@ button:disabled {
     position: fixed;
     z-index: 1;
     left: 0;
-    top: 0;
+    top: -10px;
     width: 100%;
     height: 100%;
-    overflow: auto;
     background-color: rgba(0, 0, 0, 0.5); /* Màu nền mờ */
 }
 
 .modal-content {
+   
     background-color: deepskyblue;
-    margin: 15% auto;
+    margin: 150px auto;
     padding: 20px;
     border-radius: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     width: 80%;
+    
+   
 }
 
 .close {
@@ -204,7 +214,6 @@ label {
 }
 
 button#changeInfoButton,
-.deleteButton,
 .addPlayerButton {
     margin-top: 20px;
     background-color: #4CAF50; /* Xanh lá */
@@ -216,7 +225,6 @@ button#changeInfoButton,
 }
 
 button#changeInfoButton:hover,
-.deleteButton:hover,
 .addPlayerButton:hover {
     background-color: #45a049; /* Tối hơn khi hover */
 }
@@ -247,4 +255,55 @@ button#changeInfoButton:hover,
     border-radius: 10px; /*Bo tròn ô nhập*/
     background-color: lightgray; /*Màu nền của ô nhập */
     text-align:center;
+}
+
+
+.center-input {
+  background-color: #d3d3d3; /* Màu xám */
+  text-align: center;       /* Căn giữa theo chiều ngang */
+  line-height: normal;      /* Đặt lại line-height để không bị ảnh hưởng */
+  height: 30px;             /* Đặt chiều cao của ô nhập liệu */
+  border: none;             /* Loại bỏ đường viền */
+  border-radius: 5px;       /* Bo góc (tùy chọn) */
+  padding: 0;               /* Loại bỏ khoảng cách bên trong */
+  width: 90%;               /* Độ rộng */
+  font-size: 14px;          /* Kích thước chữ */
+}
+
+/* CSS cho nút "Xóa" */
+.deleteButton {
+  background-color: #ff4d4d; /* Màu nền đỏ */
+  border: 2px solid #e60000; /* Viền đỏ */
+  color: white; /* Màu chữ */
+  width: 25px; /* Chiều rộng nút */
+  height: 25px; /* Chiều cao nút */
+  display: flex;
+  justify-content: center; /* Căn giữa theo chiều ngang */
+  align-items: center; /* Căn giữa theo chiều dọc */
+  font-size: 18px; /* Cỡ chữ nhỏ hơn */
+  cursor: pointer; /* Con trỏ chuột thay đổi */
+  border-radius: 5px; /* Bo góc nút */
+  text-align: center; /* Căn giữa chữ */
+  line-height: 1; /* Căn chỉnh dòng để chữ không bị lệch */
+  outline: none; /* Không viền khi focus */
+  margin-left: 10px; /* Khoảng cách với nút khác */
+}
+
+.deleteButton:hover {
+  background-color: #e60000; /* Màu khi hover */
+}
+
+
+.scrollable-tbody {
+  display: block;
+  max-height: 300px; /* Adjust the height as needed */
+  overflow-y: auto;
+  width: auto;
+  padding-right: 5%;
+}
+
+.scrollable-tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
 }

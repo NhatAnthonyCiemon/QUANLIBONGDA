@@ -1,125 +1,254 @@
-const seasons = {
-    '2024–2025': ['Vòng 1', 'Vòng 2'],
-    '2023–2024': ['Vòng 1', 'Vòng 2'],
-    '2022–2023': ['Vòng 1', 'Vòng 2']
-};
-
-const matches = {
-    '2024–2025': {
-        'Vòng 1': [
-            { stt: 1, team1: 'Đội A', team2: 'Đội B', time: '1/1/2024 - 2:00', location: 'Sân A' },
-            { stt: 2, team1: 'Đội B', team2: 'Đội A', time: '5/1/2024 - 2:00', location: 'Sân B' }
-        ],
-        'Vòng 2': [
-            { stt: 1, team1: 'Đội B', team2: 'Đội A', time: '5/1/2024 - 2:00', location: 'Sân B' }
-        ]
-    },
-    '2023–2024': {
-        'Vòng 1': [
-            { stt: 1, team1: 'Đội E', team2: 'Đội F', time: '1/1/2024 - 2:00', location: 'Sân E' }  
-        ],
-        'Vòng 2': [
-            { stt: 1, team1: 'Đội F', team2: 'Đội E', time: '5/1/2024 - 2:00', location: 'Sân F' }
-        ]
-    },
-    '2022–2023': {
-        'Vòng 1': [
-            { stt: 1, team1: 'Đội K', team2: 'Đội L', time: '1/1/2024 - 2:00', location: 'Sân K' }  
-        ],
-        'Vòng 2': [
-            { stt: 1, team1: 'Đội L', team2: 'Đội K', time: '5/1/2024 - 2:00', location: 'Sân L' }
-        ]
-    },
-};
-
-const tableResults = {
-    '2024–2025': {
-        'Vòng 1': [
-            ["Đội A", "2 - 0", "Đội B", "Sân A", "1/1/2024 - 2:00"],
-            ["Đội B", "1 - 1", "Đội A", "Sân B", "5/1/2024 - 2:00"]
-        ],
-        'Vòng 2': [
-            ["Đội B", "1 - 1", "Đội A", "Sân B", "5/1/2024 - 2:00"]
-        ]
-    },
-    '2023–2024': {
-        'Vòng 1': [
-            ["Đội E", "1 - 0", "Đội F", "Sân E", "1/1/2024 - 2:00"]
-        ],
-        'Vòng 2': [
-            ["Đội F", "0 - 1", "Đội E", "Sân F", "5/1/2024 - 2:00"]
-        ]
-    },
-    '2022–2023': {
-        'Vòng 1': [
-            ["Đội K", "0 - 1", "Đội L", "Sân K", "1/1/2024 - 2:00"]
-        ],
-        'Vòng 2': [
-            ["Đội L", "1 - 1", "Đội K", "Sân L", "5/1/2024 - 2:00"]
-        ]
-    }
-};
-
-const tableGoals = {
-    '2024–2025': {
-        'Vòng 1': [
-            [
-                ["1", "Cầu thủ A", "Đội A", "Ghi bàn", "45'"],
-                ["2", "Cầu thủ B", "Đội B", "Phản lưới", "50'"]
-            ],
-            [
-                ["1", "Cầu thủ B", "Đội B", "Ghi bàn", "60'"],
-                ["2", "Cầu thủ A", "Đội A", "Phản lưới", "80'"]
-            ]
-        ],
-        'Vòng 2': [
-            [
-                ["1", "Cầu thủ B", "Đội B", "Ghi bàn", "60'"],
-                ["2", "Cầu thủ A", "Đội A", "Phản lưới", "80'"]
-            ]
-        ]
-    },
-    '2023–2024': {
-        'Vòng 1': [
-            [
-                ["1", "Cầu thủ E", "Đội E", "Ghi bàn", "30'"]
-            ]
-        ],
-        'Vòng 2': [
-            [
-                ["1", "Cầu thủ F", "Đội E", "Ghi bàn", "40'"]
-            ]
-        ]
-    },
-    '2022–2023': {
-        'Vòng 1': [
-            [
-                ["1", "Cầu thủ K", "Đội L", "Ghi bàn", "35'"]
-            ]
-        ],
-        'Vòng 2': [
-            [
-                ["1", "Cầu thủ L", "Đội L", "Ghi bàn", "25'"],
-                ["2", "Cầu thủ K", "Đội K", "Phản lưới", "75'"]
-            ]
-        ]
-    }   
-};
-
-let currentTableResults = null;
-let currentTableGoals = null;
-
-
-const mua = ['2024–2025', '2023–2024', '2022–2023'];
-let currentSeason = mua[0]; // Mùa giải hiện tại, mặc định là mùa mới nhất
 let currentRoundIndex = 0; // Chỉ số của vòng đấu hiện tại
-var currentIndex = 0;//Chỉ số của trận hiện tại
+let currentSeason = null; // Mùa giải hiện tại
+let seasons = []; // Danh sách các mùa giải
+let matches = []; // Danh sách các trận đấu
+let tableResults = []; // Danh sách kết quả các trận đấu
+let tableGoals = []; // Danh sách bàn thắng của các trận đấu
+const maxRound=20; // Số vòng đấu tối đa
+let currentRound;
+let currentMaxRound;
+let currentMatch=[]; //Trận đấu hiện tại đang xem kết quả
+let currentGoalPlayerList=[]; //Danh sách cầu thủ ghi bàn hiện tại
+let currentGoalTypes; //Danh sách các loại bàn thắng hiện tại
+let currentMaxGoalTime = 0; //Thời gian tối đa hiện tại
 
+async function getSeasons(){
+    try{
+        const response =  await fetch('http://localhost:3000/Seasons');
+        if(!response.ok)
+        {
+            throw new Error('Something went wrong');
+        }
+        const data =  await response.json();
+        seasons = data.map(season => season.season);
+        renderDropdown();
+        currentSeason = seasons[0]; // Gán mùa giải hiện tại sau khi cập nhật seasons
+        selectSeason(currentSeason); // Gọi hàm selectSeason với mùa giải hiện tại
+    }catch(err){
+        console.error(err.stack);
+    }
+}
+async function getMatches(){
+    try{
+        const response =  await fetch('http://localhost:3000/Matches');
+        if(!response.ok)
+        {
+            throw new Error('Something went wrong');
+        }
+        const data =  await response.json();
+       
+      
+        data.forEach(match =>{
+            formatTime=(new Date(match.match_time)).toLocaleString('en-GB');
+        matches.push({Season: match.season, Round: match.round, team1: match.team1name, team2: match.team2name, time: formatTime,
+                    location: match.stadium});
+        tableResults.push({Season: match.season, Round: match.round,Match_id: match.schedule_id, team1: match.team1name, team2: match.team2name, Score: match.result,  
+                    location: match.stadium, time: formatTime});      
+        });
 
+    }catch(err){
+        console.error(err.stack);
+    }
+}
+async function getGoals(){
+    try{
+        const response =  await fetch('http://localhost:3000/Goals');
+        if(!response.ok)
+        {
+            throw new Error('Something went wrong');
+        }
+        const data_goals =  await response.json();
+        tableGoals=[];
+        data_goals.forEach(goal =>{
+            tableGoals.push({Match_id: goal.schedule_id, Round: goal.round,player_id:goal.player_id,number:goal.ao_number, name: goal.player_name,team: goal.team_name,
+                                type: goal.goal_type, time: goal.goal_time});
+        
+        });
+       
+    }catch(err){
+        console.error(err.stack);
+    }
+}
+async function updateMatchResult(currentMatch) {
+    const matchData = {
+        schedule_id: currentMatch.Match_id,  // Lấy từ thuộc tính đúng của currentMatch
+        result: currentMatch.Score            // Lấy từ thuộc tính đúng của currentMatch
+    };
+    try {
+        const response = await fetch('http://localhost:3000/Matches/update-matches', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(matchData) // Gửi trực tiếp object matchData
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to update match result');
+        }
+    } catch (err) {
+        console.error('Error:', err);
+        const errorMessage = err.message || 'Something went wrong while updating the match result.';
+        //alert(errorMessage);
+        showModal(errorMessage);
+    }
+}
+async function getGoalTypes() {
+    try {
+        const response = await fetch('http://localhost:3000/Standards/goal_types');
+        if(!response.ok)
+            {
+                throw new Error('Something went wrong');
+            }
+        currentGoalTypes = await response.json();
+    } catch (error) {
+        console.error('Error fetching goal types:', error);
+    }
+}
+async function getMaxGoalTime() {
+    try {
+        const response = await fetch('http://localhost:3000/Standards/max_goal_time');
+        if(!response.ok)
+            {
+                throw new Error('Something went wrong');
+            }
+        const data = await response.json();
+        currentMaxGoalTime=data.max_goal_time;
+    } catch (error) {
+        console.error('Error fetching goal types:', error);
+    }
+}
+async function updateGoalType(goalTypesArray) {
+    try {
+        const goalTypesString = goalTypesArray.join(', ');
+
+        const response = await fetch('http://localhost:3000/Standards/update_goal', {
+            method: 'PUT', // Sử dụng phương thức PUT để cập nhật
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                goalTypesString: goalTypesString, // Truyền goalTypesString vào yêu cầu
+            }),
+        });
+
+        // Kiểm tra phản hồi từ server
+        if (!response.ok) {
+            throw new Error('Failed to update goal type');
+        }
+
+    } catch (error) {
+        console.error('Error updating goal type:', error);
+    }
+}
+async function updateMaxGoalTime(maxGoalTime) {
+    try {
+        const response = await fetch('http://localhost:3000/Standards/update_time', {
+            method: 'PUT', // Sử dụng phương thức PUT để cập nhật
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                maxGoalTime: maxGoalTime, // Truyền maxGoalTime vào yêu cầu
+            }),
+        });
+
+        // Kiểm tra phản hồi từ server
+        if (!response.ok) {
+            throw new Error('Failed to update max goal time');
+        }
+
+    } catch (error) {
+        console.error('Error updating max goal time:', error);
+    }
+}
+async function updateGoalPlayerList(goalData) {
+    // Gửi yêu cầu API backend để cập nhật dữ liệu vào bảng goal
+    try {
+        const response = await fetch('http://localhost:3000/Goals/update-goal', {
+            method: 'POST', 
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ match_id: currentMatch.Match_id, goalData: goalData })
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to update goal data');
+        }
+        await getGoals();
+        //alert('Goal data updated successfully');
+        showModal('Goal data updated successfully');
+    } catch (error) {
+        console.error('Error updating goal data:', error);
+        //alert('Không tìm thấy thông tin cầu thủ');
+        showModal('Không tìm thấy thông tin cầu thủ');
+        return false;
+    }
+    // Bước 1: Cập nhật currentGoalPlayerList từ goalData
+    goalData.forEach(goal => {
+        const name=goal[1];
+        const number=parseInt(goal[2]);
+        const team=goal[3];
+        const goal_type=goal[4];
+        const goal_time=goal[5];
+        // Kiểm tra xem cầu thủ đã có trong currentGoalPlayerList chưa
+        let playerExists = false;
+        currentGoalPlayerList.forEach(player => {
+            if (player.name == name && player.number == number && player.team == team && player.time == goal_time) {
+                console.log("ok");
+                playerExists = true;
+                // Cập nhật thông tin cầu thủ nếu có thay đổi
+                player.type = goal_type;
+            }
+        });
+
+        // Nếu chưa có cầu thủ trong currentGoalPlayerList, thêm mới
+        if (!playerExists) {
+            currentGoalPlayerList.push({
+                Match_id: currentMatch.Match_id,
+                round: currentRound,
+                player_id: null,
+                number: number,
+                name: name,
+                team: team,
+                type: goal_type,
+                time: goal_time
+            });
+        }
+    });
+
+    // Bước 2: Lọc các cầu thủ trong currentGoalPlayerList dựa trên goalData
+    const goalDataNames = goalData.map(goal => goal[1]);
+    const goalDataNumber = goalData.map(goal => goal[2]);
+    const goalDataTeams = goalData.map(goal => goal[3]);
+    const goalDataTimes = goalData.map(goal => goal[5]);
+
+    // Bước 3: Xóa các cầu thủ không có trong goalData khỏi currentGoalPlayerList
+    currentGoalPlayerList = currentGoalPlayerList.filter(player => {
+        return goalDataNames.some((name, index) => {
+            return (
+                name == player.name &&
+                goalDataNumber[index] == player.number &&
+                goalDataTeams[index] == player.team &&
+                goalDataTimes[index] == player.time
+            );
+        });
+    });
+    console.log(currentGoalPlayerList);
+    return true;
+}
+getSeasons();
+getMatches();
+getGoals();
+getGoalTypes();
+getMaxGoalTime();
+console.log(matches);
+console.log(tableResults);
+console.log(tableGoals);
+//ok
 // Tạo và hiển thị danh sách các mùa trong dropdown
 function renderDropdown() {
     dropdown.innerHTML = ''; // Xóa sạch nội dung cũ
-    mua.forEach(season => {
+    seasons.forEach(season => {
         const seasonElement = document.createElement('a');
         seasonElement.className = 'ml-12 rounded-lg';
         seasonElement.innerHTML = `<strong>${season}</strong>`;
@@ -128,6 +257,7 @@ function renderDropdown() {
     });
 }
 
+//ok
 // Gọi hàm renderDropdown khi tải trang
 document.addEventListener('DOMContentLoaded', () => {
     renderDropdown();
@@ -135,7 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
     dropdown.style.display = 'block'; // Thêm dòng này
 });
 
-
+//ok
 // Hàm này được gọi khi chọn mùa giải
 function selectSeason(season) {
     currentSeason = season; // Cập nhật mùa giải hiện tại
@@ -147,53 +277,76 @@ function selectSeason(season) {
 
 // Hàm này cập nhật vòng đấu hiện tại
 function updateRound() {
-    const roundList = Object.keys(matches[currentSeason]); // Lấy danh sách vòng đấu của mùa hiện tại
-    const currentRound = roundList[currentRoundIndex]; // Lấy tên của vòng hiện tại
-    document.getElementById('round-name').innerText = currentRound; // Cập nhật tên vòng đấu
+    //const roundList = Object.keys(matches[currentSeason]); // Lấy danh sách vòng đấu của mùa hiện tại
+
+    let roundList = [];
+    matches.forEach(match => {
+        if(match.Season === currentSeason){
+            roundList.push(match.Round);
+        }
+    });
+    roundList=[...new Set(roundList)].sort((a, b) => a - b);
+    currentMaxRound=roundList[roundList.length-1];
+    currentRound = roundList[currentRoundIndex]; // Lấy tên của vòng hiện tại
+    document.getElementById('round-name').innerText = `Vòng ${currentRound}`; // Cập nhật tên vòng đấu
 
     updateMatches(currentSeason, currentRound); // Cập nhật danh sách trận đấu của vòng hiện tại
 }
 
 // Hàm này được gọi khi click vào nút "Vòng trước"
 function prevRound() {
-    const roundList = seasons[currentSeason];
     if (currentRoundIndex > 0) {
-        currentRoundIndex--; // Giảm chỉ số vòng đấu
+        currentRoundIndex-=1; // Giảm chỉ số vòng đấu
+        console.log(currentRoundIndex);
+
         updateRound(); // Cập nhật vòng đấu mới
     }
 }
 // Hàm này được gọi khi click vào nút "Vòng tiếp theo"
 function nextRound() {
-    const roundList = seasons[currentSeason];
-    if (currentRoundIndex < roundList.length - 1) {
-        currentRoundIndex++; // Tăng chỉ số vòng đấu
+    if (currentRoundIndex < currentMaxRound-1) { // 2 là số vòng đấu tối đa
+        currentRoundIndex+=1; // Tăng chỉ số vòng đấu
+        console.log(currentRoundIndex);
+
         updateRound(); // Cập nhật vòng đấu mới
     }
+    console.log(currentRoundIndex);
 }
+
 
 // Hàm này cập nhật danh sách trận đấu của một vòng đấu
 function updateMatches(season, round) {
-    const roundMatches = matches[season][round];
+    let roundMatches = [];
+    let cnt =0;
+    matches.forEach(match => {
+        if(match.Season === season && match.Round === round){
+            cnt++;
+            roundMatches.push({stt:cnt,team1: match.team1, team2: match.team2, time: match.time, location: match.location});
+        }
+    });
+
     let tbody = document.getElementById('team');
     tbody.innerHTML = ''; // Xóa nội dung cũ
-
-    roundMatches.forEach((match, index) => {
+   
+    roundMatches.forEach((match) => {
+        cnt++;
         tbody.innerHTML += `
-            <tr class="border-t border-white">
+            <tr class="border-t border-white    ">
                 <td>${match.stt}</td>
                 <td>${match.team1}</td>
                 <td>${match.team2}</td>
                 <td>${match.time}</td>
                 <td>${match.location}</td>
                 <td>
-                    <button class="w-[132px] h-[54px] bg-[#377453] hover:bg-[#5ABF89] transition-all duration-300 rounded-xl mt-4 text-xl shadow-md"
-                        onclick="toggleRows('${season}', '${round}', ${index})">Kết quả</button>
+                    <button class="w-[100px] h-[54px] bg-[#377453] hover:bg-[#5ABF89] transition-all duration-300 rounded-xl mt-4 text-xl shadow-md ml-0"
+                        onclick="toggleRows('${season}', '${round}', '${match.team1}', '${match.team2}')">Kết quả</button>
                 </td>
             </tr>
         `;
     });
 }
 
+//ok
 // Hàm này mở hoặc đóng dropdown
 function toggleDropdown() {
     var dropdownContent = document.querySelector('.dropdown-content');
@@ -202,7 +355,8 @@ function toggleDropdown() {
 
 // Chọn mùa giải mặc định khi trang tải
 window.onload = function() {
-    selectSeason('2024–2025');
+    selectSeason(seasons[0]);
+    toggleDropdown();
     updateGoalInfo();
 };
 
@@ -213,18 +367,11 @@ const span = document.getElementsByClassName("close")[0];
 const saveButton = document.getElementById("saveButton");
 //Thông tin hiển thị
 const goalInfo = document.getElementById("goalInfo");
-// Giá trị mặc định
-let defaultGoalTypes = ['Ghi bàn', 'Phản lưới', 'Phạt đền'];
-let defaultMaxGoalTime = 96;
-// Lấy giá trị từ localStorage hoặc sử dụng giá trị mặc định
-let goalTypes = localStorage.getItem('goalTypes') ? JSON.parse(localStorage.getItem('goalTypes')) : defaultGoalTypes;
-let maxGoalTime = localStorage.getItem('maxGoalTime') ? parseInt(localStorage.getItem('maxGoalTime')) : defaultMaxGoalTime;
 
 // Mở modal khi click vào hình ảnh
 image.onclick = function () {
     modal.style.display = "block";
 }
-
 // Lấy các modal
 var closeButtons = document.getElementsByClassName("close");
 
@@ -265,10 +412,11 @@ window.onclick = function (event) {
         resultModal.style.display = "none";
     }
 }
+
 // Hàm để cập nhật đoạn văn "goalInfo"
 function updateGoalInfo() {
     goalInfo.innerHTML =`
-        <li>Có <span style="color: #AAFFA7;">${goalTypes.length}</span> loại bàn thắng: ${goalTypes.join(", ")}.<li> <li>Thời điểm ghi bàn từ 0 đến ${maxGoalTime}.</li> `
+        <li>Có <span style="color: #AAFFA7;">${currentGoalTypes.length}</span> loại bàn thắng: ${currentGoalTypes.join(", ")}.<li> <li>Thời điểm ghi bàn từ 0 đến ${currentMaxGoalTime}.</li> `;
 }
 // Khi nhấn nút "Lưu"
 saveButton.onclick = function () {
@@ -276,20 +424,27 @@ saveButton.onclick = function () {
     const newGoalTypes = document.getElementById('goalTypes').value;
     const newMaxGoalTime = document.getElementById('maxGoalTime').value;
 
-// Kiểm tra nếu có giá trị mới được nhập, thì cập nhật các biến và localStorage
+// Kiểm tra nếu có giá trị mới được nhập, thì cập nhật các biến
     if (newGoalTypes) {
-        goalTypes = newGoalTypes.split(',').map(type => type.trim());
-        localStorage.setItem('goalTypes', JSON.stringify(goalTypes));  // Lưu vào localStorage
+        goalTypes = newGoalTypes.split(',').map(type => {
+            // Chuyển chữ cái đầu thành chữ hoa, các ký tự còn lại giữ nguyên
+            return type.trim().charAt(0).toUpperCase() + type.trim().slice(1);
+        });
+        console.log(goalTypes);
+        updateGoalType(goalTypes);
+        currentGoalTypes=goalTypes;
     }
 
 // Kiểm tra nếu thời gian ghi bàn là số không âm
     if (newMaxGoalTime) {
-        const parsedMaxGoalTime = parseInt(newMaxGoalTime, 10);
-        if (parsedMaxGoalTime >= 0) {
+        const parsedMaxGoalTime = parseFloat(newMaxGoalTime, 10);
+        if (parsedMaxGoalTime > 0 && Number.isInteger(parsedMaxGoalTime)) {
             maxGoalTime = parsedMaxGoalTime;
-            localStorage.setItem('maxGoalTime', maxGoalTime);  // Lưu vào localStorage
+            updateMaxGoalTime(maxGoalTime);
+            currentMaxGoalTime=maxGoalTime;
         } else {
-            alert('Thời điểm ghi bàn phải là một số không âm!');  // Thông báo nếu giá trị âm
+            //alert('Thời điểm ghi bàn phải là một số nguyên dương!');  // Thông báo nếu giá trị âm
+            showModal('Thời điểm ghi bàn phải là một số nguyên dương!');
             return;
         }
     }
@@ -300,8 +455,7 @@ saveButton.onclick = function () {
 };
 
 // Hàm này cập nhật thông tin kết quả của một trận đấu
-function toggleRows(season, round, index) {
-    currentIndex = index;
+function toggleRows(season, round, team1, team2) {
     const modal = document.getElementById('resultModal');
     const modalResultBody = document.getElementById('modalResultBody');
     const modalGoalBody = document.getElementById('modalGoalBody');
@@ -309,18 +463,32 @@ function toggleRows(season, round, index) {
     // Xóa nội dung cũ
     modalResultBody.innerHTML = '';
     modalGoalBody.innerHTML = '';
+    currentMatch=[];
+    currentGoalPlayerList=[];
 
     // Lấy dữ liệu kết quả và ghi bàn
-    if (!currentTableResults) {
-        currentTableResults = tableResults;
-    }
-    if (!currentTableGoals) {
-        currentTableGoals = tableGoals;
-    }
-    
-    const resultData =currentTableResults[season][round][index];
-    const goalData = currentTableGoals[season][round][index];
+    const resultData=[];
+    const goalData=[];
 
+    tableResults.forEach(matchResult => {
+        // Kiểm tra xem round, team1 và team2 có khớp không
+        if (matchResult.Round == round && matchResult.team1 == team1 && matchResult.team2 == team2 ) {
+            currentMatch=matchResult;
+            // Thêm thông tin kết quả vào resultData
+            resultData.push(matchResult.team1, matchResult.Score, matchResult.team2, matchResult.location, matchResult.time);
+            stt=1;
+            tableGoals.forEach(goal =>{
+                if(goal.Match_id==matchResult.Match_id)
+                {
+                    currentGoalPlayerList.push(goal);
+                    goalData.push([stt, goal.name, goal.number, goal.team, goal.type, goal.time]);
+                    stt++;
+                }
+            });
+        }
+    });
+    console.log(currentMatch);
+    console.log(currentGoalPlayerList);
     // Thêm thông tin kết quả trận đấu vào modal
     const resultRow = document.createElement('tr');
     resultData.forEach(data => {
@@ -329,7 +497,6 @@ function toggleRows(season, round, index) {
         resultRow.appendChild(cell);
     });
     modalResultBody.appendChild(resultRow);
-
     // Thêm thông tin ghi bàn vào modal
     goalData.forEach(goal => {
         const goalRow = document.createElement('tr');
@@ -343,7 +510,7 @@ function toggleRows(season, round, index) {
 
     // Hiển thị modal
     modal.style.display = 'block';
-    console.log(resultData);
+
 }
 
 document.getElementById("changeInfoButton").onclick = function () {
@@ -357,7 +524,7 @@ function changeToEditMode() {
     // Chuyển đổi các ô kết quả trận đấu thành các input để chỉnh sửa
     Array.from(modalResultBody.rows).forEach((row, rowIndex) => {
         Array.from(row.cells).forEach((cell, cellIndex) => {
-            if(cellIndex==0 || cellIndex==2)
+            if(cellIndex!=1 )
                 return;
             const originalText = cell.textContent;
             cell.innerHTML = `<input " type="text" value="${originalText}" />`;
@@ -367,18 +534,28 @@ function changeToEditMode() {
     // Chuyển đổi các ô ghi bàn thành các input để chỉnh sửa
     Array.from(modalGoalBody.rows).forEach((row, rowIndex) => {
         Array.from(row.cells).forEach((cell, cellIndex) => {
+            if(cellIndex==0 )
+                return;
             const originalText = cell.textContent;
-            cell.innerHTML = `<input type="text" value="${originalText}" />`;
+            if(cellIndex==5 ||cellIndex==2)
+                cell.innerHTML = `<input " type="number" class="center-input" value="${originalText}" />`;
+            else cell.innerHTML = `<input " type="text" class="center-input" value="${originalText}" />`;
         });
 
         // Thêm nút "Xóa" cho mỗi cầu thủ
         const deleteButton = document.createElement('button');
-        deleteButton.innerText = "Xóa";
-        deleteButton.classList.add('deleteButton');
-        deleteButton.onclick = function() {
-            modalGoalBody.deleteRow(rowIndex);  // Xóa hàng cầu thủ
+        deleteButton.classList.add('deleteButton'); // Thêm class để áp dụng CSS
+
+        // Ký tự dấu "×" thay vì hình ảnh
+        deleteButton.innerHTML = "&times;"; 
+
+        // Gắn sự kiện xóa hàng
+        deleteButton.onclick = function () {
+            modalGoalBody.deleteRow(rowIndex); // Xóa hàng cầu thủ
         };
-        row.appendChild(deleteButton);  // Thêm nút "Xóa" vào cuối hàng
+
+        // Thêm nút "Xóa" vào cuối hàng
+        row.appendChild(deleteButton);
     });
 
     // Thêm nút "Thêm cầu thủ"
@@ -394,7 +571,7 @@ function changeToEditMode() {
     // Thay đổi nút "Sửa đổi kết quả" thành nút "Lưu"
     document.getElementById("changeInfoButton").innerText = "Lưu";
     document.getElementById("changeInfoButton").onclick = function () {
-        saveChanges(modalResultBody, modalGoalBody);  // Gọi hàm lưu dữ liệu
+        
 
         // Xóa tất cả các nút "Xóa" khi bấm "Lưu"
         const deleteButtons = document.querySelectorAll('.deleteButton');
@@ -405,47 +582,73 @@ function changeToEditMode() {
         if (addPlayerButton) {
             addPlayerButton.remove();
         }
+        saveChanges(modalResultBody, modalGoalBody).then(result => {
+            if (!result) {
+                changeToEditMode();
+            }
+        })
+        .catch(error => {
+            console.error("Error occurred during saveChanges:", error);
+        });
+        // if(!saveChanges(modalResultBody, modalGoalBody)) {
+        //     changeToEditMode();
+        // }  // Gọi hàm lưu dữ liệu
     };
 }
 
 function addPlayerRow(modalGoalBody) {
     const newRow = modalGoalBody.insertRow();  // Tạo hàng mới
 
+    const playerCount = modalGoalBody.rows.length;
+
+    const sttCell = newRow.insertCell(0);
+    sttCell.innerHTML = playerCount;
     // Thêm các ô nhập liệu cho hàng mới
-    for (let i = 0; i < 5; i++) {  // 5 ô cho các thông tin STT, Tên cầu thủ, Đội, Loại bàn thắng, Thời điểm
+    for (let i = 1; i < 6; i++) {
+          // 5 ô cho các thông tin Tên cầu thủ, Số áo, Đội, Loại bàn thắng, Thời điểm
         const newCell = newRow.insertCell(i);
-        newCell.innerHTML = `<input type="text" value="" />`;
+        if(i!=5 && i!=2) {
+            newCell.innerHTML = `<input type="text" class="center-input" value="" />`;
+        }
+        else {
+            newCell.innerHTML = `<input type="number" class="center-input" value="" />`;
+        }
     }
 
-    // Thêm nút "Xóa" cho hàng mới
     const deleteButton = document.createElement('button');
-    deleteButton.innerText = "Xóa";
-    deleteButton.classList.add('deleteButton');
+    deleteButton.classList.add('deleteButton'); // Thêm class để áp dụng CSS
+
+    deleteButton.innerHTML = "&times;"; 
+
+    // Gắn sự kiện xóa hàng
     deleteButton.onclick = function() {
         modalGoalBody.deleteRow(newRow.sectionRowIndex);  // Xóa hàng cầu thủ mới tạo
     };
-    newRow.appendChild(deleteButton);  // Thêm nút "Xóa" vào hàng mới
+
+    // Thêm nút "Xóa" vào cuối hàng
+    newRow.appendChild(deleteButton); 
+
+
+    // Thêm nút "Xóa" cho hàng mới
+   
 }
 
-function saveChanges(modalResultBody, modalGoalBody) {
+async function saveChanges(modalResultBody, modalGoalBody) {
     // Tạo đối tượng để lưu dữ liệu kết quả trận đấu
     let matchResult = [];
-
      // Lưu kết quả trận đấu từ input
-     Array.from(modalResultBody.rows).forEach((row) => {
+    Array.from(modalResultBody.rows).forEach((row) => {
         Array.from(row.cells).forEach((cell,cellIndex) => {
             let cellValue;
-            if(cellIndex==0 || cellIndex==2)
+            if(cellIndex!=1)
                 cellValue=cell.textContent;
             else{
                 cellValue=cell.querySelector('input').value;
-                
             }
             cell.innerHTML=cellValue;
             matchResult.push(cellValue);
         });
     });
-
 
     // Tạo đối tượng để lưu dữ liệu ghi bàn
     let goalData = [];
@@ -454,29 +657,136 @@ function saveChanges(modalResultBody, modalGoalBody) {
     Array.from(modalGoalBody.rows).forEach((row, rowIndex) => {
         let rowData = [];
         Array.from(row.cells).forEach((cell, cellIndex) => {
-            const inputValue = cell.querySelector('input').value;
+            let inputValue;
+            if(cellIndex==0)
+                inputValue=cell.textContent;
+            else if(cellIndex==1) {
+                data = cell.querySelector('input').value;
+                inputValue=data.toLowerCase()
+                .split(' ')  // Tách tên thành mảng các từ
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))  // Viết hoa chữ cái đầu mỗi từ
+                .join(' ');  // Kết hợp các từ lại thành tên đầy đủ
+            }
+            else if (cellIndex==4) {
+                data = cell.querySelector('input').value;
+                inputValue=data.charAt(0).toUpperCase() + data.slice(1).toLowerCase();
+            }
+            else
+                inputValue = cell.querySelector('input').value;
             cell.innerHTML = inputValue;  // Thay thế input bằng giá trị đã lưu
             rowData.push(inputValue);  // Thêm giá trị vào mảng hàng
         });
 
-        if (rowData.every(item => item === '')) {
+        if (rowData.slice(1).every(item => item === '')) {
             row.remove();  // Xóa hàng nếu không có dữ liệu
             return;  // Dừng lại không lưu vào goalData
         }
-
         goalData.push(rowData);  // Thêm hàng vào dữ liệu ghi bàn nếu không trống
     });
+    if (goalData.some(row => row.some(cell => cell.trim() === ""))) {
+        //alert("Vui lòng nhập đủ thông tin");
+        showModal("Vui lòng nhập đủ thông tin");
+        return false;
+    }
+    if (matchResult[1]==""){
+        //alert("kết quả trống");
+        showModal("kết quả trống");
+        return false;
+    }
 
+    if (!checkGoalsMatchScore(goalData, matchResult)) {
+        return false;
+    }
+
+    for(let i=0;i<goalData.length;i++) {
+        if(!currentGoalTypes.includes(goalData[i][4])) {
+            //alert("Thông tin bàn thắng không phù hợp");
+            showModal("Thông tin bàn thắng không phù hợp");
+            return false;
+        }
+        goalTime=parseFloat(goalData[i][5]);
+        // Kiểm tra nếu thời gian không phải là số thực hợp lệ, số nguyên dương nhỏ hơn 96
+        if (goalTime < 0 || goalTime > currentMaxGoalTime || !Number.isInteger(goalTime)) {
+            //alert(`Thời gian ghi bàn không phù hợp`);
+            showModal(`Thời gian ghi bàn không phù hợp`);
+            return false;
+        }
+    }
+    
+    if(!checkDuplicateGoals(goalData))
+    {
+        return false;
+    }
+    if(matchResult[1]!=currentMatch.Score) {
+        currentMatch.Score=matchResult[1];
+        updateMatchResult(currentMatch);
+    }
     console.log(goalData);
+    const result = await updateGoalPlayerList(goalData);
+    if (!result) {
+        console.log("fail");
+        return false;
+    }
 
-    const roundlist = Object.keys(matches[currentSeason]);
-    // Lưu dữ liệu vào localStorage
-    currentTableResults[currentSeason][roundlist[currentRoundIndex]][currentIndex] = matchResult;
-    currentTableGoals[currentSeason][roundlist[currentRoundIndex]][currentIndex] = goalData;
-    console.log(currentTableGoals);
+    //tableGoals=[]; // Không biết tại sao nhưng
+    // mà vô tình thêm vào nó chạy được :)
     // Thay đổi nút "Lưu" lại thành "Sửa đổi kết quả"
     document.getElementById("changeInfoButton").innerText = "Sửa đổi kết quả";
     document.getElementById("changeInfoButton").onclick = function () {
         changeToEditMode();  // Đưa trở lại chế độ chỉnh sửa
     };
+    console.log("success");
+    return true;
+}
+
+function checkDuplicateGoals(goalData) {
+    const seenGoals = new Map();  // Dùng Map để theo dõi cầu thủ, đội và thời gian
+
+    for (let goal of goalData) {
+        const playerName = goal[1];
+        const playerNumber=goal[2];
+        const teamName = goal[3]
+        const goalTime = goal[5];
+
+        // Tạo key duy nhất để kiểm tra sự trùng lặp
+        const goalKey = `${playerName}-${playerNumber}-${teamName}-${goalTime}`;
+
+        // Kiểm tra xem key đã tồn tại trong Map chưa
+        if (seenGoals.has(goalKey)) {
+            //alert(`Cầu thủ ${playerName} (số ${playerNumber}) đã có bàn thắng vào thời điểm ${goalTime} cho đội ${teamName}.`);
+            showModal(`Cầu thủ ${playerName} (số ${playerNumber}) đã có bàn thắng vào thời điểm ${goalTime} cho đội ${teamName}.`);
+            return false;  // Nếu trùng lặp, trả về false
+        } else {
+            seenGoals.set(goalKey, true);  // Nếu không trùng lặp, thêm vào Map
+        }
+    }
+
+    console.log("Không có trùng lặp.");
+    return true;  // Nếu không có trùng lặp, trả về true
+}
+
+
+const alertmodal = document.getElementById('alertModal');
+const closeModal = document.getElementById('closeModal');
+
+function showModal(message) {
+    document.getElementById('alert-content').textContent = message;
+    alertmodal.classList.remove('hidden');
+}
+
+closeModal.addEventListener('click', () => {
+    alertmodal.classList.add('hidden');
+});
+
+
+function checkGoalsMatchScore(goalData, matchResult) {
+    const score = matchResult[1].split('-').map(Number); 
+    const team1Goals = goalData.filter(goal => goal[3] === matchResult[0]).length; 
+    const team2Goals = goalData.filter(goal => goal[3] === matchResult[2]).length; 
+
+    if (team1Goals !== score[0] || team2Goals !== score[1]) {
+        showModal("Số bàn thắng không khớp với tỷ số.");
+        return false;
+    }
+    return true;
 }

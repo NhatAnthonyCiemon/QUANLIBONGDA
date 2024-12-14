@@ -80,7 +80,7 @@
                 </button>
             </div>
 
-            <div class="flex flex-col  rounded-2xl w-[1078px] h-auto ml-16 mt-8" style="background-color: rgba(211, 255, 204, 0.46);">
+            <div class="flex justify-center rounded-2xl w-[1078px] h-auto ml-16 mt-8" style="background-color: rgba(211, 255, 204, 0.46);">
                 <table class="table-auto w-full text-left ml-10 text-white border-collapse mt-9 mb-9" id="danh_sach">
                     <thead class="text-3xl" style="color: #D3FFC4;">
                         <tr>
@@ -93,7 +93,7 @@
                         </tr>
                         <tr>
                             <td colspan="6">
-                                <hr style="border: 2px solid white; width: 92%;">
+                                <hr style="border: 2px solid white; width: 100%;">
                             </td>
                     </thead>
                     <tbody class="text-2xl" id="team">
@@ -124,17 +124,18 @@
                     </table>
                     <!-- Đây là bảng thông tin ghi bàn -->
                     <h3 style="font-size: 25px; font-weight: bold; text-align: center; color:green">Danh sách bàn thắng</h3>
-                    <table id="modalTableGoals" class="goal-table">
+                    <table id="modalTableGoals" class="goal-table scrollable-tbody">
                         <thead>
                             <tr>
                                 <th>STT</th>
                                 <th>Tên cầu thủ</th>
+                                <th>Số áo</th>
                                 <th>Đội</th>
                                 <th>Loại bàn thắng</th>
                                 <th>Thời điểm</th>
                             </tr>
                         </thead>
-                        <tbody id="modalGoalBody">
+                        <tbody id="modalGoalBody" >
                             <!-- Thông tin ghi bàn sẽ được thêm vào đây -->
                         </tbody>
                     </table>
@@ -173,6 +174,23 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Modal Background -->
+<div id="alertModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden z-50">
+    <!-- Modal Content -->
+    <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full">
+        <h2 class="text-lg font-bold text-gray-800">Thông báo</h2>
+        <p class="text-gray-600 mt-2" id="alert-content"></p>
+        <div class="mt-4 flex justify-end space-x-2">
+            <button id="closeModal" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                Đóng
+            </button>
+        </div>
+    </div>
+</div>
+  
+
+
 
     </main>
     <footer>

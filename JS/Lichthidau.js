@@ -89,7 +89,8 @@ async function updateMatchResult(currentMatch) {
     } catch (err) {
         console.error('Error:', err);
         const errorMessage = err.message || 'Something went wrong while updating the match result.';
-        alert(errorMessage);
+        //alert(errorMessage);
+        showModal(errorMessage);
     }
 }
 async function getGoalTypes() {
@@ -174,10 +175,12 @@ async function updateGoalPlayerList(goalData) {
             throw new Error('Failed to update goal data');
         }
         await getGoals();
-        alert('Goal data updated successfully');
+        //alert('Goal data updated successfully');
+        showModal('Goal data updated successfully');
     } catch (error) {
         console.error('Error updating goal data:', error);
-        alert('Không tìm thấy thông tin cầu thủ');
+        //alert('Không tìm thấy thông tin cầu thủ');
+        showModal('Không tìm thấy thông tin cầu thủ');
         return false;
     }
     // Bước 1: Cập nhật currentGoalPlayerList từ goalData
@@ -440,7 +443,8 @@ saveButton.onclick = function () {
             updateMaxGoalTime(maxGoalTime);
             currentMaxGoalTime=maxGoalTime;
         } else {
-            alert('Thời điểm ghi bàn phải là một số nguyên dương!');  // Thông báo nếu giá trị âm
+            //alert('Thời điểm ghi bàn phải là một số nguyên dương!');  // Thông báo nếu giá trị âm
+            showModal('Thời điểm ghi bàn phải là một số nguyên dương!');
             return;
         }
     }
@@ -534,18 +538,24 @@ function changeToEditMode() {
                 return;
             const originalText = cell.textContent;
             if(cellIndex==5 ||cellIndex==2)
-                cell.innerHTML = `<input " type="number" value="${originalText}" />`;
-            else cell.innerHTML = `<input " type="text" value="${originalText}" />`;
+                cell.innerHTML = `<input " type="number" class="center-input" value="${originalText}" />`;
+            else cell.innerHTML = `<input " type="text" class="center-input" value="${originalText}" />`;
         });
 
         // Thêm nút "Xóa" cho mỗi cầu thủ
         const deleteButton = document.createElement('button');
-        deleteButton.innerText = "Xóa";
-        deleteButton.classList.add('deleteButton');
-        deleteButton.onclick = function() {
-            modalGoalBody.deleteRow(rowIndex);  // Xóa hàng cầu thủ
+        deleteButton.classList.add('deleteButton'); // Thêm class để áp dụng CSS
+
+        // Ký tự dấu "×" thay vì hình ảnh
+        deleteButton.innerHTML = "&times;"; 
+
+        // Gắn sự kiện xóa hàng
+        deleteButton.onclick = function () {
+            modalGoalBody.deleteRow(rowIndex); // Xóa hàng cầu thủ
         };
-        row.appendChild(deleteButton);  // Thêm nút "Xóa" vào cuối hàng
+
+        // Thêm nút "Xóa" vào cuối hàng
+        row.appendChild(deleteButton);
     });
 
     // Thêm nút "Thêm cầu thủ"
@@ -598,21 +608,29 @@ function addPlayerRow(modalGoalBody) {
           // 5 ô cho các thông tin Tên cầu thủ, Số áo, Đội, Loại bàn thắng, Thời điểm
         const newCell = newRow.insertCell(i);
         if(i!=5 && i!=2) {
-            newCell.innerHTML = `<input type="text" value="" />`;
+            newCell.innerHTML = `<input type="text" class="center-input" value="" />`;
         }
         else {
-            newCell.innerHTML = `<input type="number" value="" />`;
+            newCell.innerHTML = `<input type="number" class="center-input" value="" />`;
         }
     }
 
-    // Thêm nút "Xóa" cho hàng mới
     const deleteButton = document.createElement('button');
-    deleteButton.innerText = "Xóa";
-    deleteButton.classList.add('deleteButton');
+    deleteButton.classList.add('deleteButton'); // Thêm class để áp dụng CSS
+
+    deleteButton.innerHTML = "&times;"; 
+
+    // Gắn sự kiện xóa hàng
     deleteButton.onclick = function() {
         modalGoalBody.deleteRow(newRow.sectionRowIndex);  // Xóa hàng cầu thủ mới tạo
     };
-    newRow.appendChild(deleteButton);  // Thêm nút "Xóa" vào hàng mới
+
+    // Thêm nút "Xóa" vào cuối hàng
+    newRow.appendChild(deleteButton); 
+
+
+    // Thêm nút "Xóa" cho hàng mới
+   
 }
 
 async function saveChanges(modalResultBody, modalGoalBody) {
@@ -666,22 +684,31 @@ async function saveChanges(modalResultBody, modalGoalBody) {
         goalData.push(rowData);  // Thêm hàng vào dữ liệu ghi bàn nếu không trống
     });
     if (goalData.some(row => row.some(cell => cell.trim() === ""))) {
-        alert("Vui lòng nhập đủ thông tin");
+        //alert("Vui lòng nhập đủ thông tin");
+        showModal("Vui lòng nhập đủ thông tin");
         return false;
     }
     if (matchResult[1]==""){
-        alert("kết quả trống");
+        //alert("kết quả trống");
+        showModal("kết quả trống");
         return false;
     }
+
+    if (!checkGoalsMatchScore(goalData, matchResult)) {
+        return false;
+    }
+
     for(let i=0;i<goalData.length;i++) {
         if(!currentGoalTypes.includes(goalData[i][4])) {
-            alert("Thông tin bàn thắng không phù hợp");
+            //alert("Thông tin bàn thắng không phù hợp");
+            showModal("Thông tin bàn thắng không phù hợp");
             return false;
         }
         goalTime=parseFloat(goalData[i][5]);
         // Kiểm tra nếu thời gian không phải là số thực hợp lệ, số nguyên dương nhỏ hơn 96
         if (goalTime < 0 || goalTime > currentMaxGoalTime || !Number.isInteger(goalTime)) {
-            alert(`Thời gian ghi bàn không phù hợp`);
+            //alert(`Thời gian ghi bàn không phù hợp`);
+            showModal(`Thời gian ghi bàn không phù hợp`);
             return false;
         }
     }
@@ -718,7 +745,7 @@ function checkDuplicateGoals(goalData) {
     for (let goal of goalData) {
         const playerName = goal[1];
         const playerNumber=goal[2];
-        const teamName = goal[3];
+        const teamName = goal[3]
         const goalTime = goal[5];
 
         // Tạo key duy nhất để kiểm tra sự trùng lặp
@@ -726,7 +753,8 @@ function checkDuplicateGoals(goalData) {
 
         // Kiểm tra xem key đã tồn tại trong Map chưa
         if (seenGoals.has(goalKey)) {
-            alert(`Cầu thủ ${playerName} (số ${playerNumber}) đã có bàn thắng vào thời điểm ${goalTime} cho đội ${teamName}.`);
+            //alert(`Cầu thủ ${playerName} (số ${playerNumber}) đã có bàn thắng vào thời điểm ${goalTime} cho đội ${teamName}.`);
+            showModal(`Cầu thủ ${playerName} (số ${playerNumber}) đã có bàn thắng vào thời điểm ${goalTime} cho đội ${teamName}.`);
             return false;  // Nếu trùng lặp, trả về false
         } else {
             seenGoals.set(goalKey, true);  // Nếu không trùng lặp, thêm vào Map
@@ -735,4 +763,30 @@ function checkDuplicateGoals(goalData) {
 
     console.log("Không có trùng lặp.");
     return true;  // Nếu không có trùng lặp, trả về true
+}
+
+
+const alertmodal = document.getElementById('alertModal');
+const closeModal = document.getElementById('closeModal');
+
+function showModal(message) {
+    document.getElementById('alert-content').textContent = message;
+    alertmodal.classList.remove('hidden');
+}
+
+closeModal.addEventListener('click', () => {
+    alertmodal.classList.add('hidden');
+});
+
+
+function checkGoalsMatchScore(goalData, matchResult) {
+    const score = matchResult[1].split('-').map(Number); 
+    const team1Goals = goalData.filter(goal => goal[3] === matchResult[0]).length; 
+    const team2Goals = goalData.filter(goal => goal[3] === matchResult[2]).length; 
+
+    if (team1Goals !== score[0] || team2Goals !== score[1]) {
+        showModal("Số bàn thắng không khớp với tỷ số.");
+        return false;
+    }
+    return true;
 }

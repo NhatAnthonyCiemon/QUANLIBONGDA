@@ -29,7 +29,8 @@ JOIN
 /// Hàm API để cập nhật bảng goal
 export async function updateGoalPlayerList(req, res) {
     const { match_id, goalData } = req.body; // Nhận match_id và goalData từ yêu cầu
-
+    console.log(match_id);
+    console.log(goalData);
     try {
         // Bước 1: Duyệt qua từng goalData và cập nhật vào bảng goal
         for (let i = 0; i < goalData.length; i++) {
@@ -51,6 +52,7 @@ export async function updateGoalPlayerList(req, res) {
             }
 
             const team_id = teamData[0].team_id;
+            console.log(team_id);
 
             // Tìm player_id từ bảng player dựa trên tên cầu thủ và team_id
             const [playerData] = await pool.query(
@@ -63,13 +65,13 @@ export async function updateGoalPlayerList(req, res) {
             }
 
             const player_id = playerData[0].player_id;
-
+            console.log(player_id);
             // Bước 2: Cập nhật hoặc thêm mới vào bảng goal
             const [existingGoal] = await pool.query(
                 `SELECT * FROM goal WHERE schedule_id = ? AND player_id = ? AND goal_time = ?`, 
                 [match_id, player_id, goal_time]
             );
-
+            console.log(existingGoal);
             if (existingGoal.length > 0) {
                 // Cập nhật loại bàn thắng nếu đã có
                 await pool.query(
@@ -95,7 +97,7 @@ export async function updateGoalPlayerList(req, res) {
              WHERE g.schedule_id = ?`, 
             [match_id]
         );
-
+        console.log(existingGoals);
         // Tạo danh sách player_id và goal_time từ goalData
         const goalDataPlayers = goalData.map(goal => {
             const name= goal[1];
@@ -104,20 +106,21 @@ export async function updateGoalPlayerList(req, res) {
             const goal_time= goal[5];
             return { name, number, team, goal_time };
         });
-
+        console.log(goalDataPlayers);
         // Duyệt qua các goal hiện có và xóa nếu không tồn tại trong goalData
         for (let i = 0; i < existingGoals.length; i++) {
             const existingGoal = existingGoals[i];
-
+            //fix
             const goalExistsInGoalData = goalDataPlayers.some((goal) => {
                 return (
-                    goal.goal_time == existingGoal.goal_time && 
-                    goal.name == existingGoal.player_name &&
-                    goal.number == existingGoal.ao_number && 
-                    goal.team == existingGoal.team_name
+                    parseInt(goal.goal_time) === existingGoal.goal_time &&
+                    goal.name.trim().toLowerCase() === existingGoal.player_name.trim().toLowerCase() &&
+                    parseInt(goal.number) === existingGoal.ao_number &&
+                    goal.team.trim().toLowerCase() === existingGoal.team_name.trim().toLowerCase()
                 );
             });
-
+            
+            console.log(goalExistsInGoalData);
             if (!goalExistsInGoalData) {
                 // Nếu không tồn tại trong goalData, xóa khỏi bảng goal
                 await pool.query(

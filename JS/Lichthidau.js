@@ -817,13 +817,13 @@ function checkDuplicateGoals(goalData) {
         const goalTime = goal[5];
 
         // Tạo key duy nhất để kiểm tra sự trùng lặp
-        const goalKey = `${playerName}-${playerNumber}-${teamName}-${goalTime}`;
+        const goalKey = `${goalTime}`;
 
         // Kiểm tra xem key đã tồn tại trong Map chưa
         if (seenGoals.has(goalKey)) {
             //alert(`Cầu thủ ${playerName} (số ${playerNumber}) đã có bàn thắng vào thời điểm ${goalTime} cho đội ${teamName}.`);
             showModal(
-                `Cầu thủ ${playerName} (số ${playerNumber}) đã có bàn thắng vào thời điểm ${goalTime} cho đội ${teamName}.`
+                `Không được có 2 cầu thủ ghi bàn cùng 1 thời điểm trong trận đấu.`
             );
             return false; // Nếu trùng lặp, trả về false
         } else {
@@ -862,6 +862,11 @@ function checkGoalsMatchScore(goalData, matchResult) {
     const team2Goals = goalData.filter(
         (goal) => goal[3] === matchResult[2]
     ).length;
+
+    if (!validatePlayersBelongToTeams(goalData, matchResult)) {
+        showModal("Cầu thủ phải nằm trong 2 đội.");
+        return false;
+    }
 
     if (team1Goals !== score[0] || team2Goals !== score[1]) {
         showModal("Số bàn thắng không khớp với tỷ số.");
@@ -934,3 +939,15 @@ fetch("http://localhost:3000/admin/checkNextSeason", {
         console.error("Error checking next season:", error);
         showModal("Failed to check next season");
     });
+
+
+function validatePlayersBelongToTeams(goalData, matchResult) {
+    const team1 = matchResult[0];
+    const team2 = matchResult[2];
+    for (const goal of goalData) {
+        if (goal[3] !== team1 && goal[3] !== team2) {
+            return false; 
+        }
+    }
+    return true;
+}

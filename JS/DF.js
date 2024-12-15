@@ -13,14 +13,17 @@ let pageTitle = document.title;
 let header = document.querySelector("header");
 let path = "/page";
 let path_index = "/index";
+let path_img = "/assets";
 if (pageTitle === "Trang chủ") {
     path_index = ".";
     path = "./page";
+    path_img = ".";
 } else {
     path = ".";
     path_index = "..";
+    path_img = "..";
 }
-let headeInner = `<img src="/assets/Logo.svg" alt="Logo">
+let headeInner = `<img src="${path_img}/assets/Logo.svg" alt="Logo">
             <ul class="header__links">
                 <li><a class="header__link" href="${path_index}/index.html">TRANG CHỦ</a></li>
                 <li><a id="dangki" class="header__link" href="${path}/Dangki.html">ĐĂNG KÝ</a></li>

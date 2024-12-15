@@ -135,7 +135,7 @@ fetch("http://localhost:3000/admin/checkNextSeason", {
         return response.json();
     })
     .then((data) => {
-        if (data.nextSeason === null) {
+        if (data.nextSeason === null || data.numTeamsNextSeason >= 5) {
             document.querySelector("#dangki").remove();
         }
     })

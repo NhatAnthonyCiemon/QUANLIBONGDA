@@ -42,7 +42,7 @@ export async function putStandarDK(req, res) {
             );
 
             const x = await pool.query(
-                `INSERT INTO standards (loaicauthu, age_min, age_max, num_max, num_min, foreign_max,max_goal_time,min_goal_time,win_score,lose_score,draw_score) VALUES (?, ?, ?, ?, ?, ?,?,?,?,?,?)`,
+                `INSERT INTO standards (loaicauthu, age_min, age_max, num_max, num_min, foreign_max,max_goal_time,min_goal_time,win_score,lose_score,draw_score,goal_type) VALUES (?, ?, ?, ?, ?, ?,?,?,?,?,?,?)`,
                 [
                     loaicauthu,
                     age_min,
@@ -55,6 +55,7 @@ export async function putStandarDK(req, res) {
                     rows.win_score,
                     rows.lose_score,
                     rows.draw_score,
+                    rows.goal_type,
                 ]
             );
             let loaicauthu_arr = loaicauthu.split(",");
@@ -97,7 +98,7 @@ export async function putStandarDK1(req, res) {
                 "SELECT * FROM standards WHERE id = (SELECT MAX(id) FROM standards)"
             );
             const x = await pool.query(
-                `INSERT INTO standards (win_score, lose_score, draw_score,loaicauthu, age_min, age_max, num_max, num_min, foreign_max,max_goal_time,min_goal_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)`,
+                `INSERT INTO standards (win_score, lose_score, draw_score,loaicauthu, age_min, age_max, num_max, num_min, foreign_max,max_goal_time,min_goal_time, goal_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?)`,
                 [
                     win_score,
                     lose_score,
@@ -110,6 +111,7 @@ export async function putStandarDK1(req, res) {
                     rows_.foreign_max,
                     rows_.max_goal_time,
                     rows_.min_goal_time,
+                    rows_.goal_type,
                 ]
             );
             res.status(201).json(x);
@@ -157,7 +159,18 @@ export async function getMaxGoalTime(req, res) {
 
 export async function updateGoalType(req, res) {
     const { goalTypesString } = req.body; // Nhận goalTypesString từ yêu cầu và gán id mặc định là 18 nếu không có id
+    const { username, password } = req.body.info;
+        console.log(username);
+        console.log(password);
+        console.log(goalTypesString);
+        const [[ROWS]] = await pool.query(
+            `SELECT * FROM admin WHERE username = ? AND password = ?`,
+            [username, password]
+        );
     try {
+        if (!ROWS) {
+            return res.status(401).send("Unauthorized");
+        }
         // Tách chuỗi goal_type thành mảng các phần tử và ghép lại thành chuỗi
         const goalTypesArray = goalTypesString
             .split(",")
@@ -189,7 +202,18 @@ export async function updateGoalType(req, res) {
 
 export async function updateMaxGoalTime(req, res) {
     const { maxGoalTime } = req.body; // Nhận giá trị maxGoalTime từ yêu cầu
+    const { username, password } = req.body.info;
+        console.log(username);
+        console.log(password);
+        console.log(maxGoalTime);
+        const [[ROWS]] = await pool.query(
+            `SELECT * FROM admin WHERE username = ? AND password = ?`,
+            [username, password]
+        );
     try {
+        if (!ROWS) {
+            return res.status(401).send("Unauthorized");
+        }
         const [[rows]] = await pool.query(
             "SELECT * FROM standards WHERE id = (SELECT MAX(id) FROM standards)"
         );

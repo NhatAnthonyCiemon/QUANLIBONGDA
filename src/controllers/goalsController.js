@@ -29,9 +29,18 @@ JOIN
 /// Hàm API để cập nhật bảng goal
 export async function updateGoalPlayerList(req, res) {
     const { match_id, goalData } = req.body; // Nhận match_id và goalData từ yêu cầu
+    const { username, password } = req.body.info;
+    const [[rows]] = await pool.query(
+        `SELECT * FROM admin WHERE username = ? AND password = ?`,
+        [username, password]
+    );
     console.log(match_id);
     console.log(goalData);
+    console.log(rows);
     try {
+        if (!rows) {
+            return res.status(401).send("Unauthorized");
+        }
         // Bước 1: Duyệt qua từng goalData và cập nhật vào bảng goal
         for (let i = 0; i < goalData.length; i++) {
             const name= goalData[i][1];

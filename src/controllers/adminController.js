@@ -149,6 +149,15 @@ export async function createSchedule(req, res) {
             res.status(404).json("Schedule already created");
             return;
         }
+        const [[no_result_match]] = await pool.query(
+            `SELECT COUNT(*) FROM match_schedule WHERE result IS NULL`
+        );
+        if (no_result_match["COUNT(*)"] > 0) {
+            res.status(400).json("There are matches without result");
+            return;
+        }
+
+
         const [[team_season]] = await pool.query(
             `SELECT COUNT(*) FROM team WHERE season = ?`,
             [season]

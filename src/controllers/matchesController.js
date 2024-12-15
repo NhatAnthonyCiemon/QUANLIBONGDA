@@ -14,15 +14,28 @@
     }
 
     export async function updateMatchResult(req, res) {
-        const { schedule_id, result } = req.body; // Nhận giá trị result từ yêu cầu
+        const { schedule_id, result } = req.body.matchData; // Nhận giá trị result từ yêu cầu
+        const { username, password } = req.body.info;
+        console.log(username);
+        console.log(password);
+        const [[rows]] = await pool.query(
+            `SELECT * FROM admin WHERE username = ? AND password = ?`,
+            [username, password]
+        );
+        console.log(rows);
+        console.log("id tran dau"+schedule_id);
         try {
+            if (!rows) {
+                console.log("Unauthorized");
+                return res.status(401).send("Unauthorized");
+            }
             const [updateResult] = await pool.query(
                 `UPDATE match_schedule 
                 SET result = ?
                 WHERE schedule_id = ?`, // Cập nhật cột result
                 [result, schedule_id]
             );
-
+            console.log(updateResult);
             if (updateResult.affectedRows === 0) {
                 return res.status(404).send("Match not found.");
             }

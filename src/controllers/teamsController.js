@@ -33,6 +33,13 @@ export async function createTeam(req, res) {
             return res.status(400).send("No season available");
         }
         const season = season_table.season;
+        const [[numsTeam]] = await pool.query(
+            `SELECT COUNT(*) as num FROM team WHERE season = ?`,
+            [season]
+        );
+        if (numsTeam.num >= 5) {
+            return res.status(400).send("Max teams reached");
+        }
         const [result] = await pool.query(
             `INSERT INTO team (team_name,home_stadium, email,season) VALUES (N?, ?,?,?)`,
             [team_name, stadium, email, season]

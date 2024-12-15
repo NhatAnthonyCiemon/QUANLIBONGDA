@@ -37,7 +37,7 @@ export async function createTeam(req, res) {
             `SELECT COUNT(*) as num FROM team WHERE season = ?`,
             [season]
         );
-        if (numsTeam.num > 5) {
+        if (numsTeam.num >= 5) {
             return res.status(400).send("Max teams reached");
         }
         const [result] = await pool.query(

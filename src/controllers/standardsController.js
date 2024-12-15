@@ -42,7 +42,7 @@ export async function putStandarDK(req, res) {
             );
 
             const x = await pool.query(
-                `INSERT INTO standards (loaicauthu, age_min, age_max, num_max, num_min, foreign_max,max_goal_time,min_goal_time,win_score,lose_score,draw_score) VALUES (?, ?, ?, ?, ?, ?,?,?,?,?,?)`,
+                `INSERT INTO standards (loaicauthu, age_min, age_max, num_max, num_min, foreign_max,max_goal_time,min_goal_time,win_score,lose_score,draw_score,goal_type) VALUES (?, ?, ?, ?, ?, ?,?,?,?,?,?,?)`,
                 [
                     loaicauthu,
                     age_min,
@@ -55,6 +55,7 @@ export async function putStandarDK(req, res) {
                     rows.win_score,
                     rows.lose_score,
                     rows.draw_score,
+                    rows.goal_type,
                 ]
             );
             let loaicauthu_arr = loaicauthu.split(",");
@@ -97,7 +98,7 @@ export async function putStandarDK1(req, res) {
                 "SELECT * FROM standards WHERE id = (SELECT MAX(id) FROM standards)"
             );
             const x = await pool.query(
-                `INSERT INTO standards (win_score, lose_score, draw_score,loaicauthu, age_min, age_max, num_max, num_min, foreign_max,max_goal_time,min_goal_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)`,
+                `INSERT INTO standards (win_score, lose_score, draw_score,loaicauthu, age_min, age_max, num_max, num_min, foreign_max,max_goal_time,min_goal_time, goal_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?)`,
                 [
                     win_score,
                     lose_score,
@@ -110,6 +111,7 @@ export async function putStandarDK1(req, res) {
                     rows_.foreign_max,
                     rows_.max_goal_time,
                     rows_.min_goal_time,
+                    rows_.goal_type,
                 ]
             );
             res.status(201).json(x);

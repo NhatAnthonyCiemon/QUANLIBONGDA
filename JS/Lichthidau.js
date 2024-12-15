@@ -105,7 +105,7 @@ async function updateMatchResult(currentMatch) {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(matchData), // Gửi trực tiếp object matchData
+                body: JSON.stringify({matchData, info: firstLoad(),}), // Gửi trực tiếp object matchData
             }
         );
 
@@ -161,6 +161,7 @@ async function updateGoalType(goalTypesArray) {
                 },
                 body: JSON.stringify({
                     goalTypesString: goalTypesString, // Truyền goalTypesString vào yêu cầu
+                    info: firstLoad(),
                 }),
             }
         );
@@ -184,6 +185,7 @@ async function updateMaxGoalTime(maxGoalTime) {
                 },
                 body: JSON.stringify({
                     maxGoalTime: maxGoalTime, // Truyền maxGoalTime vào yêu cầu
+                    info: firstLoad(),
                 }),
             }
         );
@@ -207,6 +209,7 @@ async function updateGoalPlayerList(goalData) {
                 body: JSON.stringify({
                     match_id: currentMatch.Match_id,
                     goalData: goalData,
+                    info: firstLoad(),
                 }),
             }
         );
@@ -878,6 +881,7 @@ const start_new = document.getElementById("start__new");
 let nextSeason = "";
 if (!firstLoad()) {
     document.getElementById("image").remove();
+    document.getElementById("changeInfoButton").style.display = "none";
     start_new.remove();
 } else {
     start_new.addEventListener("click", () => {

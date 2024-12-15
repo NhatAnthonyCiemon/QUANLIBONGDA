@@ -9,21 +9,31 @@ function firstLoad() {
     }
     return { username: "", password: "" };
 }
+let pageTitle = document.title;
 let header = document.querySelector("header");
+let path = "/page";
+let path_index = "/index";
+if (pageTitle === "Trang chủ") {
+    path_index = ".";
+    path = "./page";
+} else {
+    path = ".";
+    path_index = "..";
+}
 let headeInner = `<img src="/assets/Logo.svg" alt="Logo">
             <ul class="header__links">
-                <li><a class="header__link" href="/index.html">TRANG CHỦ</a></li>
-                <li><a id="dangki" class="header__link" href="/page/Dangki.html">ĐĂNG KÝ</a></li>
-                <li><a class="header__link" href="/page/Lichthidau.html">LỊCH THI ĐẤU</a></li>
-                <li><a class="header__link" href="/page/Tracuu.html">TRA CỨU</a></li>
-                <li><a class="header__link" href="/page/Group.html">VỀ CHÚNG TÔI</a></li>
+                <li><a class="header__link" href="${path_index}/index.html">TRANG CHỦ</a></li>
+                <li><a id="dangki" class="header__link" href="${path}/Dangki.html">ĐĂNG KÝ</a></li>
+                <li><a class="header__link" href="${path}/Lichthidau.html">LỊCH THI ĐẤU</a></li>
+                <li><a class="header__link" href="${path}/Tracuu.html">TRA CỨU</a></li>
+                <li><a class="header__link" href="${path}/Group.html">VỀ CHÚNG TÔI</a></li>
             </ul>
         <div class="header__wrapper">
             <p class="header__btn-desc">CHỈ DÀNH CHO ADMIN</p>
             <button class="header__btn">Đăng nhập</button>
         </div>`;
 header.innerHTML = headeInner;
-let pageTitle = document.title;
+
 let headerLinks = document.querySelectorAll(".header__link");
 headerLinks.forEach((link) => {
     if (link.innerText.toLowerCase() === pageTitle.toLowerCase()) {
@@ -38,7 +48,7 @@ if (pageTitle === "Đăng nhập") {
 let headerBtn = document.querySelector(".header__btn");
 if (headerBtn) {
     headerBtn.addEventListener("click", () => {
-        window.location.href = "/page/Dangnhap.html";
+        window.location.href = `${path}/Dangnhap.html`;
     });
 }
 

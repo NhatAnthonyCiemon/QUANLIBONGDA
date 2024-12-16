@@ -381,7 +381,7 @@ function updateMatches(season, round) {
 
     let tbody = document.getElementById("team");
     tbody.innerHTML = ""; // Xóa nội dung cũ
-
+    
     roundMatches.forEach((match) => {
         cnt++;
         tbody.innerHTML += `
@@ -393,7 +393,7 @@ function updateMatches(season, round) {
                 <td>${match.location}</td>
                 <td>
                     <button class="w-[100px] h-[54px] bg-[#377453] hover:bg-[#5ABF89] transition-all duration-300 rounded-xl mt-4 text-xl shadow-md ml-0"
-                        onclick="toggleRows('${season}', '${round}', '${match.team1}', '${match.team2}')">Kết quả</button>
+                        onclick="toggleRows('${season}', '${round}', '${match.team1}', '${match.team2}', '${match.time}')">Kết quả</button>
                 </td>
             </tr>
         `;
@@ -515,7 +515,18 @@ saveButton.onclick = function () {
 };
 
 // Hàm này cập nhật thông tin kết quả của một trận đấu
-function toggleRows(season, round, team1, team2) {
+function toggleRows(season, round, team1, team2, matchTime) {
+
+    const curDate = new Date();
+    const [datePart, timePart] = matchTime.split(", ");
+    const [day, month, year] = datePart.split("/");
+
+    const date2 = new Date(`${year}-${month}-${day}T${timePart}`);
+    if(date2 > curDate)
+    {
+        showModal("Trận đấu chưa diễn ra");
+        return;
+    }
     const modal = document.getElementById("resultModal");
     const modalResultBody = document.getElementById("modalResultBody");
     const modalGoalBody = document.getElementById("modalGoalBody");

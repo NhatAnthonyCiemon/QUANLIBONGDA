@@ -61,7 +61,7 @@ function main() {
 
     btn_add.addEventListener("click", function () {
         let name = document.querySelector("#player-name").value;
-        let type = document.querySelector("#player-type").value;
+        let type = document.querySelector("#player-type").value.trim();
         let birthdate = document.querySelector("#birth-date").value;
         let notes = document.querySelector("#notes").value;
         let shirtNumber = document.querySelector("#shirtNumber").value;
@@ -151,7 +151,7 @@ function main() {
         if (event.target.classList.contains("btn__remove")) {
             let tr = event.target.parentElement.parentElement;
             let index = tr.children[0].innerText;
-            if (cauthu[index - 1].type === "Nước ngoài") {
+            if (cauthu[index - 1].player_type === "Nước ngoài") {
                 num_foreign--;
             }
             tbody.removeChild(tr);

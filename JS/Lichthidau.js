@@ -105,7 +105,7 @@ async function updateMatchResult(currentMatch) {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({matchData, info: firstLoad(),}), // Gửi trực tiếp object matchData
+                body: JSON.stringify({ matchData, info: firstLoad() }), // Gửi trực tiếp object matchData
             }
         );
 
@@ -381,7 +381,7 @@ function updateMatches(season, round) {
 
     let tbody = document.getElementById("team");
     tbody.innerHTML = ""; // Xóa nội dung cũ
-    
+
     roundMatches.forEach((match) => {
         cnt++;
         tbody.innerHTML += `
@@ -516,14 +516,12 @@ saveButton.onclick = function () {
 
 // Hàm này cập nhật thông tin kết quả của một trận đấu
 function toggleRows(season, round, team1, team2, matchTime) {
-
     const curDate = new Date();
     const [datePart, timePart] = matchTime.split(", ");
     const [day, month, year] = datePart.split("/");
 
     const date2 = new Date(`${year}-${month}-${day}T${timePart}`);
-    if(date2 > curDate)
-    {
+    if (date2 > curDate) {
         showModal("Trận đấu chưa diễn ra");
         return;
     }
@@ -939,8 +937,36 @@ fetch("http://localhost:3000/admin/checkNextSeason", {
         if (data.nextSeason === null) {
             const calendar =
                 document.getElementsByClassName("create-calendar")[0];
-            calendar.innerHTML = "";
-            calendar.style.backgroundColor = "transparent";
+            calendar.children[0].remove();
+            const nex__season = document.getElementById("nex__season");
+            new__season.parentElement.innerHTML =
+                "Không có mùa giải tiếp theo. Tạo mùa giải mới?";
+            const start__new = document.getElementById("start__new");
+            start__new.innerHTML = "Tạo mùa giải mới";
+            start__new.onclick = async () => {
+                try {
+                    const response = await fetch(
+                        "http://localhost:3000/admin/createNextSeason",
+                        {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                        }
+                    );
+                    if (!response.ok) {
+                        throw new Error("Failed to create new season");
+                    }
+                    const data = await response.json();
+                    //alert("New season created successfully");
+                    showModal("New season created successfully", "new__season");
+                    location.reload();
+                } catch (error) {
+                    console.error("Error creating new season:", error);
+                    //alert("Failed to create new season");
+                    showModal("Failed to create new season");
+                }
+            };
             return;
         }
         nextSeason = data.nextSeason;
@@ -955,13 +981,12 @@ fetch("http://localhost:3000/admin/checkNextSeason", {
         showModal("Failed to check next season");
     });
 
-
 function validatePlayersBelongToTeams(goalData, matchResult) {
     const team1 = matchResult[0];
     const team2 = matchResult[2];
     for (const goal of goalData) {
         if (goal[3] !== team1 && goal[3] !== team2) {
-            return false; 
+            return false;
         }
     }
     return true;

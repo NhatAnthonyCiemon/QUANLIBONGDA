@@ -275,7 +275,10 @@ function main() {
             showShadow();
             return;
         }
-        ShadowSuccess();
+        ShadowSuccess("Đăng ký thành công, Trong 5s sẽ reset trang");
+        setTimeout(() => {
+            window.location.href = "./Dangki.html";
+        }, 5000);
         showShadow();
         cauthu = [];
         soao = [];

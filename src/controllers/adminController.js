@@ -130,6 +130,16 @@ async function deleteOldSeason(season) {
 
 export async function createSchedule(req, res) {
     try {
+        const { info } = req.body;
+        console.log(info);
+        const [[login]] = await pool.query(
+            `SELECT * FROM admin WHERE username = ? AND password = ?`,
+            [info.username, info.password]
+        );
+        if (!login) {
+            res.status(401).json("Login failure");
+            return;
+        }
         const season = req.params.season;
         const [[seasonExist]] = await pool.query(
             `SELECT * FROM season WHERE season = ?`,
@@ -244,6 +254,16 @@ export async function checkNextSeason(req, res) {
 
 export async function createNextSeason(req, res) {
     try {
+        const { info } = req.body;
+        console.log(info);
+        const [[login]] = await pool.query(
+            `SELECT * FROM admin WHERE username = ? AND password = ?`,
+            [info.username, info.password]
+        );
+        if (!login) {
+            res.status(401).json("Login failure");
+            return;
+        }
         const [[num_season]] = await pool.query(`SELECT COUNT(*) FROM season`);
         if (num_season["COUNT(*)"] !== 1) {
             res.status(400).json("There is already a season");

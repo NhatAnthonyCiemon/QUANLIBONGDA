@@ -14,8 +14,16 @@ let currentMaxGoalTime = 0; //Thời gian tối đa hiện tại
 
 function firstLoad() {
     var _username = localStorage.getItem("username");
+    console.log(_username);
+
     var _password = localStorage.getItem("password");
-    if (_username != null && _password != null) {
+    console.log(_password);
+    if (
+        _username != null &&
+        _password != null &&
+        _username !== "" &&
+        _password !== ""
+    ) {
         return { username: _username, password: _password };
     }
     return null;
@@ -888,11 +896,13 @@ function checkGoalsMatchScore(goalData, matchResult) {
 }
 const start_new = document.getElementById("start__new");
 let nextSeason = "";
+let isLogin = false;
 if (!firstLoad()) {
     document.getElementById("image").remove();
     document.getElementById("changeInfoButton").style.display = "none";
     start_new.style.display = "none";
 } else {
+    isLogin = true;
     start_new.addEventListener("click", () => {
         //không tôi chỉ muốn get /createSchedule/:season thôi
         fetch("http://localhost:3000/admin/createSchedule/" + nextSeason, {
@@ -938,38 +948,42 @@ fetch("http://localhost:3000/admin/checkNextSeason", {
         if (data.nextSeason === null) {
             const calendar =
                 document.getElementsByClassName("create-calendar")[0];
-            calendar.children[0].remove();
-            const nex__season = document.getElementById("nex__season");
-            const par = nex__season.parentElement;
-            par.innerHTML = "Tạo mùa giải mới?";
-            const start__new = document.getElementById("start__new");
-            start__new.innerHTML = "Tạo mùa giải mới";
-            calendar.style.paddingLeft = "20px";
-            start__new.onclick = async () => {
-                try {
-                    const response = await fetch(
-                        "http://localhost:3000/admin/createNextSeason",
-                        {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify({ info: firstLoad() }),
+            if (!isLogin) {
+                calendar.innerHTML = "";
+                calendar.style.backgroundColor = "transparent";
+            } else {
+                calendar.children[0].remove();
+                const nex__season = document.getElementById("nex__season");
+                const par = nex__season.parentElement;
+                par.innerHTML = "Tạo mùa giải mới?";
+                const start__new = document.getElementById("start__new");
+                start__new.innerHTML = "Tạo mùa giải mới";
+                calendar.style.paddingLeft = "20px";
+                start__new.onclick = async () => {
+                    try {
+                        const response = await fetch(
+                            "http://localhost:3000/admin/createNextSeason",
+                            {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                                body: JSON.stringify({ info: firstLoad() }),
+                            }
+                        );
+                        if (!response.ok) {
+                            throw new Error("Failed to create new season");
                         }
-                    );
-                    if (!response.ok) {
-                        throw new Error("Failed to create new season");
+                        const data = await response.json();
+                        //alert("New season created successfully");
+                        showModal("Open sign up for new season", "new__season");
+                    } catch (error) {
+                        console.error("Error creating new season:", error);
+                        //alert("Failed to create new season");
+                        showModal("Failed to create new season");
                     }
-                    const data = await response.json();
-                    //alert("New season created successfully");
-                    showModal("New season created successfully", "new__season");
-                    location.reload();
-                } catch (error) {
-                    console.error("Error creating new season:", error);
-                    //alert("Failed to create new season");
-                    showModal("Failed to create new season");
-                }
-            };
+                };
+            }
             return;
         }
         nextSeason = data.nextSeason;

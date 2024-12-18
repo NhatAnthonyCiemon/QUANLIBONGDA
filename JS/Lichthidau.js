@@ -891,15 +891,16 @@ let nextSeason = "";
 if (!firstLoad()) {
     document.getElementById("image").remove();
     document.getElementById("changeInfoButton").style.display = "none";
-    start_new.remove();
+    start_new.style.display = "none";
 } else {
     start_new.addEventListener("click", () => {
         //không tôi chỉ muốn get /createSchedule/:season thôi
         fetch("http://localhost:3000/admin/createSchedule/" + nextSeason, {
-            method: "GET",
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
+            body: JSON.stringify({ info: firstLoad() }),
         })
             .then((response) => {
                 if (!response.ok) {
@@ -939,10 +940,11 @@ fetch("http://localhost:3000/admin/checkNextSeason", {
                 document.getElementsByClassName("create-calendar")[0];
             calendar.children[0].remove();
             const nex__season = document.getElementById("nex__season");
-            nex__season.parentElement.innerHTML =
-                "Không có mùa giải tiếp theo. Tạo mùa giải mới?";
+            const par = nex__season.parentElement;
+            par.innerHTML = "Tạo mùa giải mới?";
             const start__new = document.getElementById("start__new");
             start__new.innerHTML = "Tạo mùa giải mới";
+            calendar.style.paddingLeft = "20px";
             start__new.onclick = async () => {
                 try {
                     const response = await fetch(
@@ -952,6 +954,7 @@ fetch("http://localhost:3000/admin/checkNextSeason", {
                             headers: {
                                 "Content-Type": "application/json",
                             },
+                            body: JSON.stringify({ info: firstLoad() }),
                         }
                     );
                     if (!response.ok) {

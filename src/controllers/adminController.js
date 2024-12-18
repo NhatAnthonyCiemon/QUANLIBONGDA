@@ -241,3 +241,25 @@ export async function checkNextSeason(req, res) {
         res.status(500).send("Something broke!");
     }
 }
+
+export async function createNextSeason(req, res) {
+    try {
+        const [[num_season]] = await pool.query(`SELECT COUNT(*) FROM season`);
+        if (num_season["COUNT(*)"] !== 1) {
+            res.status(400).json("There is already a season");
+            return;
+        }
+        let [[season]] = await pool.query(`SELECT season FROM season`);
+        season = season.season;
+        const new_season = `${Number(season.split("-")[0]) + 1}-${
+            Number(season.split("-")[1]) + 1
+        }`;
+        await pool.query(`INSERT INTO season (season) VALUES (?)`, [
+            new_season,
+        ]);
+        res.status(201).json("Next season created");
+    } catch (err) {
+        console.error(err.stack);
+        res.status(500).send("Something broke!");
+    }
+}

@@ -148,7 +148,7 @@ fetch("http://localhost:3000/admin/checkNextSeason", {
         return response.json();
     })
     .then((data) => {
-        if (data.nextSeason === null || data.numTeamsNextSeason >= 5) {
+        if (data.nextSeason === null || data.numTeamsNextSeason >= 6) {
             document.querySelector("#dangki").remove();
             document.querySelector("#footer_dangki").remove();
             if (pageTitle === "Đăng kí") {

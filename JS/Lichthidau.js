@@ -991,7 +991,7 @@ fetch("http://localhost:3000/admin/checkNextSeason", {
         document.getElementById("register__teams").textContent =
             data.numTeamsNextSeason;
         document.getElementById("remain__teams").textContent =
-            5 - Number(data.numTeamsNextSeason);
+            6 - Number(data.numTeamsNextSeason);
     })
     .catch((error) => {
         console.error("Error checking next season:", error);

@@ -170,7 +170,7 @@ export async function createSchedule(req, res) {
             `SELECT COUNT(*) FROM team WHERE season = ?`,
             [season]
         );
-        if (team_season["COUNT(*)"] < 5) {
+        if (team_season["COUNT(*)"] < 6) {
             console.log("Not enough teams");
             res.status(400).json("Not enough teams");
             return;

@@ -78,7 +78,7 @@ function main() {
             ShadowFalse();
             showShadow();
             shadow__false.innerHTML =
-                "Tuổi cầu thủ từ <strong>16</strong> đến <strong>40</strong> ";
+                `Tuổi cầu thủ từ <strong>${age_min}</strong> đến <strong>${age_max}</strong> `;
             return;
         }
         if (loaicauthu.includes(type) == false) {
@@ -392,12 +392,7 @@ function main() {
                     return;
                 }
             }
-            if (document.querySelector("#footballType-conf").value != "") {
-                loaicauthu = document
-                    .querySelector("#footballType-conf")
-                    .value.split(",")
-                    .map((item) => item.trim());
-            }
+            
             const message = {
                 loaicauthu: loaicauthu.join(","),
                 age_min: age_min,

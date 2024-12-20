@@ -177,8 +177,7 @@ async function updateGoalType(goalTypesArray) {
         // Kiểm tra phản hồi từ server
         if (!response.ok) {
             throw new Error("Failed to update goal type");
-        }
-        else{
+        } else {
             updateGoalInfo();
         }
     } catch (error) {
@@ -204,14 +203,13 @@ async function updateMaxGoalTime(maxGoalTime) {
         // Kiểm tra phản hồi từ server
         if (!response.ok) {
             throw new Error("Failed to update max goal time");
-        }
-        else {
+        } else {
             updateGoalInfo();
         }
     } catch (error) {
         console.error("Error updating max goal time:", error);
         //alert('Error updating max goal time:', error);
-        showModal("Error updating max goal time:", error);  
+        showModal("Error updating max goal time:", error);
     }
 }
 async function updateGoalPlayerList(goalData) {
@@ -526,7 +524,7 @@ saveButton.onclick = function () {
     }
 
     // Cập nhật lại đoạn văn với giá trị mới
-    
+
     modal.style.display = "none"; // Đóng modal
 };
 
@@ -761,8 +759,7 @@ async function saveChanges(modalResultBody, modalGoalBody) {
                     .join(" "); // Kết hợp các từ lại thành tên đầy đủ
             } else if (cellIndex == 4) {
                 data = cell.querySelector("input").value;
-                inputValue =
-                    data.charAt(0).toUpperCase() + data.slice(1).toLowerCase();
+                inputValue = data;
             } else inputValue = cell.querySelector("input").value;
             cell.innerHTML = inputValue; // Thay thế input bằng giá trị đã lưu
             rowData.push(inputValue); // Thêm giá trị vào mảng hàng
@@ -774,6 +771,7 @@ async function saveChanges(modalResultBody, modalGoalBody) {
         }
         goalData.push(rowData); // Thêm hàng vào dữ liệu ghi bàn nếu không trống
     });
+    console.log(goalData);
     if (goalData.some((row) => row.some((cell) => cell.trim() === ""))) {
         //alert("Vui lòng nhập đủ thông tin");
         showModal("Vui lòng nhập đủ thông tin");
@@ -790,7 +788,8 @@ async function saveChanges(modalResultBody, modalGoalBody) {
     }
 
     for (let i = 0; i < goalData.length; i++) {
-        // goalData[i][4] = goalData[i][4].toLowerCase();
+        //goalData[i][4] = goalData[i][4].toLowerCase();
+        console.log("Loại bàn thắng", goalData[i][4]);
         if (!currentGoalTypes.includes(goalData[i][4])) {
             //alert("Thông tin bàn thắng không phù hợp");
             console.log(currentGoalTypes);

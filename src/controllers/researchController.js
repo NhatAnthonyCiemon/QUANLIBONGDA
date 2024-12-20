@@ -2,14 +2,21 @@ import pool from "../config/database.js";
 
 export async function getPlayers(req, res) {
     try {
-        const [rows] = await pool.query(`
+        let [[currentSeason]] = await pool.query(
+            "SELECT season FROM season WHERE EXISTS (SELECT * FROM match_schedule WHERE season = season.season)"
+        );
+        let season = currentSeason.season;
+        const [rows] = await pool.query(
+            `
             SELECT p.player_name, t.team_name, p.player_type, COUNT(CASE WHEN g.goal_type != 'phản lưới' THEN 1 ELSE NULL END) AS total_goals
             FROM player AS p
             INNER JOIN team AS t ON p.team_id = t.team_id
             LEFT JOIN goal AS g ON p.player_id = g.player_id
-            
+            WHERE t.season = ?
             GROUP BY p.player_id, p.player_name, t.team_name, p.player_type;
-        `);
+        `,
+            [season]
+        );
         rows.sort((a, b) => a.team_name - b.team_name);
         res.status(200).json(rows);
     } catch (err) {
@@ -89,14 +96,15 @@ export async function getTeam(req, res) {
         poit_per_win = standards.win_score;
         point_per_draw = standards.draw_score;
         point_per_lose = standards.lose_score;
-        let [[currentSeason]] = await pool.query(
-            "SELECT season FROM season WHERE EXISTS (SELECT * FROM match_schedule WHERE season = season.season)"
-        );
-        let season = currentSeason.season;
-        const [rows] = await pool.query(
-            `SELECT team_id FROM team WHERE season = ?`,
-            [season]
-        );
+        // let [[currentSeason]] = await pool.query(
+        //     "SELECT season FROM season WHERE EXISTS (SELECT * FROM match_schedule WHERE season = season.season)"
+        // );
+        // let season = currentSeason.season;
+        // const [rows] = await pool.query(
+        //     `SELECT team_id FROM team WHERE season = ?`,
+        //     [season]
+        // );
+        let [rows] = await pool.query(`SELECT team_id FROM team`);
         const teams = rows.map((team) => team.team_id);
         const data = [];
         const confrontMap = {};

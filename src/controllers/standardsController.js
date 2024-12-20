@@ -184,10 +184,10 @@ export async function updateGoalType(req, res) {
         let goalTypes = await pool.query(`SELECT type_name FROM goal_type`);
         goalTypes = goalTypes[0].map((item) => item.type_name);
 
-        for (let i = 0; i < arrayGoalType.length; i++) {
-            if (!goalTypes.includes(arrayGoalType[i])) {
+        for (let i = 0; i < goalTypes.length; i++) {
+            if (!goalTypesArray.includes(goalTypes[i])) {
                 await pool.query(`DELETE FROM goal_type WHERE type_name = ?`, [
-                    arrayGoalType[i],
+                    goalTypes[i],
                 ]);
             }
         }

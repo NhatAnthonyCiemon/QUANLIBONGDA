@@ -88,6 +88,8 @@ const rowsPerPage = 20;
 let currentPage = 1;
 let playerData = [];
 let playerData1 = [];
+let searchData = [];
+const search__btn = document.querySelector(".search__btn");
 //let rannkData = [];
 
 async function fetchData() {
@@ -96,7 +98,12 @@ async function fetchData() {
             "http://localhost:3000/Research/totalplayers"
         );
         playerData = await response.json();
-        displayPage(currentPage);
+
+        playerData.forEach((player) => {
+            searchData.push(player);
+        });
+
+        displayPage(currentPage, searchData);
     } catch (error) {
         console.error("Error fetching data:", error);
     }
@@ -114,24 +121,22 @@ async function fetchData1() {
 }
 
 async function fetchData2() {
-    try{
-        const response = await fetch(
-            "http://localhost:3000/Research/team"
-        );
+    try {
+        const response = await fetch("http://localhost:3000/Research/team");
         const rannkData = await response.json();
-        displayRank(rannkData,currentPage);
+        displayRank(rannkData, currentPage);
     } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
     }
 }
 
-function displayRank(data,page) {
-    const teamList = document.getElementById('team-list-BXH');
-    teamList.innerHTML = '';
+function displayRank(data, page) {
+    const teamList = document.getElementById("team-list-BXH");
+    teamList.innerHTML = "";
 
     data.forEach((team, index) => {
         //console.log(team,index);
-        const row = document.createElement('tr');
+        const row = document.createElement("tr");
         row.innerHTML = `
             <td>${index + 1}</td>
             <td>${team.team_name}</td>
@@ -143,11 +148,9 @@ function displayRank(data,page) {
         `;
         teamList.appendChild(row); // Sửa lỗi tại đây
     });
-
 }
 
-
-function displayPage(page) {
+function displayPage(page, playerData) {
     const tbody = document.getElementById("player-list-danhsachcauthu");
     tbody.innerHTML = "";
     const start = (page - 1) * rowsPerPage;
@@ -197,17 +200,26 @@ function displayPage1(page) {
     )}`;
 }
 
+search__btn.onclick = function () {
+    const searchInput = document.querySelector(".search-input").value;
+    searchData = playerData.filter((player) =>
+        player.player_name.toLowerCase().includes(searchInput.toLowerCase())
+    );
+    currentPage = 1;
+    displayPage(1, searchData);
+};
+
 function prevPage() {
     if (currentPage > 1) {
         currentPage--;
-        displayPage(currentPage);
+        displayPage(currentPage, searchData);
     }
 }
 
 function nextPage() {
     if (currentPage < Math.ceil(playerData.length / rowsPerPage)) {
         currentPage++;
-        displayPage(currentPage);
+        displayPage(currentPage, searchData);
     }
 }
 
@@ -226,6 +238,5 @@ function nextPage1() {
 }
 
 fetchData();
-document.addEventListener('DOMContentLoaded', fetchData2);
+document.addEventListener("DOMContentLoaded", fetchData2);
 fetchData1();
-

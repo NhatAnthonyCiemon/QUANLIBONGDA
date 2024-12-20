@@ -514,6 +514,7 @@ saveButton.onclick = async function () {
         await updateGoalType(goalTypes);
         if (isEditTypeSuccess) {
             currentGoalTypes = goalTypes;
+            updateGoalInfo();
         }
         isEditTypeSuccess = false;
     }
@@ -524,8 +525,9 @@ saveButton.onclick = async function () {
         if (parsedMaxGoalTime > 0 && Number.isInteger(parsedMaxGoalTime)) {
             maxGoalTime = parsedMaxGoalTime;
             await updateMaxGoalTime(maxGoalTime);
-            if (isEditTimeSuccess) {
+            if (isEditTimeSuccess) {               
                 currentMaxGoalTime = maxGoalTime;
+                updateGoalInfo();
             }
             isEditTimeSuccess = false;
         } else {

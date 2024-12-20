@@ -1,6 +1,9 @@
 document.getElementById("login").addEventListener("click", login);
 
 const message = document.getElementById("message");
+const remember = document.getElementById("remember");
+
+firstLoad();
 
 function getLoginInfo() {
     var username = document.getElementById("username").value;
@@ -21,7 +24,15 @@ async function login() {
     let true_user = await doLogin();
     console.log(true_user);
     if (true_user) {
-        doRememberMe();
+        if (remember.checked) {
+            doRememberMe();
+        }
+        else {
+            doNotRememberMe();
+        }
+
+        localStorage.setItem("username", user.username);
+        localStorage.setItem("password", user.password);
         window.location.href = "../index.html";
     } else {
         message.innerText = "Sai tài khoản hoặc mật khẩu";
@@ -64,17 +75,42 @@ async function doLogin() {
     }
 }
 
-function doRememberMe() {
-    var user = getLoginInfo();
-    localStorage.setItem("username", user.username);
-    localStorage.setItem("password", user.password);
+function firstLoad() 
+{
+    var username = getCookie("username");
+    var password = getCookie("password");
+    var remember = getCookie("remember");
+
+    if (remember === "true") {
+        document.getElementById("username").value = username;
+        document.getElementById("password").value = password;
+        document.getElementById("remember").checked = true;
+    }
 }
 
-function firstLoad() {
-    var _username = localStorage.getItem("username");
-    var _password = localStorage.getItem("password");
-    if (_username != null && _password != null) {
-        return { username: _username, password: _password };
+function doRememberMe() {
+    setCookies("username", document.getElementById("username").value, 86400);
+    setCookies("password", document.getElementById("password").value, 86400);
+    setCookies("remember", "true", 86400);
+}
+
+function doNotRememberMe() {
+    setCookies("username", "", -1);
+    setCookies("password", "", -1);
+    setCookies("remember", "false", -1);
+}
+
+function setCookies(name, value, maxAge) {
+    document.cookie = `${name}=${encodeURIComponent(value)}; max-age=${maxAge}; path=/`;
+}
+
+function getCookie(name) {
+    const cookieArray = document.cookie.split("; ");
+    for (let cookie of cookieArray) {
+        const [key, value] = cookie.split("=");
+        if (key === name) {
+            return decodeURIComponent(value);
+        }
     }
-    return null;
+    return "";
 }

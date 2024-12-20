@@ -647,9 +647,14 @@ function changeToEditMode() {
         deleteButton.innerHTML = "&times;";
 
         // Gắn sự kiện xóa hàng
+        // deleteButton.onclick = function () {
+        //     modalGoalBody.deleteRow(rowIndex); // Xóa hàng cầu thủ
+        // };
         deleteButton.onclick = function () {
-            modalGoalBody.deleteRow(rowIndex); // Xóa hàng cầu thủ
+            const parent = deleteButton.parentElement;
+            parent.remove();
         };
+
 
         // Thêm nút "Xóa" vào cuối hàng
         row.appendChild(deleteButton);

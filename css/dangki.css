@@ -79,6 +79,11 @@ body {
     background: #fff;
     padding: 5px 10px;
 }
+
+textarea.form__input {
+    resize: none;
+}
+
 .signup__note {
     margin-top: 10px;
 }

@@ -96,15 +96,17 @@ export async function getTeam(req, res) {
         poit_per_win = standards.win_score;
         point_per_draw = standards.draw_score;
         point_per_lose = standards.lose_score;
-        // let [[currentSeason]] = await pool.query(
-        //     "SELECT season FROM season WHERE EXISTS (SELECT * FROM match_schedule WHERE season = season.season)"
-        // );
-        // let season = currentSeason.season;
-        // const [rows] = await pool.query(
-        //     `SELECT team_id FROM team WHERE season = ?`,
-        //     [season]
-        // );
-        let [rows] = await pool.query(`SELECT team_id FROM team`);
+        let [[currentSeason]] = await pool.query(
+            "SELECT season FROM season WHERE EXISTS (SELECT * FROM match_schedule WHERE season = season.season)"
+        );
+        let season = currentSeason.season;
+        const [rows] = await pool.query(
+            `SELECT team_id FROM team WHERE season = ?`,
+            [season]
+        );
+
+        
+        // let [rows] = await pool.query(`SELECT team_id FROM team`);
         const teams = rows.map((team) => team.team_id);
         const data = [];
         const confrontMap = {};

@@ -178,6 +178,7 @@ async function updateGoalType(goalTypesArray) {
         if (!response.ok) {
             throw new Error("Failed to update goal type");
         } else {
+            isEditTypeSuccess = true;
             updateGoalInfo();
         }
     } catch (error) {
@@ -204,6 +205,7 @@ async function updateMaxGoalTime(maxGoalTime) {
         if (!response.ok) {
             throw new Error("Failed to update max goal time");
         } else {
+            isEditTimeSuccess = true;
             updateGoalInfo();
         }
     } catch (error) {
@@ -493,7 +495,11 @@ function updateGoalInfo() {
     )}.<li> <li>Thời điểm ghi bàn từ 0 đến ${currentMaxGoalTime}.</li> `;
 }
 // Khi nhấn nút "Lưu"
-saveButton.onclick = function () {
+
+let isEditTypeSuccess = false;
+let isEditTimeSuccess = false;
+
+saveButton.onclick = async function () {
     // Lấy giá trị từ input
     const newGoalTypes = document.getElementById("goalTypes").value;
     const newMaxGoalTime = document.getElementById("maxGoalTime").value;
@@ -505,8 +511,11 @@ saveButton.onclick = function () {
             return type.trim().charAt(0).toUpperCase() + type.trim().slice(1);
         });
         console.log(goalTypes);
-        updateGoalType(goalTypes);
-        currentGoalTypes = goalTypes;
+        await updateGoalType(goalTypes);
+        if (isEditTypeSuccess) {
+            currentGoalTypes = goalTypes;
+        }
+        isEditTypeSuccess = false;
     }
 
     // Kiểm tra nếu thời gian ghi bàn là số không âm
@@ -514,8 +523,11 @@ saveButton.onclick = function () {
         const parsedMaxGoalTime = parseFloat(newMaxGoalTime, 10);
         if (parsedMaxGoalTime > 0 && Number.isInteger(parsedMaxGoalTime)) {
             maxGoalTime = parsedMaxGoalTime;
-            updateMaxGoalTime(maxGoalTime);
-            currentMaxGoalTime = maxGoalTime;
+            await updateMaxGoalTime(maxGoalTime);
+            if (isEditTimeSuccess) {
+                currentMaxGoalTime = maxGoalTime;
+            }
+            isEditTimeSuccess = false;
         } else {
             //alert('Thời điểm ghi bàn phải là một số nguyên dương!');  // Thông báo nếu giá trị âm
             showModal("Thời điểm ghi bàn phải là một số nguyên dương!");
@@ -654,7 +666,6 @@ function changeToEditMode() {
             const parent = deleteButton.parentElement;
             parent.remove();
         };
-
 
         // Thêm nút "Xóa" vào cuối hàng
         row.appendChild(deleteButton);

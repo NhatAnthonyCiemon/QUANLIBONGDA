@@ -160,13 +160,13 @@ export async function getMaxGoalTime(req, res) {
 export async function updateGoalType(req, res) {
     const { goalTypesString } = req.body; // Nhận goalTypesString từ yêu cầu và gán id mặc định là 18 nếu không có id
     const { username, password } = req.body.info;
-        console.log(username);
-        console.log(password);
-        console.log(goalTypesString);
-        const [[ROWS]] = await pool.query(
-            `SELECT * FROM admin WHERE username = ? AND password = ?`,
-            [username, password]
-        );
+    console.log(username);
+    console.log(password);
+    console.log(goalTypesString);
+    const [[ROWS]] = await pool.query(
+        `SELECT * FROM admin WHERE username = ? AND password = ?`,
+        [username, password]
+    );
     try {
         if (!ROWS) {
             return res.status(401).send("Unauthorized");
@@ -176,6 +176,34 @@ export async function updateGoalType(req, res) {
             .split(",")
             .map((item) => item.trim())
             .join(", ");
+
+        const arrayGoalType = goalTypesArray
+            .split(",")
+            .map((item) => item.trim());
+
+        let goalTypes = await pool.query(`SELECT type_name FROM goal_type`);
+        goalTypes = goalTypes[0].map((item) => item.type_name);
+
+        for (let i = 0; i < arrayGoalType.length; i++) {
+            if (!goalTypes.includes(arrayGoalType[i])) {
+                await pool.query(`DELETE FROM goal_type WHERE type_name = ?`, [
+                    arrayGoalType[i],
+                ]);
+            }
+        }
+
+        for (let i = 0; i < arrayGoalType.length; i++) {
+            const [[isExists]] = await pool.query(
+                `SELECT * FROM goal_type WHERE type_name = ?`,
+                [arrayGoalType[i]]
+            );
+            if (!isExists) {
+                await pool.query(
+                    `INSERT INTO goal_type (type_name) VALUES (?)`,
+                    [arrayGoalType[i]]
+                );
+            }
+        }
 
         const [[rows]] = await pool.query(
             "SELECT * FROM standards WHERE id = (SELECT MAX(id) FROM standards)"
@@ -193,19 +221,6 @@ export async function updateGoalType(req, res) {
             return res.status(404).send("Goal type not found.");
         }
 
-       const arrayGoalType = goalTypesArray.split(",").map((item) => item.trim());
-        
-       await pool.query(`SET SQL_SAFE_UPDATES = 0`);
-
-       // Xóa dữ liệu các bảng liên quan
-       await pool.query(`DELETE FROM goal_type`);
-         for (let i = 0; i < arrayGoalType.length; i++) {
-            await pool.query(`INSERT INTO goal_type (type_name) VALUES (?)`, [arrayGoalType[i]]);
-        }
-        await pool.query(`SET SQL_SAFE_UPDATES = 1`);
-
-        
-
         res.status(200).end(); // Trả về phản hồi thành công
     } catch (err) {
         console.error(err.stack);
@@ -216,13 +231,13 @@ export async function updateGoalType(req, res) {
 export async function updateMaxGoalTime(req, res) {
     const { maxGoalTime } = req.body; // Nhận giá trị maxGoalTime từ yêu cầu
     const { username, password } = req.body.info;
-        console.log(username);
-        console.log(password);
-        console.log(maxGoalTime);
-        const [[ROWS]] = await pool.query(
-            `SELECT * FROM admin WHERE username = ? AND password = ?`,
-            [username, password]
-        );
+    console.log(username);
+    console.log(password);
+    console.log(maxGoalTime);
+    const [[ROWS]] = await pool.query(
+        `SELECT * FROM admin WHERE username = ? AND password = ?`,
+        [username, password]
+    );
     try {
         if (!ROWS) {
             return res.status(401).send("Unauthorized");

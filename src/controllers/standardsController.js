@@ -193,6 +193,19 @@ export async function updateGoalType(req, res) {
             return res.status(404).send("Goal type not found.");
         }
 
+       const arrayGoalType = goalTypesArray.split(",").map((item) => item.trim());
+        
+       await pool.query(`SET SQL_SAFE_UPDATES = 0`);
+
+       // Xóa dữ liệu các bảng liên quan
+       await pool.query(`DELETE FROM goal_type`);
+         for (let i = 0; i < arrayGoalType.length; i++) {
+            await pool.query(`INSERT INTO goal_type (type_name) VALUES (?)`, [arrayGoalType[i]]);
+        }
+        await pool.query(`SET SQL_SAFE_UPDATES = 1`);
+
+        
+
         res.status(200).end(); // Trả về phản hồi thành công
     } catch (err) {
         console.error(err.stack);

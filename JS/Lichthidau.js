@@ -178,8 +178,11 @@ async function updateGoalType(goalTypesArray) {
         if (!response.ok) {
             throw new Error("Failed to update goal type");
         }
+        else{
+            updateGoalInfo();
+        }
     } catch (error) {
-        console.error("Error updating goal type:", error);
+        showModal("Error updating goal type:", error);
     }
 }
 async function updateMaxGoalTime(maxGoalTime) {
@@ -202,8 +205,13 @@ async function updateMaxGoalTime(maxGoalTime) {
         if (!response.ok) {
             throw new Error("Failed to update max goal time");
         }
+        else {
+            updateGoalInfo();
+        }
     } catch (error) {
         console.error("Error updating max goal time:", error);
+        //alert('Error updating max goal time:', error);
+        showModal("Error updating max goal time:", error);  
     }
 }
 async function updateGoalPlayerList(goalData) {
@@ -518,7 +526,7 @@ saveButton.onclick = function () {
     }
 
     // Cập nhật lại đoạn văn với giá trị mới
-    updateGoalInfo();
+    
     modal.style.display = "none"; // Đóng modal
 };
 
@@ -782,7 +790,7 @@ async function saveChanges(modalResultBody, modalGoalBody) {
     }
 
     for (let i = 0; i < goalData.length; i++) {
-        goalData[i][4] = goalData[i][4].toLowerCase();
+        // goalData[i][4] = goalData[i][4].toLowerCase();
         if (!currentGoalTypes.includes(goalData[i][4])) {
             //alert("Thông tin bàn thắng không phù hợp");
             console.log(currentGoalTypes);

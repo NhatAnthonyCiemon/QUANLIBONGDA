@@ -183,13 +183,23 @@ export async function updateGoalType(req, res) {
 
         let goalTypes = await pool.query(`SELECT type_name FROM goal_type`);
         goalTypes = goalTypes[0].map((item) => item.type_name);
-
-        for (let i = 0; i < goalTypes.length; i++) {
-            if (!goalTypesArray.includes(goalTypes[i])) {
-                await pool.query(`DELETE FROM goal_type WHERE type_name = ?`, [
-                    goalTypes[i],
-                ]);
+        const goalWithout = goalTypes.filter(
+            (item) => !arrayGoalType.includes(item)
+        );
+        for (let i = 0; i < goalWithout.length; i++) {
+            const [[isExists]] = await pool.query(
+                'SELECT * FROM goal WHERE goal_type = ?',
+                [goalWithout[i]]
+            );
+            if (isExists) {
+                return res.status(400).send("Goal type is used in goal");
             }
+        }
+        for(let i = 0; i < goalWithout.length; i++) {
+            await pool.query(
+                'DELETE FROM goal_type WHERE type_name = ?',
+                [goalWithout[i]]
+            );
         }
 
         for (let i = 0; i < arrayGoalType.length; i++) {
